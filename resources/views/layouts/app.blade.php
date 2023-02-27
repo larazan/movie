@@ -12,36 +12,46 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+
+        <link href="{{ URL::asset('admin/css/style.css') }}" rel="stylesheet" />
+        <link href="{{ URL::asset('admin/css/flatpickr.css') }}" rel="stylesheet" />
+
         <script src="{{ mix('js/app.js') }}" defer></script>
 
         @livewireStyles
     </head>
-    <body class="font-sans antialiased">
-        <x-jet-banner />
+    <body
+        class="font-inter antialiased bg-slate-100 text-slate-600"
+        :class="{ 'sidebar-expanded': sidebarExpanded }"
+        x-data="{ sidebarOpen: false, sidebarExpanded: localStorage.getItem('sidebar-expanded') == 'true' }"
+        x-init="$watch('sidebarExpanded', value => localStorage.setItem('sidebar-expanded', value))"    
+    >
 
-        <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200 font-roboto">
-        <x-sidebar></x-sidebar>
-        <div class="flex-1 flex flex-col overflow-hidden">
-            <x-header> </x-header>
+        <script>
+            if (localStorage.getItem('sidebar-expanded') == 'true') {
+                document.querySelector('body').classList.add('sidebar-expanded');
+            } else {
+                document.querySelector('body').classList.remove('sidebar-expanded');
+            }
+        </script>
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
+        <!-- Page wrapper -->
+        <div class="flex h-screen overflow-hidden ss la ">
 
-            <!-- Page Content -->
-            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-                <div class="container mx-auto px-6 py-8">
-                {{ $slot }}
-                </div>
-            </main>
+            <x-app.sidebar />
+
+            <!-- Content area -->
+            <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden @if($attributes['background']){{ $attributes['background'] }}@endif y flex ak ug ll lc bg-white" x-ref="contentarea">
+
+                <x-app.header />
+
+                <main>
+                    {{ $slot }}
+                </main>
+
+            </div>
+
         </div>
-
-        @stack('modals')
 
         @livewireScripts
     </body>

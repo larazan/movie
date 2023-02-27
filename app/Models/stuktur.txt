@@ -1,0 +1,55 @@
+Person                              PersonController
+
+    Movie                           MovieController
+        MovieCategory               MovieCategoryController  
+        Genre                       GenreController
+        Country                     CountryController
+        Tag     
+
+        Season                      SeasonController
+            Episode                 EpisodeController
+
+        Discussion                  DiscussionController
+        Review                      ReviewController
+        Rating                      RatingController
+
+        MovieFavorite               MovieFavoriteController
+        
+    Music                           MusicController
+        MusicFavorite               MusicFavoriteController
+
+    Role                            RoleController      
+        Character                   CharacterController
+
+    Comment                         CommentController
+        Like                        LikeController
+
+    Favorite                        FavoriteController
+
+Article                             ArticleController
+    CategoryArticle                 CategoryArticleController
+    ArticleComment                  ArticleCommentController
+        ArticleCommentLike          ArticleCommentLikeController
+
+Ecomm
+
+    Product                         ProductController   
+        Brand                       BrandController
+        Category                    CategoryController
+        Attribute                   
+        
+        ProductReview               ProductReviewController
+
+        ProductFavorite             ProductFavoriteController
+
+    Basket                          BasketController
+
+    Order                           OrderController
+
+    Shipment                        ShipmentController
+
+User                                UserController
+
+Slide                               SlideController
+
+Setting                             SettingController

@@ -1,0 +1,49 @@
+<x-app-layout>
+
+    <div class="vs jj ttm vl ou uf na">
+
+        <!-- Page header -->
+        <div class="je jd jc ii">
+
+            <!-- Left: Title -->
+            <div class="ri _y">
+                <h1 class="gu teu text-slate-800 font-bold">Invoices ✨</h1>
+            </div>
+
+            <!-- Right: Actions -->
+            <div class="sn am jo az jp ft">
+
+                <!-- Search form -->
+                <form class="y">
+                    <label for="action-search" class="d">Search</label>
+                    <input id="action-search" class="s me xq" type="search" placeholder="Search by invoice ID…">
+                    <button class="g w j kk" type="submit" aria-label="Search">
+                        <svg class="oo sl ub du gq kj ml-3 mr-2" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zM7 2C4.243 2 2 4.243 2 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5z"></path>
+                            <path d="M15.707 14.293L13.314 11.9a8.019 8.019 0 01-1.414 1.414l2.393 2.393a.997.997 0 001.414 0 .999.999 0 000-1.414z"></path>
+                        </svg>
+                    </button>
+                </form>
+
+                <!-- Create invoice button -->
+                <button class="btn ho xi ye">
+                    <svg class="oo sl du bf ub" viewBox="0 0 16 16">
+                        <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z"></path>
+                    </svg>
+                    <span class="hidden trm nq">Create Invoice</span>
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- More actions -->
+        <x-invoice.action />
+
+        <!-- Table -->
+        <x-invoice.table />
+        <x-pagination-table />
+
+    </div>
+
+</x-app-layout>
