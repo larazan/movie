@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Livewire;
-use Livewire\WithFileUploads;
+
 use App\Models\Network;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 
 use Livewire\Component;
 

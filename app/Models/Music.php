@@ -9,6 +9,7 @@ class Music extends Model
 {
     use HasFactory;
 
+    protected $table = 'musics';
     protected $guarded = [];
 
     public const UPLOAD_DIR = 'uploads/musics';

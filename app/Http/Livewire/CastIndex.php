@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\Cast;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;

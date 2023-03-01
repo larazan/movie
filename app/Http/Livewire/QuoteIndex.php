@@ -116,7 +116,7 @@ class QuoteIndex extends Component
     public function render()
     {
         return view('livewire.quote-index', [
-            'quotes' => Quote::all()->paginate($this->perPage)
+            'quotes' => Quote::Where('quote','LIKE','%'.$this->search.'%')->orderBy('quote', $this->sort)->paginate($this->perPage)
         ]);
     }
 }

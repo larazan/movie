@@ -78,7 +78,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('casts', CastIndex::class)->name('casts.index');
     Route::get('category-article', CategoryArticleIndex::class)->name('category-article.index');
     Route::get('categories', CategoryIndex::class)->name('categories.index');
-    Route::get('characters', CharacterIndex::class)->name('characters.index');
+    // Route::get('characters', CharacterIndex::class)->name('characters.index');
     Route::get('countries', CountryIndex::class)->name('countries.index');
     Route::get('episodes', EpisodeIndex::class)->name('episodes.index');
     Route::get('faqs', FaqIndex::class)->name('faqs.index');
@@ -86,6 +86,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('labels', LabelIndex::class)->name('labels.index');
     Route::get('messages', MessagesIndex::class)->name('messages.index');
     Route::get('movie-cast', MovieCast::class)->name('movie-cast.index');
+    Route::get('movie/{id}/characters', CharacterIndex::class)->name('movie-cast.index');
     Route::get('movie-category', MovieCategoryIndex::class)->name('movie-category.index');
     Route::get('movies', MovieIndex::class)->name('movies.index');
     Route::get('musics', MusicIndex::class)->name('musics.index');
@@ -96,7 +97,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('podcasts', PodcastIndex::class)->name('podcasts.index');
     Route::get('posts', PostIndex::class)->name('posts.index');
     Route::get('products', ProductIndex::class)->name('products.index');
-    Route::get('product-slider', ProductSliderIndex::class)->name('product-slider.index');
+    Route::get('product-slide', ProductSliderIndex::class)->name('product-slider.index');
     Route::get('product-review', ProductReviewIndex::class)->name('product-review.index');
     Route::get('quotes', QuoteIndex::class)->name('quotes.index');
     Route::get('roles', RoleIndex::class)->name('roles.index');
