@@ -12,6 +12,7 @@ class CastIndex extends Component
     use WithPagination;
 
     public $showCastModal = false;
+    public $showConfirmModal = false;
     public $name;
     public $castId;
     public $castStatus = 'inactive';
@@ -24,7 +25,7 @@ class CastIndex extends Component
     public $sort = 'asc';
     public $perPage = 5;
 
-    
+    public $deleteId = '';
 
     protected $rules = [
         'name' => 'required',
@@ -33,6 +34,26 @@ class CastIndex extends Component
     public function showCreateModal()
     {
         $this->showCastModal = true;
+    }
+
+    public function showDeleteModal()
+    {
+        $this->showConfirmModal = true;
+    }
+
+    public function closeConfirmModal()
+    {
+        $this->showConfirmModal = false;
+    }
+
+    public function deleteId($id)
+    {
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        Cast::find($this->deleteId)->delete();
     }
 
     public function createCast()

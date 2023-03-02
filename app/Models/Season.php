@@ -11,23 +11,28 @@ class Season extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['serie_id', 'tmdb_id', 'name', 'slug', 'season_number', 'poster_path'];
+    protected $fillable = ['movie_id', 'title', 'year', 'slug', 'original', 'medium', 'small'];
 
-    public function getSearchResult(): SearchResult
-    {
-        $url = route('season.show', [$this->serie->slug,$this->slug]);
+    public const UPLOAD_DIR = 'uploads/seasons';
 
-        return new \Spatie\Searchable\SearchResult(
-            $this,
-            $this->name,
-            $url
-        );
-    }
+    public const MEDIUM = '312x400';
+	public const SMALL = '135x75';
+
+    // public function getSearchResult(): SearchResult
+    // {
+    //     $url = route('season.show', [$this->serie->slug,$this->slug]);
+
+    //     return new \Spatie\Searchable\SearchResult(
+    //         $this,
+    //         $this->name,
+    //         $url
+    //     );
+    // }
     
-    public function serie()
-    {
-        return $this->belongsTo(Serie::class);
-    }
+    // public function serie()
+    // {
+    //     return $this->belongsTo(Serie::class);
+    // }
 
     public function episodes()
     {

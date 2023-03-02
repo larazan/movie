@@ -905,11 +905,11 @@
                                         <span class="text-sm gp ttw tnn 2xl:opacity--100 wr">Country</span>
                                     </a>
                                 </li>
-                                <li class="rt ww">
+                                <!-- <li class="rt ww">
                                     <a class="block @if(in_array(Request::segment(2), ['tags'])){{ 'text-indigo-500' }}@else{{ 'gq hover--text-slate-200' }}@endif wt wi ld" href="{{ url('admin/tags') }}">
                                         <span class="text-sm gp ttw tnn 2xl:opacity--100 wr">Tag</span>
                                     </a>
-                                </li>
+                                </li> -->
                                 <li class="rt ww">
                                     <a class="block @if(in_array(Request::segment(2), ['networks'])){{ 'text-indigo-500' }}@else{{ 'gq hover--text-slate-200' }}@endif wt wi ld" href="{{ url('admin/networks') }}">
                                         <span class="text-sm gp ttw tnn 2xl:opacity--100 wr">Network</span>

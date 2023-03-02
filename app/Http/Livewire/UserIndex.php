@@ -14,23 +14,30 @@ class UserIndex extends Component
     use WithPagination;
 
     public $showUserModal = false;
-    public $name;
+    public $firstName;
+    public $lastName;
     public $email;
+    public $phone;
     public $password;
     public $userId;
-    public $userStatus = 'inactive';
+    public $userStatus = 0;
     public $statuses = [
-        'active',
-        'inactive'
+        0 => 'user',
+        1 => 'admin',
     ];
 
     public $search = '';
     public $sort = 'asc';
     public $perPage = 5;
 
-    // protected $rules = [
-    //     'name' => 'required',
-    // ];
+    protected $rules = [
+        'first_name' => 'required|min:2',
+        'last_name' => 'required|min:2',
+        'email' => 'required|email|unique:users',
+        'password' => 'required|min:6',
+        'phone' => 'required|min:6',
+        'isAdmin' => 'required'
+    ];
 
     public function showCreateModal()
     {
@@ -39,17 +46,15 @@ class UserIndex extends Component
 
     public function createUser()
     {
-        $this->validate([
-            'name' => 'bail|required|min:2',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-            'isAdmin' => 'required'
-        ]);
+        $this->validate();
 
         User::create([
-          'name' => $this->name,
+          'first_name' => $this->firstName,
+          'last_name' => $this->lastName,
           'email' => strtolower($this->email),
+          'phone' => $this->phone,
           'password' => Hash::make($this->password),
+          'status' => $this->userStatus,
         ]);
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'User created successfully']);
@@ -60,31 +65,35 @@ class UserIndex extends Component
         $this->reset(['name']);
         $this->userId = $userId;
         $user = User::find($userId);
-        $this->name = $user->name;
+        $this->firstName = $user->first_name;
+        $this->lastName = $user->last_name;
         $this->email = $user->email;
+        $this->phone = $user->phone;
         $this->userStatus = $user->status;
         $this->showUserModal = true;
     }
     
     public function updateUser()
     {
-        $this->validate([
-            'name' => 'bail|required|min:2',
-            'email' => 'required|email|unique:users',
-            'isAdmin' => 'required'
-        ]);
+        $this->validate();
 
         $user = User::findOrFail($this->userId);
         if ($this->password) {
             $user->update([
-                'name' => $this->name,
+                'first_name' => $this->firstName,
+                'last_name' => $this->lastName,
                 'email' => strtolower($this->email),
+                'phone' => $this->phone,
                 'password' => Hash::make($this->password),
+                'status' => $this->userStatus,
             ]);
         } else {
             $user->update([
-                'name' => $this->name,
+                'first_name' => $this->firstName,
+                'last_name' => $this->lastName,
                 'email' => strtolower($this->email),
+                'phone' => $this->phone,
+                'status' => $this->userStatus,
             ]);
         }
         

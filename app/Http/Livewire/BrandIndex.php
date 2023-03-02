@@ -4,11 +4,12 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 use App\Models\Brand;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
-use Livewire\WithPagination;
+
 
 class BrandIndex extends Component
 {

@@ -14,30 +14,43 @@ class Movie extends Model
     protected $dates = [''];
 
     protected $fillable = [
-        'tmdb_id',
+        'user_id',
+        'category_movie_id',
         'title',
-        'runtime',
+        'rand_id',
+        'slug',
         'release_date',
+        'description',
+        'year',
+        'country',
+        'duration',
         'lang',
-        'rating',
-        'overview',
-        'poster_path',
-        'video_format',
-        'is_public',
-        'backdrop_path',
-        'slug'
+        'network',
+        'genre',
+        'visits',
+        'original',
+        'large',
+        'medium',
+        'small',
+        'status',
     ];
 
-    public function getSearchResult(): SearchResult
-    {
-        $url = route('movies.show', $this->slug);
+    public const UPLOAD_DIR = 'uploads/movies';
 
-        return new \Spatie\Searchable\SearchResult(
-            $this,
-            $this->title,
-            $url
-        );
-    }
+    public const SMALL = '135x141';
+	public const MEDIUM = '312x400';
+	public const LARGE = '1000x600';
+
+    // public function getSearchResult(): SearchResult
+    // {
+    //     $url = route('movies.show', $this->slug);
+
+    //     return new \Spatie\Searchable\SearchResult(
+    //         $this,
+    //         $this->title,
+    //         $url
+    //     );
+    // }
 
     public function genres()
     {

@@ -11,26 +11,31 @@ class Episode extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['season_id', 'tmdb_id', 'name', 'slug', 'episode_number', 'overview', 'is_public', 'visits'];
+    protected $fillable = ['movie_id', 'season_id', 'title', 'short_description', 'release_date', 'duration', 'original', 'large', 'small', 'status'];
 
-    public function getSearchResult(): SearchResult
-    {
-        $url = route('episodes.show', $this->slug);
+    public const UPLOAD_DIR = 'uploads/episodes';
 
-        return new \Spatie\Searchable\SearchResult(
-            $this,
-            $this->name,
-            $url
-        );
-    }
+    public const LARGE = '1920x643';
+	public const SMALL = '135x75';
+
+    // public function getSearchResult(): SearchResult
+    // {
+    //     $url = route('episodes.show', $this->slug);
+
+    //     return new \Spatie\Searchable\SearchResult(
+    //         $this,
+    //         $this->name,
+    //         $url
+    //     );
+    // }
     
     public function season()
     {
         return $this->belongsTo(Season::class);
     }
 
-    public function trailers()
-    {
-        return $this->morphMany(TrailerUrl::class, 'trailerable');
-    }
+    // public function trailers()
+    // {
+    //     return $this->morphMany(TrailerUrl::class, 'trailerable');
+    // }
 }

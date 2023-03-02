@@ -129,6 +129,9 @@
                                 <div class="gh gt">Email</div>
                             </th>
                             <th class="vi wy w_ vo lm">
+                                <div class="gh gt">Phone</div>
+                            </th>
+                            <th class="vi wy w_ vo lm">
                                 <div class="gh gt">Status</div>
                             </th>
                             <th class="vi wy w_ vo lm">
@@ -156,6 +159,9 @@
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="gp text-slate-800">example@mail.com</div>
+                            </td>
+                            <td class="vi wy w_ vo lm">
+                                <div class="gp text-slate-800">0897656577</div>
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="inline-flex gp hf yl rounded-full gn vp vd">Overdue</div>
@@ -195,19 +201,22 @@
                                 </div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp text-slate-800">{{ $user->name }}</div>
+                                <div class="gp text-slate-800">{{ $user->first_name $user->last_name }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="gp text-slate-800">{{ $user->email }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <!-- @if ($user->status === 'active')
-                                    <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $user->status }}</div>
+                                <div class="gp text-slate-800">{{ $user->phone }}</div>
+                            </td>
+                            <td class="vi wy w_ vo lm">
+                                @if ($user->isAdmin === 0)
+                                    <div class="inline-flex gp hf yl rounded-full gn vp vd">user</div>
                                 @endif 
 
-                                @if ($user->status === 'inactive')
-                                    <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $user->status }}</div>
-                                @endif  -->
+                                @if ($user->isAdmin === 1)
+                                    <div class="inline-flex gp hc ys rounded-full gn vp vd">admin</div>
+                                @endif 
                             </td>
 
                             <td class="vi wy w_ vo lm">
@@ -265,15 +274,27 @@
                                     <div class="flex flex-col space-y-3">
                                         <div class="col-start-1 sm:col-span-3">
                                             <label for="title" class="block text-sm font-medium text-gray-700">
-                                                User Name
+                                                First Name
                                             </label>
-                                            <input wire:model="name" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            <input wire:model="firstName" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                        </div>
+                                        <div class="col-start-1 sm:col-span-3">
+                                            <label for="title" class="block text-sm font-medium text-gray-700">
+                                                Last Name
+                                            </label>
+                                            <input wire:model="lastName" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                         </div>
                                         <div class="col-start-1 sm:col-span-3">
                                             <label for="title" class="block text-sm font-medium text-gray-700">
                                                 Email
                                             </label>
                                             <input wire:model="email" type="email" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                        </div>
+                                        <div class="col-start-1 sm:col-span-3">
+                                            <label for="title" class="block text-sm font-medium text-gray-700">
+                                                Phone
+                                            </label>
+                                            <input wire:model="phone" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                         </div>
                                         <div class="col-start-1 sm:col-span-3">
                                             <label for="title" class="block text-sm font-medium text-gray-700">
@@ -285,8 +306,8 @@
                                             <label for="first-name" class="block text-sm font-medium text-gray-700">Status</label>
                                             <select wire:model="userStatus" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
                                                 <option value="" >Select Option</option>
-                                                @foreach($statuses as $status)
-                                                <option value="{{ $status }}">{{ $status }}</option>
+                                                @foreach($statuses as $key => $value )
+                                                <option value="{{ $key }}">{{ $value }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

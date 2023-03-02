@@ -154,12 +154,12 @@
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="gp text-slate-800">
-                                The standard Lorem Ipsum passage, used since the 1500s
+                                The standard Lorem Ipsum passage, used since the .....
                                 </div>
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="gp text-slate-800">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                                Lorem ipsum dolor sit amet, consectetur adipis.....
                                 </div>
                             </td>
                             <td class="vi wy w_ vo lm">
@@ -200,10 +200,10 @@
                                 </div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp text-slate-800">{{ $faq->question }}</div>
+                                <div class="gp text-slate-800">{{ substr($faq->question, 0, 120) }}...</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp ">{{ $faq->answer }}</div>
+                                <div class="gp ">{{ substr($faq->answer, 0, 120) }}...</div>
                             </td>
                             <td class="vi wy w_ vo lm">
                                 @if ($faq->status === 'active')

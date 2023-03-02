@@ -72,7 +72,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('dashboard', Dashboard::class);
     Route::get('articles', ArticleIndex::class)->name('articles.index');
     Route::get('attributes', AttributeIndex::class)->name('attributes.index');
-    Route::get('basket', BasketIndex::class)->name('basket.index');
+    Route::get('baskets', BasketIndex::class)->name('basket.index');
     Route::get('brands', BrandIndex::class)->name('brands.index');
     Route::get('calendar', CalendarIndex::class)->name('calendar.index');
     Route::get('casts', CastIndex::class)->name('casts.index');
