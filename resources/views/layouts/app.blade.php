@@ -21,7 +21,7 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
+    
     @livewireStyles
 </head>
 
@@ -54,6 +54,9 @@
     </div>
 
     @livewireScripts
+
+    <script src="https://cdn.jsdelivr.net/gh/livewire/sortable@v0.x.x/dist/livewire-sortable.js"></script>
+    
 
     <script>
         window.addEventListener('banner-message', event => {

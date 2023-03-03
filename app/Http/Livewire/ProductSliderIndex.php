@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Livewire;
+
 use Livewire\WithFileUploads;
 use App\Models\ProductSlide;
 use Illuminate\Support\Str;
@@ -42,10 +43,10 @@ class ProductSliderIndex extends Component
     {
         $this->validate([
             'title' => 'required',
-            // 'filename' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
+            // 'file' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
         ]);
   
-        $new = Str::slug($this->name) . '_' . time();
+        $new = Str::slug($this->title) . '_' . time();
         // IMAGE
         $filename = $new . '.' . $this->file->getClientOriginalName();
         $filePath = $this->file->storeAs(ProductSlide::UPLOAD_DIR, $filename, 'public');
@@ -90,7 +91,7 @@ class ProductSliderIndex extends Component
             // 'filename' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
         ]);
   
-        $new = Str::slug($this->name) . '_' . time();
+        $new = Str::slug($this->title) . '_' . time();
         $filename = $new . '.' . $this->file->getClientOriginalName();
         
         if ($this->slideId) {
@@ -142,7 +143,7 @@ class ProductSliderIndex extends Component
     public function render()
     {
         return view('livewire.product-slider-index', [
-            'slides' => ProductSlide::search('title', $this->search)->orderBy('title', $this->sort)->paginate($this->perPage)
+            'slides' => ProductSlide::search('title', $this->search)->orderBy('position', $this->sort)->paginate($this->perPage)
         ]);
     }
 
@@ -216,5 +217,13 @@ class ProductSliderIndex extends Component
         return true;
     }
 
-   
+    public function updateTaskOrder($items)
+    {
+        // dd($items);
+        foreach ($items as $item) {
+            ProductSlide::find($item['value'])->update(['position' => $item['order']]);
+        }
+
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Slide sorted successfully']);
+    }
 }

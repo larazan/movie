@@ -222,14 +222,14 @@
 
                             <td class="vi wy w_ vo lm of">
                                 <div class="fm">
-                                    <button class="gq xv rounded-full" wire:click="showEditModal({{ $faq->id }})>
+                                    <button class="gq xv rounded-full" wire:click="showEditModal({{ $faq->id }})">
                                     <span class=" d">Edit</span>
                                         <svg class="os sf du" viewBox="0 0 32 32">
                                             <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z"></path>
                                         </svg>
                                     </button>
 
-                                    <button class="yl xy rounded-full" wire:click="deleteFaq({{ $faq->id }})>
+                                    <button class="yl xy rounded-full" wire:click="deleteFaq({{ $faq->id }})">
                                     <span class=" d">Delete</span>
                                         <svg class="os sf du" viewBox="0 0 32 32">
                                             <path d="M13 15h2v6h-2zM17 15h2v6h-2z"></path>
@@ -274,12 +274,18 @@
                                                 Faq Question
                                             </label>
                                             <textarea wire:model="question" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" ></textarea>
+                                            @error('question')
+                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="col-start-1 sm:col-span-3">
                                             <label for="title" class="block text-sm font-medium text-gray-700">
                                                 Faq Answer
                                             </label>
                                             <textarea wire:model="answer" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" ></textarea>
+                                            @error('answer')
+                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="first-name" class="block text-sm font-medium text-gray-700">Status</label>

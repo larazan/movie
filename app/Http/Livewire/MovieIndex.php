@@ -435,4 +435,11 @@ class MovieIndex extends Component
 
         return true;
     }
+
+    public function addCast($item)
+    {
+        // dd($item);
+
+        return redirect()->to('/admin/movie/'. $item .'/characters');
+    }
 }

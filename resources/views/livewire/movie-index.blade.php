@@ -539,19 +539,19 @@
                                 <div class="gp ">-</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp ">Movie</div>
+                                <div class="gt ">Movie</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp ">Thriller</div>
+                                <div class="gt ">Thriller</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp ">13 June 2023</div>
+                                <div class="gt ">13 June 2023</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp ">130 mnt</div>
+                                <div class="gt ">130 mnt</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp ">korea</div>
+                                <div class="gt ">korea</div>
                             </td>
                           
                             <td class="vi wy w_ vo lm">
@@ -564,6 +564,13 @@
 
                             <td class="vi wy w_ vo lm of">
                                 <div class="fm">
+                                    <button class="gq xv rounded-full" wire:click="addCast(12)">
+                                        <span class=" d">Add Cast</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 32 32" stroke-width="2" stroke="currentColor" class=" du w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
+                                        </svg>
+
+                                    </button>
                                     <button class="gq xv rounded-full">
                                         <span class="d">Edit</span>
                                         <svg class="os sf du" viewBox="0 0 32 32">
@@ -601,19 +608,19 @@
                             </td>
                           
                             <td class="vi wy w_ vo lm">
-                                <div class="gp text-slate-800">{{ $movie->category_movie_id }}</div>
+                                <div class="gt">{{ $movie->category_movie_id }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp text-slate-800">{{ $movie->genre }}</div>
+                                <div class="gt">{{ $movie->genre }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp text-slate-800">{{ $movie->release_date }}</div>
+                                <div class="gt">{{ $movie->release_date }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp text-slate-800">{{ $movie->duration }}</div>
+                                <div class="gt">{{ $movie->duration }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp text-slate-800">{{ $movie->country }}</div>
+                                <div class="gt">{{ $movie->country }}</div>
                             </td>
                             
                             <td class="vi wy w_ vo lm">
@@ -632,13 +639,19 @@
 
                             <td class="vi wy w_ vo lm of">
                                 <div class="fm">
+                                    <button class="gq xv rounded-full" wire:click="addCast({{ $movie->id }})">
+                                        <span class=" d">Add Cast</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
+                                        </svg>
+
+                                    </button>
                                     <button class="gq xv rounded-full" wire:click="showEditModal({{ $movie->id }})">
-                                    <span class=" d">Edit</span>
+                                        <span class=" d">Edit</span>
                                         <svg class="os sf du" viewBox="0 0 32 32">
                                             <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z"></path>
                                         </svg>
                                     </button>
-
                                     <button class="yl xy rounded-full" wire:click="deleteMovie({{ $movie->id }})">
                                     <span class=" d">Delete</span>
                                         <svg class="os sf du" viewBox="0 0 32 32">
