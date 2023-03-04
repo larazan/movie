@@ -42,6 +42,9 @@ class PersonIndex extends Component
     public $sort = 'asc';
     public $perPage = 5;
 
+    public $showConfirmModal = false;
+    public $deleteId = '';
+
     protected $rules = [
         'name' => 'required',
         'genderStatus' => 'required',
@@ -52,7 +55,7 @@ class PersonIndex extends Component
         'facebook' => 'required',
         'instagram' => 'required',
         'twitter' => 'required',
-        // 'filename' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
+        // 'file' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
     ];
 
     public function showCreateModal()
@@ -60,9 +63,29 @@ class PersonIndex extends Component
         $this->showPersonModal = true;
     }
 
+    public function closeConfirmModal()
+    {
+        $this->showConfirmModal = false;
+    }
+
+    public function deleteId($id)
+    {
+        $this->showConfirmModal = true;
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        Person::find($this->deleteId)->delete();
+        $this->showConfirmModal = false;
+        $this->reset();
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'danger', 'message' => 'Person deleted successfully']);
+    }
+
     public function createPerson()
     {
         $this->validate();
+
         $randId = Str::random(10);
         $new = Str::slug($this->name) . '_' . time();
         $filename = $new . '.' . $this->file->getClientOriginalName();

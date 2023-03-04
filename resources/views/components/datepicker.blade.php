@@ -1,3 +1,4 @@
+{{--
 <div class="relative">
     <input class="datepicker form-input pl-9 text-slate-500 hover:text-slate-600 font-medium focus:border-slate-300 w-60" placeholder="Select dates" data-class="flatpickr-right" />
     <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
@@ -6,3 +7,19 @@
         </svg>
     </div>
 </div>
+--}}
+
+@props(['id', 'error'])
+
+<input {{ $attributes }} type="text" class="form-control datetimepicker-input @error($error) is-invalid @enderror" id="{{ $id }}" data-toggle="datetimepicker" data-target="#{{ $id }}"
+onchange="this.dispatchEvent(new InputEvent('input'))"
+/>
+
+
+@push('before-livewire-scripts')
+<script type="text/javascript">
+    $('#{{ $id }}').datetimepicker({
+    	format: 'L'
+    });
+</script>
+@endpush

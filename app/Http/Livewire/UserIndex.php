@@ -19,6 +19,7 @@ class UserIndex extends Component
     public $email;
     public $phone;
     public $password;
+    public $passwordConfirmation;
     public $userId;
     public $userStatus = 0;
     public $statuses = [
@@ -30,18 +31,40 @@ class UserIndex extends Component
     public $sort = 'asc';
     public $perPage = 5;
 
+    public $showConfirmModal = false;
+    public $deleteId = '';
+
     protected $rules = [
         'first_name' => 'required|min:2',
         'last_name' => 'required|min:2',
-        'email' => 'required|email|unique:users',
-        'password' => 'required|min:6',
-        'phone' => 'required|min:6',
+        'email' => 'required|email|max:255|unique:users',
+        'password' => 'required|min:8|confirmed',
+        'phone' => 'required|min:10',
         'isAdmin' => 'required'
     ];
 
     public function showCreateModal()
     {
         $this->showUserModal = true;
+    }
+
+    public function closeConfirmModal()
+    {
+        $this->showConfirmModal = false;
+    }
+
+    public function deleteId($id)
+    {
+        $this->showConfirmModal = true;
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        User::find($this->deleteId)->delete();
+        $this->showConfirmModal = false;
+        $this->reset();
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'danger', 'message' => 'User deleted successfully']);
     }
 
     public function createUser()
@@ -62,7 +85,7 @@ class UserIndex extends Component
 
     public function showEditModal($userId)
     {
-        $this->reset(['name']);
+        $this->reset(['firstName']);
         $this->userId = $userId;
         $user = User::find($userId);
         $this->firstName = $user->first_name;
@@ -122,11 +145,16 @@ class UserIndex extends Component
         $this->reset();
         $this->reset(['search', 'sort', 'perPage']);
     }
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
     
     public function render()
     {
         return view('livewire.user-index', [
-            'users' => User::search('name', $this->search)->orderBy('name', $this->sort)->paginate($this->perPage),
+            'users' => User::search('first_name', $this->search)->orderBy('first_name', $this->sort)->paginate($this->perPage),
         ]);
     }
 }

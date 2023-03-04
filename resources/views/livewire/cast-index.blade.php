@@ -217,7 +217,7 @@
                                         </svg>
                                     </button>
 
-                                    <button class="yl xy rounded-full" wire:click="deleteCast({{ $cast->id }})">
+                                    <button class="yl xy rounded-full" wire:click="deleteId({{ $cast->id }})">
                                     <span class=" d">Delete</span>
                                         <svg class="os sf du" viewBox="0 0 32 32">
                                             <path d="M13 15h2v6h-2zM17 15h2v6h-2z"></path>

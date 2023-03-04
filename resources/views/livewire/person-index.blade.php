@@ -189,7 +189,7 @@
             </div>
 
             <!-- Dropdown -->
-            <!-- <div class="y" x-data="{ open: false, selected: 2 }">
+            <div class="y" x-data="{ open: false, selected: 2 }">
                 <button class="btn fe un bg-white border-slate-200 hover--border-slate-300 text-slate-500 hover--text-slate-600" aria-label="Select date range" aria-haspopup="true" @click.prevent="open = !open" :aria-expanded="open" aria-expanded="false">
                     <span class="flex items-center">
                         <svg class="oo sl du text-slate-500 ub mr-2" viewBox="0 0 16 16">
@@ -219,7 +219,9 @@
 
                     </div>
                 </div>
-            </div> -->
+            </div>
+
+            
 
             <!-- Filter button -->
             <select wire:model="sort" id="sort" class="a">
@@ -400,7 +402,7 @@
                                         </svg>
                                     </button>
 
-                                    <button class="yl xy rounded-full" wire:click="deletePerson({{ $person->id }})">
+                                    <button class="yl xy rounded-full" wire:click="deleteId({{ $person->id }})">
                                     <span class=" d">Delete</span>
                                         <svg class="os sf du" viewBox="0 0 32 32">
                                             <path d="M13 15h2v6h-2zM17 15h2v6h-2z"></path>
@@ -549,4 +551,48 @@
 
         </x-slot>
     </x-jet-dialog-modal>
+
+    <!-- modal delete confirmation -->
+    <x-jet-dialog-modal wire:model="showConfirmModal" class="">
+
+        
+        <x-slot name="title" class="border-b bg-slate-200">
+            <span class="font-semibold">Delete Confirm</span>
+        </x-slot>
+        
+
+        <x-slot name="content">
+            <div class="border-t">
+                <div class="vc vu ">
+                    <div class="fw">
+
+                        
+                            <div class="">
+                                <div class="">
+                                    <div class="flex flex-col space-y-3">
+                                        <div class="flex max-w-auto text-center justify-center items-center">
+                                            <div class="text-lg font-semibold ">
+                                            <p>Are you sure want to delete?</p>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </x-slot>
+        <x-slot name="footer">
+            <div class="border-slate-200">
+                <div class="flex flex-wrap justify-end fc">
+                    <x-m-button wire:click="closeConfirmModal" class="border-slate-200 hover:text-white  g_">Cancel</x-m-button>
+                    <x-m-button wire:click.prevent="delete()" class=" ho xi ye2">Delete</x-m-button>
+                </div>
+            </div>
+
+        </x-slot>
+    </x-jet-dialog-modal>
+
 </div>

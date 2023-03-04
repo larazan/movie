@@ -24,20 +24,40 @@ class GenreIndex extends Component
     public $sort = 'asc';
     public $perPage = 5;
 
-    // protected $rules = [
-    //     'name' => 'required',
-    // ];
+    public $showConfirmModal = false;
+    public $deleteId = '';
+
+    protected $rules = [
+        'name' => 'required',
+    ];
 
     public function showCreateModal()
     {
         $this->showGenreModal = true;
     }
 
+    public function closeConfirmModal()
+    {
+        $this->showConfirmModal = false;
+    }
+
+    public function deleteId($id)
+    {
+        $this->showConfirmModal = true;
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        Genre::find($this->deleteId)->delete();
+        $this->showConfirmModal = false;
+        $this->reset();
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'danger', 'message' => 'Genre deleted successfully']);
+    }
+
     public function createGenre()
     {
-        $this->validate([
-            'name' => 'required',
-        ]);
+        $this->validate();
 
         Genre::create([
           'name' => $this->name,
@@ -60,9 +80,7 @@ class GenreIndex extends Component
     
     public function updateGenre()
     {
-        $this->validate([
-            'name' => 'required',
-        ]);
+        $this->validate();
 
         $genre = Genre::findOrFail($this->genreId);
         $genre->update([

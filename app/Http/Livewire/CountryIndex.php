@@ -24,17 +24,40 @@ class CountryIndex extends Component
     public $sort = 'asc';
     public $perPage = 5;
 
+    public $showConfirmModal = false;
+    public $deleteId = '';
+
+    protected $rules = [
+        'name' => 'required',
+    ];
 
     public function showCreateModal()
     {
         $this->showCountryModal = true;
     }
 
+    public function closeConfirmModal()
+    {
+        $this->showConfirmModal = false;
+    }
+
+    public function deleteId($id)
+    {
+        $this->showConfirmModal = true;
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        Country::find($this->deleteId)->delete();
+        $this->showConfirmModal = false;
+        $this->reset();
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'danger', 'message' => 'Country deleted successfully']);
+    }
+
     public function createCountry()
     {
-        $this->validate([
-            'name' => 'required',
-        ]);
+        $this->validate();
 
         Country::create([
           'name' => $this->countryName,
@@ -58,9 +81,7 @@ class CountryIndex extends Component
     
     public function updateCountry()
     {
-        $this->validate([
-            'name' => 'required',
-        ]);
+        $this->validate();
         
         $country = Country::findOrFail($this->countryId);
         $country->update([

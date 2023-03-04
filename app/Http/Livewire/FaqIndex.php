@@ -25,21 +25,41 @@ class FaqIndex extends Component
     public $sort = 'asc';
     public $perPage = 5;
 
-    // protected $rules = [
-    //     'name' => 'required',
-    // ];
+    public $showConfirmModal = false;
+    public $deleteId = '';
+
+    protected $rules = [
+        'question' => 'required',
+        'answer' => 'required',
+    ];
 
     public function showCreateModal()
     {
         $this->showFaqModal = true;
     }
 
+    public function closeConfirmModal()
+    {
+        $this->showConfirmModal = false;
+    }
+
+    public function deleteId($id)
+    {
+        $this->showConfirmModal = true;
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        Faq::find($this->deleteId)->delete();
+        $this->showConfirmModal = false;
+        $this->reset();
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'danger', 'message' => 'Faq deleted successfully']);
+    }
+
     public function createFaq()
     {
-        $this->validate([
-            'question' => 'required',
-            'answer' => 'required',
-        ]);
+        $this->validate();
 
         Faq::create([
           'question' => $this->question,
@@ -63,10 +83,7 @@ class FaqIndex extends Component
     
     public function updateFaq()
     {
-        $this->validate([
-            'question' => 'required',
-            'answer' => 'required',
-        ]);
+        $this->validate();
 
         $faq = Faq::findOrFail($this->faqId);
         $faq->update([

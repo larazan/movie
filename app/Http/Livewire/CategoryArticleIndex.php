@@ -19,16 +19,40 @@ class CategoryArticleIndex extends Component
     public $sort = 'asc';
     public $perPage = 5;
 
+    public $showConfirmModal = false;
+    public $deleteId = '';
+
+    protected $rules = [
+        'name' => 'required|max:255',
+    ];
+
     public function showCreateModal()
     {
         $this->showCategoryModal = true;
     }
 
+    public function closeConfirmModal()
+    {
+        $this->showConfirmModal = false;
+    }
+
+    public function deleteId($id)
+    {
+        $this->showConfirmModal = true;
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        CategoryArticle::find($this->deleteId)->delete();
+        $this->showConfirmModal = false;
+        $this->reset();
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'danger', 'message' => 'Category deleted successfully']);
+    }
+
     public function createCategory()
     {
-        $this->validate([
-            'name' => 'required|max:255',
-        ]);
+        $this->validate();
         
         CategoryArticle::create([
           'name' => $this->name,
@@ -51,9 +75,7 @@ class CategoryArticleIndex extends Component
     
     public function updateCategory()
     {
-        $this->validate([
-            'name' => 'required|max:255',
-        ]);
+        $this->validate();
 
         $category = CategoryArticle::findOrFail($this->categoryId);
         $category->update([

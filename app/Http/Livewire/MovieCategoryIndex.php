@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\CategoryMovie;
+use App\Models\Movie;
 use Illuminate\Support\Str;
 use Livewire\WithPagination;
 
@@ -24,22 +25,46 @@ class MovieCategoryIndex extends Component
     public $sort = 'asc';
     public $perPage = 5;
 
+    public $showConfirmModal = false;
+    public $deleteId = '';
+
+    protected $rules = [
+        'name' => 'required',
+    ];
+
     public function showCreateModal()
     {
         $this->showCategoryModal = true;
     }
 
+    public function closeConfirmModal()
+    {
+        $this->showConfirmModal = false;
+    }
+
+    public function deleteId($id)
+    {
+        $this->showConfirmModal = true;
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        CategoryMovie::find($this->deleteId)->delete();
+        $this->showConfirmModal = false;
+        $this->reset();
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'danger', 'message' => 'Category deleted successfully']);
+    }
+
     public function createCategory()
     {
-        $this->validate([
-            'name' => 'required',
-        ]);
+        $this->validate();
 
         CategoryMovie::create([
           'name' => $this->name,
           'slug' => Str::slug($this->name),
           'status' => $this->categoryStatus,
-      ]);
+        ]);
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Category created successfully']);
     }
@@ -56,9 +81,7 @@ class MovieCategoryIndex extends Component
     
     public function updateCategory()
     {
-        $this->validate([
-            'name' => 'required',
-        ]);
+        $this->validate();
 
         $category = CategoryMovie::findOrFail($this->categoryId);
         $category->update([

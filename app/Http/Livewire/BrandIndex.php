@@ -31,17 +31,41 @@ class BrandIndex extends Component
     public $sort = 'asc';
     public $perPage = 5;
 
+    public $showConfirmModal = false;
+    public $deleteId = '';
+
+    protected $rules = [
+        'name' => 'required|min:3',
+    // 'file' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
+    ];
+
     public function showCreateModal()
     {
         $this->showBrandModal = true;
     }
 
+    public function closeConfirmModal()
+    {
+        $this->showConfirmModal = false;
+    }
+
+    public function deleteId($id)
+    {
+        $this->showConfirmModal = true;
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        Brand::find($this->deleteId)->delete();
+        $this->showConfirmModal = false;
+        $this->reset();
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'danger', 'message' => 'Brand deleted successfully']);
+    }
+
     public function createBrand()
     {
-        $this->validate([
-            'name' => 'required',
-            // 'filename' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
-        ]);
+        $this->validate();
   
         $new = Str::slug($this->name) . '_' . time();
         $filename = $new . '.' . $this->file->getClientOriginalName();
@@ -74,10 +98,7 @@ class BrandIndex extends Component
     public function updateBrand()
     {
         $brand = Brand::findOrFail($this->brandId);
-        $this->validate([
-            'name' => 'required',
-            // 'filename' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
-        ]);
+        $this->validate();
   
         $new = Str::slug($this->name) . '_' . time();
         $filename = $new . '.' . $this->file->getClientOriginalName();

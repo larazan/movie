@@ -31,17 +31,41 @@ class LabelIndex extends Component
     public $sort = 'asc';
     public $perPage = 5;
 
+    public $showConfirmModal = false;
+    public $deleteId = '';
+
+    protected $rules = [
+        'name' => 'required',
+        // 'file' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
+    ];
+
     public function showCreateModal()
     {
         $this->showLabelModal = true;
     }
 
+    public function closeConfirmModal()
+    {
+        $this->showConfirmModal = false;
+    }
+
+    public function deleteId($id)
+    {
+        $this->showConfirmModal = true;
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        Label::find($this->deleteId)->delete();
+        $this->showConfirmModal = false;
+        $this->reset();
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'danger', 'message' => 'Label deleted successfully']);
+    }
+
     public function createLabel()
     {
-        $this->validate([
-            'name' => 'required',
-            // 'filename' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
-        ]);
+        $this->validate();
   
         $new = Str::slug($this->name) . '_' . time();
         $filename = $new . '.' . $this->file->getClientOriginalName();
@@ -77,10 +101,7 @@ class LabelIndex extends Component
     public function updateLabel()
     {
         $label = Label::findOrFail($this->labelId);
-        $this->validate([
-            'name' => 'required',
-            // 'filename' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
-        ]);
+        $this->validate();
   
         $new = Str::slug($this->name) . '_' . time();
         $filename = $new . '.' . $this->file->getClientOriginalName();

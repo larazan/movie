@@ -27,23 +27,43 @@ class QuoteIndex extends Component
     public $sort = 'asc';
     public $perPage = 5;
 
-    // protected $rules = [
-    //     'name' => 'required',
-    // ];
+    public $showConfirmModal = false;
+    public $deleteId = '';
+
+    protected $rules = [
+        'quote' => 'required',
+        'character' => 'required',
+        'movie' => 'required',
+        'year' => 'required',
+    ];
 
     public function showCreateModal()
     {
         $this->showQuoteModal = true;
     }
 
+    public function closeConfirmModal()
+    {
+        $this->showConfirmModal = false;
+    }
+
+    public function deleteId($id)
+    {
+        $this->showConfirmModal = true;
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        Quote::find($this->deleteId)->delete();
+        $this->showConfirmModal = false;
+        $this->reset();
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'danger', 'message' => 'Quote deleted successfully']);
+    }
+
     public function createQuote()
     {
-        $this->validate([
-            'quote' => 'required',
-            'character' => 'required',
-            'movie' => 'required',
-            'year' => 'required',
-        ]);
+        $this->validate();
 
         Quote::create([
           'quote' => $this->quote,
@@ -71,12 +91,7 @@ class QuoteIndex extends Component
     
     public function updateQuote()
     {
-        $this->validate([
-            'quote' => 'required',
-            'character' => 'required',
-            'movie' => 'required',
-            'year' => 'required',
-        ]);
+        $this->validate();
 
         $quote = Quote::findOrFail($this->quoteId);
         $quote->update([

@@ -48,6 +48,9 @@ class MovieIndex extends Component
 
     public $showMovieModal = false;
 
+    public $showConfirmModal = false;
+    public $deleteId = '';
+
     // protected $listeners = [
     //     'tagAdded' => 'tagAdded',
     //      'tagDetached' => 'tagDetached',
@@ -237,6 +240,25 @@ class MovieIndex extends Component
     public function showCreateModal()
     {
         $this->showMovieModal = true;
+    }
+
+    public function closeConfirmModal()
+    {
+        $this->showConfirmModal = false;
+    }
+
+    public function deleteId($id)
+    {
+        $this->showConfirmModal = true;
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        Movie::find($this->deleteId)->delete();
+        $this->showConfirmModal = false;
+        $this->reset();
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'danger', 'message' => 'Movie deleted successfully']);
     }
 
     public function createMovie()

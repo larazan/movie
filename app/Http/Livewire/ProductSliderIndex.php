@@ -34,17 +34,41 @@ class ProductSliderIndex extends Component
     public $sort = 'asc';
     public $perPage = 5;
 
+    public $showConfirmModal = false;
+    public $deleteId = '';
+
+    protected $rules = [
+        'title' => 'required',
+        // 'file' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
+    ];
+
     public function showCreateModal()
     {
         $this->showProductSlideModal = true;
     }
 
+    public function closeConfirmModal()
+    {
+        $this->showConfirmModal = false;
+    }
+
+    public function deleteId($id)
+    {
+        $this->showConfirmModal = true;
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        ProductSlide::find($this->deleteId)->delete();
+        $this->showConfirmModal = false;
+        $this->reset();
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'danger', 'message' => 'ProductSlide deleted successfully']);
+    }
+
     public function createProductSlide()
     {
-        $this->validate([
-            'title' => 'required',
-            // 'file' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
-        ]);
+        $this->validate();
   
         $new = Str::slug($this->title) . '_' . time();
         // IMAGE
@@ -86,10 +110,7 @@ class ProductSliderIndex extends Component
     public function updateProductSlide()
     {
         $slide = ProductSlide::findOrFail($this->slideId);
-        $this->validate([
-            'name' => 'required',
-            // 'filename' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
-        ]);
+        $this->validate();
   
         $new = Str::slug($this->title) . '_' . time();
         $filename = $new . '.' . $this->file->getClientOriginalName();

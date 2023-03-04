@@ -24,17 +24,40 @@ class TagIndex extends Component
     public $sort = 'asc';
     public $perPage = 5;
 
+    public $showConfirmModal = false;
+    public $deleteId = '';
+
+    protected $rule = [
+        'tagName' => 'required',
+    ];
 
     public function showCreateModal()
     {
         $this->showTagModal = true;
     }
 
+    public function closeConfirmModal()
+    {
+        $this->showConfirmModal = false;
+    }
+
+    public function deleteId($id)
+    {
+        $this->showConfirmModal = true;
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        Tag::find($this->deleteId)->delete();
+        $this->showConfirmModal = false;
+        $this->reset();
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'danger', 'message' => 'Tag deleted successfully']);
+    }
+
     public function createTag()
     {
-        $this->validate([
-            'tag_name' => 'required',
-        ]);
+        $this->validate();
 
         Tag::create([
           'tag_name' => $this->tagName,
@@ -44,8 +67,6 @@ class TagIndex extends Component
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Tag created successfully']);
     }
-
-    
 
     public function showEditModal($tagId)
     {
@@ -58,9 +79,7 @@ class TagIndex extends Component
     
     public function updateTag()
     {
-        $this->validate([
-            'tag_name' => 'required',
-        ]);
+        $this->validate();
         
         $tag = Tag::findOrFail($this->tagId);
         $tag->update([
@@ -88,6 +107,11 @@ class TagIndex extends Component
     public function resetFilters()
     {
         $this->reset();
+    }
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
     }
     
     public function render()

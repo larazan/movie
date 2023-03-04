@@ -39,18 +39,42 @@ class MusicIndex extends Component
     public $sort = 'asc';
     public $perPage = 5;
 
+    public $showConfirmModal = false;
+    public $deleteId = '';
+
+    protected $rules = [
+        'title' => 'required',
+        'file' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
+        'audio' =>'nullable|file|mimes:audio/mpeg,mpga,mp3,wav,aac',
+    ];
+
     public function showCreateModal()
     {
         $this->showMusicModal = true;
     }
 
+    public function closeConfirmModal()
+    {
+        $this->showConfirmModal = false;
+    }
+
+    public function deleteId($id)
+    {
+        $this->showConfirmModal = true;
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        Music::find($this->deleteId)->delete();
+        $this->showConfirmModal = false;
+        $this->reset();
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'danger', 'message' => 'Music deleted successfully']);
+    }
+
     public function createMusic()
     {
-        $this->validate([
-            'title' => 'required',
-            // 'filename' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
-            'audio' =>'nullable|file|mimes:audio/mpeg,mpga,mp3,wav,aac',
-        ]);
+        $this->validate();
   
         $new = Str::slug($this->name) . '_' . time();
         // IMAGE
@@ -102,11 +126,7 @@ class MusicIndex extends Component
     public function updateMusic()
     {
         $music = Music::findOrFail($this->musicId);
-        $this->validate([
-            'name' => 'required',
-            // 'filename' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
-            'audio' =>'nullable|file|mimes:audio/mpeg,mpga,mp3,wav,aac',
-        ]);
+        $this->validate();
   
         $new = Str::slug($this->name) . '_' . time();
         $filename = $new . '.' . $this->file->getClientOriginalName();

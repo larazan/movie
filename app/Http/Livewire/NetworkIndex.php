@@ -33,17 +33,41 @@ class NetworkIndex extends Component
     public $sort = 'asc';
     public $perPage = 5;
 
+    public $showConfirmModal = false;
+    public $deleteId = '';
+
+    protected $rules = [
+        'name' => 'required',
+        // 'file' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
+    ];
+
     public function showCreateModal()
     {
         $this->showNetworkModal = true;
     }
 
+    public function closeConfirmModal()
+    {
+        $this->showConfirmModal = false;
+    }
+
+    public function deleteId($id)
+    {
+        $this->showConfirmModal = true;
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        Network::find($this->deleteId)->delete();
+        $this->showConfirmModal = false;
+        $this->reset();
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'danger', 'message' => 'Network deleted successfully']);
+    }
+
     public function createNetwork()
     {
-        $this->validate([
-            'name' => 'required',
-            // 'filename' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
-        ]);
+        $this->validate();
   
         $new = Str::slug($this->name) . '_' . time();
         $filename = $new . '.' . $this->file->getClientOriginalName();
@@ -81,10 +105,7 @@ class NetworkIndex extends Component
     public function updateNetwork()
     {
         $network = Network::findOrFail($this->networkId);
-        $this->validate([
-            'name' => 'required',
-            // 'filename' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
-        ]);
+        $this->validate();
   
         $new = Str::slug($this->name) . '_' . time();
         $filename = $new . '.' . $this->file->getClientOriginalName();

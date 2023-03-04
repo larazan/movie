@@ -42,6 +42,13 @@ class CharacterIndex extends Component
     public $sort = 'asc';
     public $perPage = 5;
 
+    public $showConfirmModal = false;
+    public $deleteId = '';
+
+    protected $rules = [
+        'character_name' =>  'required',
+    ];
+
     public function mount($id)
     {
         $this->movie = Movie::find($id);
@@ -57,13 +64,28 @@ class CharacterIndex extends Component
         // $this->movieGenre = $this->movie->title;
     }
 
-    protected $rules = [
-        'character_name' =>  'required',
-    ];
-
     public function showCreateModal()
     {
         $this->showCharacterModal = true;
+    }
+
+    public function closeConfirmModal()
+    {
+        $this->showConfirmModal = false;
+    }
+
+    public function deleteId($id)
+    {
+        $this->showConfirmModal = true;
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        Character::find($this->deleteId)->delete();
+        $this->showConfirmModal = false;
+        $this->reset();
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'danger', 'message' => 'Character deleted successfully']);
     }
 
     public function createCharacter()

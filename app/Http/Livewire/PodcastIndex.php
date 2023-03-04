@@ -33,18 +33,42 @@ class PodcastIndex extends Component
     public $sort = 'asc';
     public $perPage = 5;
 
+    public $showConfirmModal = false;
+    public $deleteId = '';
+
+    protected $rules = [
+        'title' => 'required',
+        // 'file' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
+        'audio' =>'nullable|file|mimes:audio/mpeg,mpga,mp3,wav,aac',
+    ];
+
     public function showCreateModal()
     {
         $this->showPodcastModal = true;
     }
 
+    public function closeConfirmModal()
+    {
+        $this->showConfirmModal = false;
+    }
+
+    public function deleteId($id)
+    {
+        $this->showConfirmModal = true;
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        Podcast::find($this->deleteId)->delete();
+        $this->showConfirmModal = false;
+        $this->reset();
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'danger', 'message' => 'Podcast deleted successfully']);
+    }
+
     public function createPodcast()
     {
-        $this->validate([
-            'title' => 'required',
-            // 'filename' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
-            'audio' =>'nullable|file|mimes:audio/mpeg,mpga,mp3,wav,aac',
-        ]);
+        $this->validate();
   
         $new = Str::slug($this->name) . '_' . time();
         // IMAGE
@@ -90,11 +114,7 @@ class PodcastIndex extends Component
     public function updatePodcast()
     {
         $podcast = Podcast::findOrFail($this->podcastId);
-        $this->validate([
-            'name' => 'required',
-            // 'filename' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
-            'audio' =>'nullable|file|mimes:audio/mpeg,mpga,mp3,wav,aac',
-        ]);
+        $this->validate();
   
         $new = Str::slug($this->name) . '_' . time();
         $filename = $new . '.' . $this->file->getClientOriginalName();

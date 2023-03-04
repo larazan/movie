@@ -42,12 +42,15 @@ class EpisodeIndex extends Component
     public $sort = 'asc';
     public $perPage = 5;
 
+    public $showConfirmModal = false;
+    public $deleteId = '';
+
     protected $rules = [
         'title' => 'required',
         'short_description' => 'required',
         'release_date' => 'required',
         'duration' => 'required',
-        // 'filename' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
+        // 'file' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
     ];
 
     // generate episode
@@ -159,6 +162,25 @@ class EpisodeIndex extends Component
     public function showCreateModal()
     {
         $this->showEpisodeModal = true;
+    }
+
+    public function closeConfirmModal()
+    {
+        $this->showConfirmModal = false;
+    }
+
+    public function deleteId($id)
+    {
+        $this->showConfirmModal = true;
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        Episode::find($this->deleteId)->delete();
+        $this->showConfirmModal = false;
+        $this->reset();
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'danger', 'message' => 'Episode deleted successfully']);
     }
 
     public function createEpisode()

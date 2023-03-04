@@ -19,22 +19,46 @@ class CategoryIndex extends Component
     public $sort = 'asc';
     public $perPage = 5;
 
+    public $showConfirmModal = false;
+    public $deleteId = '';
+
+    protected $rules = [
+        'name' => 'required|max:255',
+    ];
+
     public function showCreateModal()
     {
         $this->showCategoryModal = true;
     }
 
+    public function closeConfirmModal()
+    {
+        $this->showConfirmModal = false;
+    }
+
+    public function deleteId($id)
+    {
+        $this->showConfirmModal = true;
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        Category::find($this->deleteId)->delete();
+        $this->showConfirmModal = false;
+        $this->reset();
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'danger', 'message' => 'Category deleted successfully']);
+    }
+
     public function createCategory()
     {
-        $this->validate([
-            'name' => 'required|max:255',
-        ]);
+        $this->validate();
         
         Category::create([
           'name' => $this->name,
           'slug' => Str::slug($this->name),
           'parent_id' => 0,
-          'position' => 1
+          'position' => 0
       ]);
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Category created successfully']);
@@ -51,16 +75,14 @@ class CategoryIndex extends Component
     
     public function updateCategory()
     {
-        $this->validate([
-            'name' => 'required|max:255',
-        ]);
+        $this->validate();
 
         $category = Category::findOrFail($this->categoryId);
         $category->update([
             'name' => $this->name,
             'slug'     => Str::slug($this->name),
             'parent_id' => 0,
-          'position' => 1
+            'position' => 0
         ]);
         $this->reset();
         $this->showCategoryModal = false;

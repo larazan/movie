@@ -37,10 +37,13 @@ class SeasonIndex extends Component
     // public $showSeasonModal = false;
     // public $seasonId;
 
+    public $showConfirmModal = false;
+    public $deleteId = '';
+
     protected $rules = [
         'title' => 'required',
         'year' => 'required',
-        // 'filename' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
+        // 'file' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
     ];
 
     // generate season
@@ -128,6 +131,25 @@ class SeasonIndex extends Component
     public function showCreateModal()
     {
         $this->showSeasonModal = true;
+    }
+
+    public function closeConfirmModal()
+    {
+        $this->showConfirmModal = false;
+    }
+
+    public function deleteId($id)
+    {
+        $this->showConfirmModal = true;
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        Season::find($this->deleteId)->delete();
+        $this->showConfirmModal = false;
+        $this->reset();
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'danger', 'message' => 'Season deleted successfully']);
     }
 
     public function createSeason()
