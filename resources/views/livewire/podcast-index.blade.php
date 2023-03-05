@@ -86,11 +86,7 @@
                 </div>
             </div> -->
 
-            <livewire:select
-                :selected="1"
-                :items="['Apple','Banana','Strawberry']"
-                label="Favorite fruit"
-            />
+            <livewire:select :selected="1" :items="['Apple','Banana','Strawberry']" label="Favorite fruit" />
 
             <!-- Filter button -->
             <select wire:model="sort" id="sort" class="a">
@@ -186,7 +182,7 @@
                                         </svg>
                                     </button>
 
-                                    <button class="yl xy rounded-full">
+                                    <button class="yl xy rounded-full" wire:click="tesAlert">
                                         <span class="d">Delete</span>
                                         <svg class="os sf du" viewBox="0 0 32 32">
                                             <path d="M13 15h2v6h-2zM17 15h2v6h-2z"></path>
@@ -211,7 +207,7 @@
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="gp ">
-                                <img src="{{ asset('storage/'.$podcasts->small) }}" class="object-scale-down h-48 w-96" alt="{{ $podcast->title }}">
+                                    <img src="{{ asset('storage/'.$podcasts->small) }}" class="object-scale-down h-48 w-96" alt="{{ $podcast->title }}">
                                 </div>
                             </td>
                             <td class="vi wy w_ vo lm">
@@ -219,12 +215,12 @@
                             </td>
                             <td class="vi wy w_ vo lm">
                                 @if ($podcast->status === 'active')
-                                    <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $podcast->status }}</div>
-                                @endif 
+                                <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $podcast->status }}</div>
+                                @endif
 
                                 @if ($podcast->status === 'inactive')
-                                    <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $podcast->status }}</div>
-                                @endif 
+                                <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $podcast->status }}</div>
+                                @endif
                             </td>
 
                             <td class="vi wy w_ vo lm">
@@ -234,14 +230,14 @@
                             <td class="vi wy w_ vo lm of">
                                 <div class="fm">
                                     <button class="gq xv rounded-full" wire:click="showEditModal({{ $podcast->id }})">
-                                    <span class=" d">Edit</span>
+                                        <span class=" d">Edit</span>
                                         <svg class="os sf du" viewBox="0 0 32 32">
                                             <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z"></path>
                                         </svg>
                                     </button>
 
                                     <button class="yl xy rounded-full" wire:click="deleteId({{ $podcast->id }})">
-                                    <span class=" d">Delete</span>
+                                        <span class=" d">Delete</span>
                                         <svg class="os sf du" viewBox="0 0 32 32">
                                             <path d="M13 15h2v6h-2zM17 15h2v6h-2z"></path>
                                             <path d="M20 9c0-.6-.4-1-1-1h-6c-.6 0-1 .4-1 1v2H8v2h1v10c0 .6.4 1 1 1h12c.6 0 1-.4 1-1V13h1v-2h-4V9zm-6 1h4v1h-4v-1zm7 3v9H11v-9h10z"></path>
@@ -286,11 +282,20 @@
                                             </label>
                                             <input wire:model="title" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                         </div>
-                                        <div class="col-start-1 sm:col-span-3">
+                                        <div class="col-start-1 sm:col-span-3" wire:model.debounce.365ms="description" wire:ignore>
                                             <label for="description" class="block text-sm font-medium text-gray-700">
                                                 Description
                                             </label>
-                                            <textarea wire:model="description"  cols="50" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" ></textarea>
+                                            <input id="desc" value="{{ $this->description}}" type="hidden" name="description">
+                                            <trix-editor input="desc" class="w-full p-4">{{ $description }}</trix-editor>
+                                        </div>
+                                        <div class="col-start-1 sm:col-span-3" wire:model.debounce.365ms="description" wire:ignore>
+                                            <label for="description" class="block text-sm font-medium text-gray-700">
+                                                Message
+                                            </label>
+                                            <div wire:ignore>
+                                                <textarea wire:model="message" class="min-h-80 h-96 " name="message" id="message">{{ $message }}</textarea>
+                                            </div>
                                         </div>
                                         <div class="col-start-1 sm:col-span-3">
                                             <label for="title" class="block text-sm font-medium text-gray-700">
@@ -301,28 +306,26 @@
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="photo" class="block text-sm font-medium text-gray-700">Person
                                                 photo</label>
-                                            <input wire:model="filename" type="file" autocomplete="given-name"
-                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                                                @if ($oldImage)
-                                                    Photo Preview:
-                                                    <img src="{{ asset('storage/'.$oldImage) }}">
-                                                @endif
-                                                @if ($file)
-                                                    Photo Preview:
-                                                    <img src="{{ $file->temporaryUrl() }}">
-                                                @endif
+                                            <input wire:model="filename" type="file" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            @if ($oldImage)
+                                            Photo Preview:
+                                            <img src="{{ asset('storage/'.$oldImage) }}">
+                                            @endif
+                                            @if ($file)
+                                            Photo Preview:
+                                            <img src="{{ $file->temporaryUrl() }}">
+                                            @endif
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="photo" class="block text-sm font-medium text-gray-700">
                                                 Podcast
                                             </label>
-                                            <input wire:model="audio" type="file" autocomplete="given-name"
-                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            <input wire:model="audio" type="file" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="first-name" class="block text-sm font-medium text-gray-700">Status</label>
                                             <select wire:model="podcastStatus" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
-                                                <option value="" >Select Option</option>
+                                                <option value="">Select Option</option>
                                                 @foreach($statuses as $status)
                                                 <option value="{{ $status }}">{{ $status }}</option>
                                                 @endforeach
@@ -341,9 +344,9 @@
                 <div class="flex flex-wrap justify-end fc">
                     <x-m-button wire:click="closePodcastModal" class="border-slate-200 hover:text-white hover--border-slate-300 g_">Cancel</x-m-button>
                     @if ($podcastId)
-                    <x-m-button wire:click="updatePodcast" class=" ho xi ye">Update</x-m-button>
+                    <x-m-button wire:click="updatePodcast" class="ho xi ye" id="my-submit">Update</x-m-button>
                     @else
-                    <x-m-button wire:click="createPodcast" class=" ho xi ye2">Create</x-m-button>
+                    <x-m-button wire:click="createPodcast" class="ho xi ye2" id="my-submit">Create</x-m-button>
                     @endif
                 </div>
             </div>
@@ -354,31 +357,31 @@
     <!-- modal delete confirmation -->
     <x-jet-dialog-modal wire:model="showConfirmModal" class="">
 
-        
+
         <x-slot name="title" class="border-b bg-slate-200">
             <span class="font-semibold">Delete Confirm</span>
         </x-slot>
-        
+
 
         <x-slot name="content">
             <div class="border-t">
                 <div class="vc vu ">
                     <div class="fw">
 
-                        
+
+                        <div class="">
                             <div class="">
-                                <div class="">
-                                    <div class="flex flex-col space-y-3">
-                                        <div class="flex max-w-auto text-center justify-center items-center">
-                                            <div class="text-lg font-semibold ">
+                                <div class="flex flex-col space-y-3">
+                                    <div class="flex max-w-auto text-center justify-center items-center">
+                                        <div class="text-lg font-semibold ">
                                             <p>Are you sure want to delete?</p>
-                                            </div>
                                         </div>
-                                        
                                     </div>
+
                                 </div>
                             </div>
-                        
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -395,3 +398,34 @@
     </x-jet-dialog-modal>
 
 </div>
+
+@push('styles')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.css" />
+@endpush
+
+@push('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.js"></script>
+<script>
+    // CKEDITOR.replace( 'my-ckeditor' );
+    // $(document).ready(function(){
+    //     const editor = CKEDITOR.replace('my-ckeditor');
+    //     editor.on('change', function(event){
+    //         console.log(event.editor.getData())
+    //         // @this.set('content', event.editor.getData());
+    //     })
+    //     $('#my-submit').click(function(event){
+    //         CKEDITOR.instances['my-ckeditor'].setData('');
+    //     })
+    // })
+    ClassicEditor
+        .create(document.querySelector('#message'))
+        .then(editor => {
+            editor.model.document.on('change:data', () => {
+                @this.set('message', editor.getData());
+            })
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+@endpush

@@ -46,6 +46,7 @@ use App\Http\Livewire\ShipmentIndex;
 use App\Http\Livewire\SlideIndex;
 use App\Http\Livewire\TagIndex;
 use App\Http\Livewire\UserIndex;
+use App\Http\Livewire\Portrait;
 
 
 use Illuminate\Support\Facades\Route;
@@ -150,4 +151,5 @@ Route::middleware([
     Route::get('/changelog', [DashboardController::class, 'changelog']);
     Route::get('/faq', [DashboardController::class, 'faq']);
     Route::get('/roadmap', [DashboardController::class, 'roadmap']);
+    Route::get('/portrait', Portrait::class);
 });

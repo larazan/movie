@@ -278,7 +278,7 @@
                                             </label>
                                             <input wire:model="firstName" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             @error('firstName')
-                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                                <div class="go re yl">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="col-start-1 sm:col-span-3">
@@ -287,7 +287,7 @@
                                             </label>
                                             <input wire:model="lastName" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             @error('lastName')
-                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                                <div class="go re yl">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="col-start-1 sm:col-span-3">
@@ -296,7 +296,7 @@
                                             </label>
                                             <input wire:model="email" type="email" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             @error('email')
-                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                                <div class="go re yl">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="col-start-1 sm:col-span-3">
@@ -305,7 +305,7 @@
                                             </label>
                                             <input wire:model="phone" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             @error('phone')
-                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                                <div class="go re yl">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="col-start-1 sm:col-span-3">
@@ -314,7 +314,7 @@
                                             </label>
                                             <input wire:model="password" type="password" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             @error('password')
-                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                                <div class="go re yl">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="col-start-1 sm:col-span-3">
@@ -323,7 +323,7 @@
                                             </label>
                                             <input wire:model="passwordConfirmation" type="password" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             @error('passwordConfirmation')
-                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                                <div class="go re yl">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">

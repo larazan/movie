@@ -14,6 +14,7 @@ class PodcastIndex extends Component
 {
     use WithFileUploads, WithPagination;
 
+    public $message;
     public $showPodcastModal = false;
     public $title;
     public $description;
@@ -42,6 +43,17 @@ class PodcastIndex extends Component
         'audio' =>'nullable|file|mimes:audio/mpeg,mpga,mp3,wav,aac',
     ];
 
+    public function tesAlert()
+    {
+        // dd('tes alert');
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Something is wrong!']);
+    }
+
+    // public function mount()
+    // {
+    //     $this->description = 'lorem ipsum dolor sit amet';
+    // }
+
     public function showCreateModal()
     {
         $this->showPodcastModal = true;
@@ -68,6 +80,7 @@ class PodcastIndex extends Component
 
     public function createPodcast()
     {
+        dd($this->message);
         $this->validate();
   
         $new = Str::slug($this->name) . '_' . time();

@@ -108,7 +108,7 @@
                                     <input wire:model="name" type="text" autocomplete="given-name"
                                         class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     @error('name')
-                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                        <div class="go re yl">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="flex flex-col">
@@ -117,7 +117,7 @@
                                     <input wire:model="createdYear" type="text" autocomplete="given-name"
                                         class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     @error('createdYear')
-                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                        <div class="go re yl">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="flex flex-col">
@@ -126,7 +126,7 @@
                                     <input wire:model="posterPath" type="text" autocomplete="given-name"
                                         class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     @error('posterPath')
-                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                        <div class="go re yl">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>

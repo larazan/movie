@@ -195,7 +195,7 @@
                                             <input wire:model="title" type="text"
                                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             @error('title')
-                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                                <div class="go re yl">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="flex flex-col">
@@ -204,7 +204,7 @@
                                             <input wire:model="runtime" type="text"
                                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             @error('runtime')
-                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                                <div class="go re yl">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="flex flex-col">
@@ -213,7 +213,7 @@
                                             <input wire:model="lang" type="text"
                                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             @error('lang')
-                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                                <div class="go re yl">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="flex flex-col">
@@ -222,7 +222,7 @@
                                             <input wire:model="videoFormat" type="text"
                                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             @error('videoFormat')
-                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                                <div class="go re yl">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="flex flex-col">
@@ -231,7 +231,7 @@
                                             <input wire:model="rating" type="text"
                                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             @error('rating')
-                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                                <div class="go re yl">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="flex flex-col">
@@ -240,7 +240,7 @@
                                             <input wire:model="posterPath" type="text"
                                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             @error('posterPath')
-                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                                <div class="go re yl">{{ $message }}</div>
                                             @enderror
                                         </div>
 
@@ -250,7 +250,7 @@
                                             <input wire:model="backdropPath" type="text"
                                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             @error('backdropPath')
-                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                                <div class="go re yl">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="flex flex-col">
@@ -259,7 +259,7 @@
                                             <textarea
                                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">{{ $overview }}</textarea>
                                             @error('overview')
-                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                                <div class="go re yl">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="flex flex-col">
@@ -319,7 +319,7 @@
                                     <input wire:model="trailerName" type="text"
                                         class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     @error('trailerName')
-                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                        <div class="go re yl">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="flex flex-col">
@@ -328,7 +328,7 @@
                                     <textarea wire:model="embedHtml"
                                         class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
                                     @error('embedHtml')
-                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                        <div class="go re yl">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>

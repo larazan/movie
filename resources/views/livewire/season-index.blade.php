@@ -291,7 +291,7 @@
                                             </label>
                                             <input wire:model="title" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             @error('title')
-                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                                <div class="go re yl">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="col-start-1 sm:col-span-3">
@@ -300,7 +300,7 @@
                                             </label>
                                             <input wire:model="year" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             @error('year')
-                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                                <div class="go re yl">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
