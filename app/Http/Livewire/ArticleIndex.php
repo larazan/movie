@@ -44,6 +44,11 @@ class ArticleIndex extends Component
         // 'file' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
     ];
 
+    public function mount()
+    {
+        $this->publishedAt = today()->format('Y-m-d');
+    }
+
     public function showCreateModal()
     {
         $this->showArticleModal = true;
@@ -70,6 +75,7 @@ class ArticleIndex extends Component
 
     public function createArticle()
     {
+        // dd($this->publishedAt);
         $this->validate();
   
         $new = Str::slug($this->title) . '_' . time();
