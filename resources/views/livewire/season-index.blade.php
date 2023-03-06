@@ -298,12 +298,27 @@
                                             <label for="title" class="block text-sm font-medium text-gray-700">
                                                 Year
                                             </label>
+                                            {{--
                                             <input wire:model="year" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            --}}
+                                            <select wire:model="year" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
+                                                <option value="" >Select year</option>
+                                                @for ($year=1980; $year <= $currentYear; $year++)
+                                                <option value="{{ $year }}">{{ $year }}</option>
+                                                @endfor
+                                            </select>
                                             @error('year')
                                                 <div class="go re yl">{{ $message }}</div>
                                             @enderror
                                         </div>
-                                        <div class="col-span-6 sm:col-span-3">
+                                        <div 
+                                            class="col-span-6 sm:col-span-3"
+                                            x-data="{ isUploading: false, progress: 0 }"
+                                            x-on:livewire-upload-start="isUploading = true"
+                                            x-on:livewire-upload-finish="isUploading = false"
+                                            x-on:livewire-upload-error="isUploading = false"
+                                            x-on:livewire-upload-progress="progress = $event.detail.progress"
+                                        >
                                             <label for="photo" class="block text-sm font-medium text-gray-700">Image
                                             </label>
                                             <input wire:model="filename" type="file" autocomplete="given-name"
@@ -316,6 +331,10 @@
                                                     Photo Preview:
                                                     <img src="{{ $file->temporaryUrl() }}">
                                                 @endif
+                                            <!-- Progress Bar -->
+                                            <div x-show="isUploading">
+                                                <progress max="100" x-bind:value="progress"></progress>
+                                            </div>
                                         </div>
                                         
                                     </div>

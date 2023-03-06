@@ -26,6 +26,7 @@ class MovieIndex extends Component
     public $sortDirection = 'asc';
     public $perPage = 5;
 
+    public $currentYear;
     public $title;
     public $categoryId;
     public $lang;
@@ -60,17 +61,24 @@ class MovieIndex extends Component
 
     protected $rules = [
         'title' => 'required',
-        'category_movie_id' => 'required',
-        'release_date' => 'required',
+        'categoryId' => 'required',
+        'releaseDate' => 'required',
         'description' => 'required',
         'year' => 'required',
         'country' => 'required',
         'duration' => 'required',
         'lang' => 'required',
-        'network' => 'required',
-        'genre' => 'required',
+        'networks' => 'required',
+        'genres' => 'required',
         // 'filename' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
     ];
+
+    public function mount()
+    {
+        $this->currentYear = now()->year;
+        $this->releaseDate = today()->format('Y-m-d');
+    } 
+
 
     // generate movie
 

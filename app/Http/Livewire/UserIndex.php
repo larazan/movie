@@ -35,12 +35,12 @@ class UserIndex extends Component
     public $deleteId = '';
 
     protected $rules = [
-        'first_name' => 'required|min:2',
-        'last_name' => 'required|min:2',
+        'firstName' => 'required|min:2',
+        'lastName' => 'required|min:2',
         'email' => 'required|email|max:255|unique:users',
         'password' => 'required|min:8|confirmed',
         'phone' => 'required|min:10',
-        'isAdmin' => 'required'
+        'userStatus' => 'required'
     ];
 
     public function showCreateModal()

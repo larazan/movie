@@ -11,10 +11,18 @@ use Intervention\Image\ImageManagerStatic as Image;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use Livewire\Component;
+// use Illuminate\Support\Carbon;
+use Carbon\CarbonInterval;
 
 class MusicIndex extends Component
 {
     use WithFileUploads, WithPagination;
+
+    public $init = 480;
+    public $minutes;
+    public $seconds;
+    public $minute;
+    public $second;
 
     public $showMusicModal = false;
     public $actress;
@@ -48,6 +56,17 @@ class MusicIndex extends Component
         'audio' =>'nullable|file|mimes:audio/mpeg,mpga,mp3,wav,aac',
     ];
 
+    public function mount()
+    {
+        $this->minutes = $this->dura($this->init);
+        $this->seconds = $this->init % 60;
+        // $this->minutes = CarbonInterval::seconds($this->init)->cascade()->forHumans();
+        // $this->seconds = $this->init % 60;
+
+        $this->minute = 0;
+        $this->second = 0;
+    }
+
     public function showCreateModal()
     {
         $this->showMusicModal = true;
@@ -75,6 +94,8 @@ class MusicIndex extends Component
     public function createMusic()
     {
         $this->validate();
+
+        $originalTime = ($this->minute * 60) + $this->second;
   
         $new = Str::slug($this->name) . '_' . time();
         // IMAGE
@@ -95,7 +116,7 @@ class MusicIndex extends Component
             'album' => $this->album,
             'description' => $this->description,
             'country' => $this->country,
-            'duration' => $this->duration,
+            'duration' => $originalTime,
             'audio' => $audioPath,
             'origin' => $filePath,
             'small' => $resizedImage['small'],
@@ -105,6 +126,32 @@ class MusicIndex extends Component
 
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Music created successfully']);
+    }
+
+    public function dura($dura)
+    {
+        $minutes = floor($dura / 60);
+        $seconds = $dura % 60;
+        if ($seconds > 9) {
+            return $minutes.':'.$seconds;
+        } 
+        elseif ($seconds == 0) {
+            return $minutes.':00';
+        } 
+        else {
+            return $minutes.':'. sprintf("%02d", $seconds);
+        }
+    }
+
+    public function oriDura($dura, $type)
+    {
+        switch ($type) {
+            case 'detik':
+                return $dura % 60;
+                break;
+            case 'menit':
+                return floor($dura / 60);
+        }
     }
 
     public function showEditModal($musicId)
@@ -118,6 +165,8 @@ class MusicIndex extends Component
         $this->description = $music->description;
         $this->country = $music->country;
         $this->duration = $music->duration;
+        $this->minute = $this->oriDura($music->duration, 'menit');
+        $this->second = $this->oriDura($music->duration, 'detik');
         $this->oldImage = $music->small;
         $this->musicStatus = $music->status;
         $this->showMusicModal = true;
@@ -128,6 +177,8 @@ class MusicIndex extends Component
         $music = Music::findOrFail($this->musicId);
         $this->validate();
   
+        $originalTime = ($this->minute * 60) + $this->second;
+
         $new = Str::slug($this->name) . '_' . time();
         $filename = $new . '.' . $this->file->getClientOriginalName();
         $audioname = $new . '.' . $this->audio->getClientOriginalName();
@@ -154,7 +205,7 @@ class MusicIndex extends Component
                     'album' => $this->album,
                     'description' => $this->description,
                     'country' => $this->country,
-                    'duration' => $this->duration,
+                    'duration' => $originalTime,
                     'audio' => $audioPath,
                     'origin' => $filePath,
                     'small' => $resizedImage['small'],

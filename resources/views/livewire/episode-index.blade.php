@@ -328,7 +328,10 @@
                                             <label for="title" class="block text-sm font-medium text-gray-700">
                                                 Release Date
                                             </label>
+                                            {{-- 
                                             <input wire:model="releaseDate" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            --}}
+                                            <x-flatpicker wire:model="releaseDate"></x-flatpicker>
                                         </div>
                                         <div class="col-start-1 sm:col-span-3">
                                             <label for="title" class="block text-sm font-medium text-gray-700">
@@ -340,8 +343,14 @@
                                             <label for="title" class="block text-sm font-medium text-gray-700">
                                                 Duration
                                             </label>
-                                            <input wire:model="duration" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            <div class="y">
+                                                <input wire:model="duration" type="number" min="0" style="padding-left: 4rem;" autocomplete="given-name" class="s ou mv mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                <div class="g w j flex items-center pointer-events-none">
+                                                    <span class="text-sm gq gp vn">Minute</span>
+                                                </div>
+                                            </div>
                                         </div>
+                                            
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="photo" class="block text-sm font-medium text-gray-700">Image
                                             </label>

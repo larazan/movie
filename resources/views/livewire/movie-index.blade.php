@@ -698,6 +698,74 @@
                                             </label>
                                             <input wire:model="title" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                         </div>
+                                        <div class="flex flex-row justify-between">
+                                            <div class="col-start-1 sm:col-span-3">
+                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                    Category
+                                                </label>
+                                                <select wire:model="categoryId" class="h-full2 rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
+                                                    <option value="" >Select category</option>
+                                                    @foreach($categories as $cat)
+                                                    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-start-1 sm:col-span-3">
+                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                    Genre
+                                                </label>
+                                                <input wire:model="genres" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            </div>
+                                        </div>
+                                        <div class="col-start-1 sm:col-span-3">
+                                            <label for="description" class="block text-sm font-medium text-gray-700">
+                                                Description
+                                            </label>
+                                            <textarea wire:model="description"  cols="50" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" ></textarea>
+                                        </div>
+                                        <div class="flex flex-row space-x-4 justify-between2">
+                                            <div class="col-start-1 sm:col-span-3">
+                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                    Year
+                                                </label>
+                                                <select wire:model="year" class="h-full2 rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
+                                                <option value="" >Select year</option>
+                                                @for ($year=1980; $year <= $currentYear; $year++)
+                                                    <option value="{{ $year }}">{{ $year }}</option>
+                                                @endfor
+                                            </select>
+                                            </div>
+                                            <div class="col-start-1 sm:col-span-3">
+                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                    Country
+                                                </label>
+                                                <select wire:model="country" class="h-full2 rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
+                                                    <option value="" >Select country</option>
+                                                    @foreach($countries as $cat)
+                                                    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-row justify-between">
+                                            <div class="col-start-1 sm:col-span-3">
+                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                    Duration
+                                                </label>
+                                                <div class="y">
+                                                <input wire:model="duration" type="number" min="0" style="padding-left: 4rem;" autocomplete="given-name" class="s ou mv mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                <div class="g w j flex items-center pointer-events-none">
+                                                    <span class="text-sm gq gp vn">Minute</span>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div class="col-start-1 sm:col-span-3">
+                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                    Languange
+                                                </label>
+                                                <input wire:model="lang" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            </div>
+                                        </div>
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="photo" class="block text-sm font-medium text-gray-700">Person
                                                 photo</label>
@@ -711,6 +779,21 @@
                                                     Photo Preview:
                                                     <img src="{{ $file->temporaryUrl() }}">
                                                 @endif
+                                        </div>
+                                        <div class="flex justify-between">
+                                        <div class="col-start-1 sm:col-span-3">
+                                            <label for="title" class="block text-sm font-medium text-gray-700">
+                                                Network
+                                            </label>
+                                            <input wire:model="networks" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                        </div>
+                                        <div class="col-start-1 sm:col-span-3">
+                                            <label for="title" class="block text-sm font-medium text-gray-700">
+                                                Release Date
+                                            </label>
+                                           
+                                            <x-flatpicker wire:model="releaseDate"></x-flatpicker>
+                                        </div>
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="first-name" class="block text-sm font-medium text-gray-700">Status</label>

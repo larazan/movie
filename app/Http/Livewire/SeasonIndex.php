@@ -18,6 +18,7 @@ class SeasonIndex extends Component
 
     public $showSeasonModal = false;
 
+    public $currentYear;
     public $title;
     public $year;
     public $file;
@@ -127,6 +128,11 @@ class SeasonIndex extends Component
     //             ->paginate($this->perPage)
     //     ]);
     // }
+
+    public function mount()
+    {
+        $this->currentYear = now()->year;
+    }
 
     public function showCreateModal()
     {

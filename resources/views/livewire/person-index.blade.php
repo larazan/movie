@@ -462,7 +462,10 @@
                                                 <label for="title" class="block text-sm font-medium text-gray-700">
                                                     Birth Date
                                                 </label>
-                                                <input wire:model="birthDate" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                {{-- 
+                                                    <input wire:model="birthDate" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                --}}
+                                                <x-flatpicker wire:model="birthDate"></x-flatpicker>
                                             </div>
                                             <div class="col-start-1 sm:col-span-3">
                                                 <label for="title" class="block text-sm font-medium text-gray-700">

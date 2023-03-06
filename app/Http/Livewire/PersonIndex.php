@@ -58,6 +58,11 @@ class PersonIndex extends Component
         // 'file' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
     ];
 
+    public function mount()
+    {
+        $this->birthDate = today()->format('Y-m-d');
+    }
+
     public function showCreateModal()
     {
         $this->showPersonModal = true;

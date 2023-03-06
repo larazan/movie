@@ -53,6 +53,11 @@ class EpisodeIndex extends Component
         // 'file' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
     ];
 
+    public function mount()
+    {
+        $this->releaseDate = today()->format('Y-m-d');
+    }
+
     // generate episode
 
     // public function generateEpisode()

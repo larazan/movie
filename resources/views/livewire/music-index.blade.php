@@ -161,13 +161,16 @@
                                 <div class="gp text-slate-800">Dominik</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp ">-</div>
+                                <div class="od sy ub mr-2 _b">
+                                    <img class="rounded-full" src="{{ asset('images/user-40-11.jpg') }}" width="40" height="40" alt="User 01">
+                                </div>
+                                <!-- <div class="gp ">-</div> -->
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="gp ">-</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp ">-</div>
+                                <div class="gp ">{{ $minutes }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="inline-flex gp hf yl rounded-full gn vp vd">Overdue</div>
@@ -312,9 +315,23 @@
                                         </div>
                                         <div class="col-start-1 sm:col-span-3">
                                             <label for="title" class="block text-sm font-medium text-gray-700">
-                                                Music Duration
+                                                Duration
                                             </label>
-                                            <input wire:model="duration" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            <div class="flex flex-row space-x-2">
+                                                <div class="">
+                                                    <input wire:model="minute" type="number" max="59" min="0" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                    <!-- <div class="g w j flex items-center pointer-events-none">
+                                                        <span class="text-sm gq gp vn">mnt</span>
+                                                    </div> -->
+                                                </div>
+                                                <div class=""> 
+                                                    <input wire:model="second" type="number" max="59" min="0" autocomplete="given-name" class=" mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                    <!-- <div class="g w j flex items-center pointer-events-none">
+                                                        <span class="text-sm gq gp vn">dtk</span>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                            
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="photo" class="block text-sm font-medium text-gray-700">
@@ -333,7 +350,7 @@
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="photo" class="block text-sm font-medium text-gray-700">
-                                                Music
+                                                Audio File
                                             </label>
                                             <input wire:model="audio" type="file" autocomplete="given-name"
                                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
