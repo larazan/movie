@@ -4,7 +4,7 @@
 
             <!-- Header: Left side -->
             <div class="flex">
-                
+{{--                
                 <!-- Hamburger button -->
                 <button
                     class="text-slate-500 hover:text-slate-600 lg:hidden"
@@ -19,7 +19,20 @@
                         <rect x="4" y="17" width="16" height="2" />
                     </svg>
                 </button>
-
+--}} 
+                <button class="text-slate-500 hover--text-slate-600 tex" 
+                    @click.stop="sidebarOpen = !sidebarOpen" 
+                    aria-controls="sidebar" 
+                    :aria-expanded="sidebarOpen" 
+                    aria-expanded="false"
+                >
+                    <span class="d">Open sidebar</span>
+                    <svg class="oi so du" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="4" y="5" width="16" height="2"></rect>
+                        <rect x="4" y="11" width="16" height="2"></rect>
+                        <rect x="4" y="17" width="16" height="2"></rect>
+                    </svg>
+                </button>
             </div>
 
             <!-- Header: Right side -->

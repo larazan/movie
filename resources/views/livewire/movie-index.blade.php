@@ -714,7 +714,17 @@
                                                 <label for="title" class="block text-sm font-medium text-gray-700">
                                                     Genre
                                                 </label>
-                                                <input wire:model="genres" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                
+                                                <x-select2 wire:model="genres" id="genres" placeholder="Select Genres">
+                                                    <option>One</option>
+                                                    <option>Alaska</option>
+                                                    <option>California</option>
+                                                    <option>Delaware</option>
+                                                    <option>Tennessee</option>
+                                                    <option>Texas</option>
+                                                    <option>Washington</option>
+                                                </x-select2>
+                                       
                                             </div>
                                         </div>
                                         <div class="col-start-1 sm:col-span-3">
