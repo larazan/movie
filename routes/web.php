@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\MessageCreated;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CastController;
@@ -17,6 +18,7 @@ use App\Http\Livewire\CastIndex;
 use App\Http\Livewire\CategoryArticleIndex;
 use App\Http\Livewire\CategoryIndex;
 use App\Http\Livewire\CharacterIndex;
+use App\Http\Livewire\Chat\Main;
 use App\Http\Livewire\CountryIndex;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\EpisodeIndex;
@@ -67,6 +69,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/message/created', function () {
+    MessageCreated::dispatch('lorem ipsum dolor sit');
+});
+
 // Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->get('/admin', [AdminController::class, 'index'])->name('admin.index');
 
 Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -79,6 +85,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('casts', CastIndex::class)->name('casts.index');
     Route::get('category-article', CategoryArticleIndex::class)->name('category-article.index');
     Route::get('categories', CategoryIndex::class)->name('categories.index');
+    Route::get('chat', Main::class)->name('chat');
     // Route::get('characters', CharacterIndex::class)->name('characters.index');
     Route::get('countries', CountryIndex::class)->name('countries.index');
     Route::get('episodes', EpisodeIndex::class)->name('episodes.index');
@@ -117,6 +124,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('notification', [DashboardController::class, 'notification']);
 
 });
+
 
 Route::middleware([
     'auth:sanctum',

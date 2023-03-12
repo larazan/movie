@@ -3,7 +3,7 @@
                             <nav class="flex" role="navigation" aria-label="Navigation">
                                 <div class="mr-2">
                                     <span class="inline-flex items-center justify-center rounded gw vp vr bg-white border border-slate-200 yf">
-                                        <span class="d">Previous</span><wbr>
+                                        <span class="d">Previous1</span><wbr>
                                         <svg class="sl oo du" viewBox="0 0 16 16">
                                             <path d="M9.4 13.4l1.4-1.4-4-4 4-4-1.4-1.4L4 8z"></path>
                                         </svg>
@@ -28,7 +28,7 @@
                                 </ul>
                                 <div class="nq">
                                     <a href="#0" class="inline-flex items-center justify-center rounded gw vp vr bg-white xn border border-slate-200 g_ xc bv">
-                                        <span class="d">Next</span><wbr>
+                                        <span class="d">Next1</span><wbr>
                                         <svg class="sl oo du" viewBox="0 0 16 16">
                                             <path d="M6.6 13.4L5.2 12l4-4-4-4 1.4-1.4L12 8z"></path>
                                         </svg>

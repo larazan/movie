@@ -1,9 +1,4 @@
-<div class="relative flex">
-
-        <!-- Messages sidebar -->
-       
-
-        <div id="messages-sidebar" class="g t_ k te ou zt qo qf ql ih za wn wr wu translate-x-0" :class="msgSidebarOpen ? 'translate-x-0' : '-translate-x-full'">
+<div id="messages-sidebar" class="g t_ k te ou zt qo qf ql ih za wn wr wu translate-x-0" :class="msgSidebarOpen ? 'translate-x-0' : '-translate-x-full'">
     <div class="b tm bg-white lc ll l ub ca border-slate-200 zo tny sq">
 
         <!-- #Marketing group -->
@@ -75,57 +70,41 @@
                 <!-- Search form -->
                 <form class="y">
                     <label for="msg-search" class="d">Search</label>
-                    <input id="msg-search" class="s ou me xq" type="search" placeholder="Search…" wire:model="search">
+                    <input id="msg-search" class="s ou me xq" type="search" placeholder="Search…">
                     <button class="g w j kk" type="submit" aria-label="Search">
                         <svg class="oo sl ub du gq kj ml-3 mr-2" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                             <path d="M7 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zM7 2C4.243 2 2 4.243 2 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5z"></path>
                             <path d="M15.707 14.293L13.314 11.9a8.019 8.019 0 01-1.414 1.414l2.393 2.393a.997.997 0 001.414 0 .999.999 0 000-1.414z"></path>
                         </svg>
                     </button>
-                    
-                    @if (strlen($search) >= 2)
-                    <div class="absolute border bg-white text-sm shadow w-full mt-1">
-                    @if ($searchResults->count() > 0)
-                        <ul>
-                            @foreach ($searchResults as $result)
-                            <li class="">
-                                <a href="" class="block hover:bg-indigo-500 text-slate-800 hover:text-white px-3 py-2">
-                                    <div class="flex items-center ld">
-                                        <img class="os sf rounded-full mr-2" src="{{ asset('images/user-36-01.jpg') }}" width="32" height="32" alt="User 01">
-                                        <div class="ld">
-                                            <span class="text-sm gp">{{ $result->first_name }} {{ $result->last_name }}</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            @endforeach
-                           
-                        </ul>
-                    @else
-                        <span class="px-3 py-2 text-slate-800">No results for "{{ $search }}"</span>
-                    @endif
-                    </div>
-                    @endif
-                    
                 </form>
                 <!-- Direct messages -->
                 <div class="io">
                     <div class="go gh gq gv ro">Direct messages</div>
+                    @if (count($conversations) > 0)
                     <ul class="rh">
-                        <li class="nv">
-                            <button class="flex items-center fe ou dx rounded hl" @click="msgSidebarOpen = false; $refs.contentarea.scrollTop = 99999999;">
-                                <div class="flex items-center ld">
-                                    <img class="os sf rounded-full mr-2" src="{{ asset('images/user-36-01.jpg') }}" width="32" height="32" alt="User 01">
-                                    <div class="ld">
-                                        <span class="text-sm gp text-slate-800">Dominik Lamakani</span>
+                        @foreach ($conversations as $conversation)
+                            <li class="nv" wire:key='{{$conversation->id}}' wire:click="$emit('chatUserSelected', {{$conversation}},{{$this->getChatUserInstance($conversation, $name = 'id') }})">
+                                <button class="flex items-center fe ou dx rounded hl" @click="msgSidebarOpen = false; $refs.contentarea.scrollTop = 99999999;">
+                                    <div class="flex items-center ld">
+                                        <img class="os sf rounded-full mr-2" src="{{ asset('images/user-36-01.jpg') }}" width="32" height="32" alt="User 01">
+                                        <div class="ld">
+                                            <span class="text-sm gp text-slate-800">{{ $this->getChatUserInstance($conversation, $name = 'name') }}</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="flex flex-col items-end nq">
-                                    <div class="text-xs text-gray-500">23/02/23</div>
-                                    <div class="go inline-flex gp pi ye rounded-full gn gw vi">2</div>
-                                </div>
-                            </button>
-                        </li>
+                                    <div class="flex flex-col items-end nq">
+                                    @php
+                                        if(count($conversation->messages->where('read',0)->where('receiver_id',Auth()->user()->id))){
+                                            echo '<div class="text-xs text-gray-500">{{ $conversation->messages->last()?->created_at->shortAbsoluteDiffForHumans() }}</div><div class="go inline-flex gp pi ye rounded-full gn gw vi"> '
+                                            . count($conversation->messages->where('read',0)->where('receiver_id',Auth()->user()->id)) .'</div> ';
+                                        } else {
+                                            echo '<div class="text-xs text-gray-500">{{ $conversation->messages->last()?->created_at->shortAbsoluteDiffForHumans() }}</div><svg class="w-3 h-3 ub du gq" viewBox="0 0 12 12"><path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z"></path></svg>';
+                                        } 
+                                    @endphp
+                                    </div>
+                                </button>
+                            </li>
+                        @endforeach
                         <li class="nv">
                             <button class="flex items-center fe ou dx rounded" @click="msgSidebarOpen = false; $refs.contentarea.scrollTop = 99999999;">
                                 <div class="flex items-center ld">
@@ -139,65 +118,9 @@
                                 </div>
                             </button>
                         </li>
-                        <li class="nv">
-                            <button class="flex items-center fe ou dx rounded" @click="msgSidebarOpen = false; $refs.contentarea.scrollTop = 99999999;">
-                                <div class="flex items-center ld">
-                                    <img class="os sf rounded-full mr-2" src="{{ asset('images/user-36-09.jpg') }}" width="32" height="32" alt="User 03">
-                                    <div class="ld">
-                                        <span class="text-sm gp text-slate-800">Jerzy Wierzy</span>
-                                    </div>
-                                </div>
-                                <div class="flex items-center nq">
-                                    <img class="ox su rounded-full ub" src="{{ asset('images/user-36-09.jpg') }}" width="20" height="20" alt="User 03">
-                                </div>
-                            </button>
-                        </li>
-                        <li class="nv">
-                            <button class="flex items-center fe ou dx rounded" @click="msgSidebarOpen = false; $refs.contentarea.scrollTop = 99999999;">
-                                <div class="flex items-center ld">
-                                    <img class="os sf rounded-full mr-2" src="{{ asset('images/user-36-04.jpg') }}" width="32" height="32" alt="User 04">
-                                    <div class="ld">
-                                        <span class="text-sm gp text-slate-800">Adrian Przetocki</span>
-                                    </div>
-                                </div>
-                                <div class="flex items-center nq">
-                                    <svg class="w-3 h-3 ub du gq" viewBox="0 0 12 12">
-                                        <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z"></path>
-                                    </svg>
-                                </div>
-                            </button>
-                        </li>
-                        <li class="nv">
-                            <button class="flex items-center fe ou dx rounded" @click="msgSidebarOpen = false; $refs.contentarea.scrollTop = 99999999;">
-                                <div class="flex items-center ld">
-                                    <img class="os sf rounded-full mr-2" src="{{ asset('images/user-36-05.jpg') }}" width="32" height="32" alt="User 05">
-                                    <div class="ld">
-                                        <span class="text-sm gp text-slate-800">Simona Lürwer</span>
-                                    </div>
-                                </div>
-                                <div class="flex items-center nq">
-                                    <svg class="w-3 h-3 ub du gq" viewBox="0 0 12 12">
-                                        <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z"></path>
-                                    </svg>
-                                </div>
-                            </button>
-                        </li>
-                        <li class="nv">
-                            <button class="flex items-center fe ou dx rounded" @click="msgSidebarOpen = false; $refs.contentarea.scrollTop = 99999999;">
-                                <div class="flex items-center ld">
-                                    <img class="os sf rounded-full mr-2" src="{{ asset('images/user-36-06.jpg') }}" width="32" height="32" alt="User 06">
-                                    <div class="ld">
-                                        <span class="text-sm gp text-slate-800">Mary Roszczewski</span>
-                                    </div>
-                                </div>
-                                <div class="flex items-center nq">
-                                    <svg class="w-3 h-3 ub du gq" viewBox="0 0 12 12">
-                                        <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z"></path>
-                                    </svg>
-                                </div>
-                            </button>
-                        </li>
+                       
                     </ul>
+                    @endif
                 </div>
                 <!-- Channels -->
                 <div class="io">
@@ -240,8 +163,3 @@
 
     </div>
 </div>
-
-        <!-- Messages body -->
-        <x-messages.body />
-
-    </div>

@@ -206,11 +206,11 @@
                                 <div class="gp ">{{ substr($faq->answer, 0, 120) }}...</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                @if ($faq->status === 'active')
+                                @if ($faq->status === 'inactive')
                                     <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $faq->status }}</div>
                                 @endif 
 
-                                @if ($faq->status === 'inactive')
+                                @if ($faq->status === 'active')
                                     <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $faq->status }}</div>
                                 @endif 
                             </td>
@@ -247,7 +247,7 @@
         </div>
     </div>
 
-    <x-pagination-table />
+    
     {{ $faqs->links() }}
 
     <x-jet-dialog-modal wire:model="showFaqModal" class="">

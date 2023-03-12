@@ -1770,6 +1770,9 @@ select{
 .collapse{
   visibility: collapse;
 }
+.static{
+  position: static;
+}
 .fixed{
   position: fixed;
 }
@@ -2121,6 +2124,9 @@ select{
 .h-9{
   height: 2.25rem;
 }
+.h-96{
+  height: 24rem;
+}
 .h-full{
   height: 100%;
 }
@@ -2129,6 +2135,10 @@ select{
 }
 .max-h-full{
   max-height: 100%;
+}
+.min-h-fit{
+  min-height: -moz-fit-content;
+  min-height: fit-content;
 }
 .min-h-screen{
   min-height: 100vh;
@@ -2246,6 +2256,9 @@ select{
 }
 .max-w-2xl{
   max-width: 42rem;
+}
+.max-w-3xl{
+  max-width: 48rem;
 }
 .max-w-6xl{
   max-width: 72rem;
@@ -2506,6 +2519,11 @@ select{
   --tw-space-y-reverse: 0;
   margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+}
+.space-y-10 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-y-reverse: 0;
+  margin-top: calc(2.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(2.5rem * var(--tw-space-y-reverse));
 }
 .space-y-2 > :not([hidden]) ~ :not([hidden]){
   --tw-space-y-reverse: 0;
@@ -3000,6 +3018,10 @@ select{
   padding-top: 3rem;
   padding-bottom: 3rem;
 }
+.py-16{
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
 .py-2{
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -3164,6 +3186,9 @@ select{
 .font-bold{
   font-weight: 700;
 }
+.font-extrabold{
+  font-weight: 800;
+}
 .font-light{
   font-weight: 300;
 }
@@ -3175,6 +3200,9 @@ select{
 }
 .uppercase{
   text-transform: uppercase;
+}
+.capitalize{
+  text-transform: capitalize;
 }
 .italic{
   font-style: italic;
@@ -3803,11 +3831,6 @@ select{
   border-color: rgb(185 28 28 / var(--tw-border-opacity));
 }
 
-.focus\:border-slate-300:focus{
-  --tw-border-opacity: 1;
-  border-color: rgb(203 213 225 / var(--tw-border-opacity));
-}
-
 .focus\:bg-gray-100:focus{
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
@@ -4430,6 +4453,11 @@ select{
     padding-bottom: 0.5rem;
   }
 
+  .sm\:py-24{
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+
   .sm\:pb-4{
     padding-bottom: 1rem;
   }
@@ -4450,9 +4478,19 @@ select{
     text-align: right;
   }
 
+  .sm\:text-5xl{
+    font-size: 3rem;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+
   .sm\:text-sm{
     font-size: 0.875rem;
     line-height: 1.5715;
+  }
+
+  .sm\:tracking-tight{
+    letter-spacing: -0.025em;
   }
 }
 
@@ -4657,6 +4695,12 @@ select{
   .lg\:px-8{
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+
+  .lg\:text-6xl{
+    font-size: 3.75rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
   }
 
   .lg\:opacity-0{

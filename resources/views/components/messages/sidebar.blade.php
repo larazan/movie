@@ -70,13 +70,47 @@
                 <!-- Search form -->
                 <form class="y">
                     <label for="msg-search" class="d">Search</label>
-                    <input id="msg-search" class="s ou me xq" type="search" placeholder="Search…">
+                    <input id="msg-search" class="s ou me xq" type="search" placeholder="Search…" wire:model="search">
                     <button class="g w j kk" type="submit" aria-label="Search">
                         <svg class="oo sl ub du gq kj ml-3 mr-2" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                             <path d="M7 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zM7 2C4.243 2 2 4.243 2 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5z"></path>
                             <path d="M15.707 14.293L13.314 11.9a8.019 8.019 0 01-1.414 1.414l2.393 2.393a.997.997 0 001.414 0 .999.999 0 000-1.414z"></path>
                         </svg>
                     </button>
+                    <div class="absolute border bg-white text-sm shadow w-full mt-1">
+                        <ul>
+                            <li class="">
+                                <a href="" class="block hover:bg-indigo-500 text-slate-800 hover:text-white px-3 py-2">
+                                    <div class="flex items-center ld">
+                                        <img class="os sf rounded-full mr-2" src="{{ asset('images/user-36-01.jpg') }}" width="32" height="32" alt="User 01">
+                                        <div class="ld">
+                                            <span class="text-sm gp">Dominik Lamakani</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="" class="block hover:bg-indigo-500 text-slate-800 hover:text-white px-3 py-2">
+                                <div class="flex items-center ld">
+                                    <img class="os sf rounded-full mr-2" src="{{ asset('images/user-36-02.jpg') }}" width="32" height="32" alt="User 02">
+                                    <div class="ld">
+                                        <span class="text-sm gp ">Tisha Yanchev</span>
+                                    </div>
+                                </div>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="" class="block hover:bg-indigo-500 text-slate-800 hover:text-white px-3 py-2">
+                                <div class="flex items-center ld">
+                                    <img class="os sf rounded-full mr-2" src="{{ asset('images/user-36-05.jpg') }}" width="32" height="32" alt="User 05">
+                                    <div class="ld">
+                                        <span class="text-sm gp">Simona Lürwer</span>
+                                    </div>
+                                </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </form>
                 <!-- Direct messages -->
                 <div class="io">
@@ -90,7 +124,8 @@
                                         <span class="text-sm gp text-slate-800">Dominik Lamakani</span>
                                     </div>
                                 </div>
-                                <div class="flex items-center nq">
+                                <div class="flex flex-col items-end nq">
+                                    <div class="text-xs text-gray-500">23/02/23</div>
                                     <div class="go inline-flex gp pi ye rounded-full gn gw vi">2</div>
                                 </div>
                             </button>
