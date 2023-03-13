@@ -253,11 +253,11 @@
                             </td>
                            
                             <td class="vi wy w_ vo lm">
-                                @if ($character->status === 'active')
+                                @if ($character->status === 'inactive')
                                     <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $character->status }}</div>
                                 @endif 
 
-                                @if ($character->status === 'inactive')
+                                @if ($character->status === 'active')
                                     <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $character->status }}</div>
                                 @endif 
                             </td>
@@ -292,7 +292,6 @@
                                 </div>
                             </div>
                         </div>
-                        <x-pagination-table />
                     {{ $characters->links() }}
                     </article>
                     

@@ -212,11 +212,11 @@
                                 <div class="gp ">{{ $label->site }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                @if ($label->status === 'active')
+                                @if ($label->status === 'inactive')
                                     <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $label->status }}</div>
                                 @endif 
 
-                                @if ($label->status === 'inactive')
+                                @if ($label->status === 'active')
                                     <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $label->status }}</div>
                                 @endif 
                             </td>
@@ -252,7 +252,7 @@
         </div>
     </div>
 
-    <x-pagination-table />
+   
     {{ $labels->links() }}
 
     <x-jet-dialog-modal wire:model="showLabelModal" class="">

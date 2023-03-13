@@ -223,7 +223,6 @@
         </div>
     </div>
 
-    <x-pagination-table />
     {{ $tags->links() }}
 
     <x-jet-dialog-modal wire:model="showTagModal" class="">

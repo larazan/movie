@@ -229,11 +229,11 @@
                                 <div class="gp text-slate-800">{{ $slide->position }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                @if ($slide->status === 'active')
+                                @if ($slide->status === 'inactive')
                                     <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $slide->status }}</div>
                                 @endif 
 
-                                @if ($slide->status === 'inactive')
+                                @if ($slide->status === 'active')
                                     <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $slide->status }}</div>
                                 @endif 
                             </td>
@@ -269,7 +269,6 @@
         </div>
     </div>
 
-    <x-pagination-table />
     {{ $slides->links() }}
 
     <x-jet-dialog-modal wire:model="showSlideModal" class="">
@@ -309,17 +308,37 @@
                                             </label>
                                             <input wire:model="url" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                         </div>
+                                        {{-- 
                                         <div class="col-start-1 sm:col-span-3">
                                             <label for="title" class="block text-sm font-medium text-gray-700">
                                                 Position
                                             </label>
                                             <input wire:model="position" type="number" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                         </div>
-                                        <div class="col-span-6 sm:col-span-3">
+                                        --}}
+                                        <div 
+                                            class="col-span-6 sm:col-span-3" 
+                                            x-data="{ isUploading: true, progress: 5 }"
+                                            x-on:livewire-upload-start="isUploading = true"
+                                            x-on:livewire-upload-finish="isUploading = false; progress = 5"
+                                            x-on:livewire-upload-error="isUploading = false"
+                                            x-on:livewire-upload-progress="progress = $event.detail.progress"
+                                        >
                                             <label for="photo" class="block text-sm font-medium text-gray-700">Image Slider
                                             </label>
-                                            <input wire:model="filename" type="file" autocomplete="given-name"
-                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            <input wire:model="file" type="file" autocomplete="given-name"
+                                                class="
+                                                    file:bg-gradient-to-b file:from-blue-500 file:to-blue-600 
+                                                    file:px-6 file:py-3 file:m-5
+                                                    file:border-none
+                                                    file:rounded
+                                                    file:text-white
+                                                    file:cursor-pointer
+                                                    file:shadow-lg file:shadow-blue-600/50" 
+                                            />
+                                            <div x-show.transition="isUploading" class="mt-3 w-full bg-slate-100 mb-6">
+                                                <div class="ho ye2 rounded text-xs font-medium py-[1px] text-center" x-bind:style="`width: ${progress}%`">%</div>
+                                            </div>
                                                 @if ($oldImage)
                                                     Photo Preview:
                                                     <img src="{{ asset('storage/'.$oldImage) }}">
@@ -329,6 +348,7 @@
                                                     <img src="{{ $file->temporaryUrl() }}">
                                                 @endif
                                         </div>
+                                        
                                        
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="first-name" class="block text-sm font-medium text-gray-700">Status</label>
@@ -352,9 +372,9 @@
                 <div class="flex flex-wrap justify-end fc">
                     <x-m-button wire:click="closeSlideModal" class="border-slate-200 hover:text-white hover--border-slate-300 g_">Cancel</x-m-button>
                     @if ($slideId)
-                    <x-m-button wire:click="update Slider" class=" ho xi ye">Update</x-m-button>
+                    <x-m-button wire:click="updateSlide" class=" ho xi ye">Update</x-m-button>
                     @else
-                    <x-m-button wire:click="create Slider" class=" ho xi ye2">Create</x-m-button>
+                    <x-m-button wire:click="createSlide" class=" ho xi ye2">Create</x-m-button>
                     @endif
                 </div>
             </div>

@@ -232,11 +232,11 @@
                                 <div class="gp text-slate-800">{{ $slide->position }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                @if ($slide->status === 'active')
+                                @if ($slide->status === 'inactive')
                                 <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $slide->status }}</div>
                                 @endif
 
-                                @if ($slide->status === 'inactive')
+                                @if ($slide->status === 'active')
                                 <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $slide->status }}</div>
                                 @endif
                             </td>
@@ -272,7 +272,6 @@
         </div>
     </div>
 
-    <x-pagination-table />
     {{ $slides->links() }}
 
     <x-jet-dialog-modal wire:model="showProductSlideModal" class="">
@@ -352,11 +351,11 @@
         <x-slot name="footer">
             <div class="border-slate-200">
                 <div class="flex flex-wrap justify-end fc">
-                    <x-m-button wire:click="closeProduct SliderModal" class="border-slate-200 hover:text-white hover--border-slate-300 g_">Cancel</x-m-button>
+                    <x-m-button wire:click="closeProductSlideModal" class="border-slate-200 hover:text-white hover--border-slate-300 g_">Cancel</x-m-button>
                     @if ($slideId)
-                    <x-m-button wire:click="updateProduct Slider" class=" ho xi ye">Update</x-m-button>
+                    <x-m-button wire:click="updateProductSlide" class=" ho xi ye">Update</x-m-button>
                     @else
-                    <x-m-button wire:click="createProduct Slider" class=" ho xi ye2">Create</x-m-button>
+                    <x-m-button wire:click="createProductSlide" class=" ho xi ye2">Create</x-m-button>
                     @endif
                 </div>
             </div>

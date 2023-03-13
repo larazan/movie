@@ -26,10 +26,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'first_name', 'last_name', 'email', 'phone', 'password', 'address1', 'address2', 'province_id', 'city_id', 'postcode', 'profile_photo_path',
     ];
+
+    public const UPLOAD_DIR = 'uploads/user';
+    public const EXTRA_LARGE = '1920x643';
+	public const SMALL = '135x75';
 
     /**
      * The attributes that should be hidden for serialization.

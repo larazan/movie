@@ -239,11 +239,11 @@
                                 <div>{{ $episode->release_date }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                @if ($episode->status === 'active')
+                                @if ($episode->status === 'inactive')
                                     <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $episode->status }}</div>
                                 @endif 
 
-                                @if ($episode->status === 'inactive')
+                                @if ($episode->status === 'active')
                                     <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $episode->status }}</div>
                                 @endif 
                             </td>
@@ -278,7 +278,6 @@
         </div>
     </div>
 
-    <x-pagination-table />
     {{ $episodes->links() }}
 
     <x-jet-dialog-modal wire:model="showEpisodeModal" class="">

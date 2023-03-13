@@ -195,11 +195,11 @@
                             </td>
                            
                             <td class="vi wy w_ vo lm">
-                                @if ($country->status === 'active')
+                                @if ($country->status === 'inactive')
                                     <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $country->status }}</div>
                                 @endif 
 
-                                @if ($country->status === 'inactive')
+                                @if ($country->status === 'active')
                                     <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $country->status }}</div>
                                 @endif 
                             </td>
@@ -235,7 +235,6 @@
         </div>
     </div>
 
-    <x-pagination-table />
     {{ $countries->links() }}
 
     <x-jet-dialog-modal wire:model="showCountryModal" class="">

@@ -454,43 +454,39 @@
                 </h3>
                 <ul class="nk">
                     <!-- Settings -->
-                    <li class="vn vr rounded-sm n_ ww @if(in_array(Request::segment(2), ['accoun', 'notification', 'roles', 'permissions'])){{ 'bg-slate-900' }}@else{{ '' }}@endif" x-data="{ open: false }">
+                    <li class="vn vr rounded-sm n_ ww @if(in_array(Request::segment(2), ['profile', 'settings', 'roles', 'permissions'])){{ 'bg-slate-900' }}@else{{ '' }}@endif" x-data="{ open: false }">
                         <a class="block gj xc ld wt wi" href="#0" @click.prevent="sidebarExpanded ? open = !open : sidebarExpanded = true">
                             <div class="flex items-center fe">
                                 <div class="flex items-center">
                                     <svg class="ub so oi" viewBox="0 0 24 24">
-                                        <path class="du @if(in_array(Request::segment(2), ['accoun', 'notification', 'roles', 'permissions'])){{ 'text-indigo-500' }}@else{{ 'g_' }}@endif" d="M19.714 14.7l-7.007 7.007-1.414-1.414 7.007-7.007c-.195-.4-.298-.84-.3-1.286a3 3 0 113 3 2.969 2.969 0 01-1.286-.3z"></path>
-                                        <path class="du @if(in_array(Request::segment(2), ['accoun', 'notification', 'roles', 'permissions'])){{ 'text-indigo-300' }}@else{{ 'gq' }}@endif" d="M10.714 18.3c.4-.195.84-.298 1.286-.3a3 3 0 11-3 3c.002-.446.105-.885.3-1.286l-6.007-6.007 1.414-1.414 6.007 6.007z"></path>
-                                        <path class="du @if(in_array(Request::segment(2), ['accoun', 'notification', 'roles', 'permissions'])){{ 'text-indigo-500' }}@else{{ 'g_' }}@endif" d="M5.7 10.714c.195.4.298.84.3 1.286a3 3 0 11-3-3c.446.002.885.105 1.286.3l7.007-7.007 1.414 1.414L5.7 10.714z"></path>
-                                        <path class="du @if(in_array(Request::segment(2), ['accoun', 'notification', 'roles', 'permissions'])){{ 'text-indigo-300' }}@else{{ 'gq' }}@endif" d="M19.707 9.292a3.012 3.012 0 00-1.415 1.415L13.286 5.7c-.4.195-.84.298-1.286.3a3 3 0 113-3 2.969 2.969 0 01-.3 1.286l5.007 5.006z"></path>
+                                        <path class="du @if(in_array(Request::segment(2), ['profile', 'settings', 'roles', 'permissions'])){{ 'text-indigo-500' }}@else{{ 'g_' }}@endif" d="M19.714 14.7l-7.007 7.007-1.414-1.414 7.007-7.007c-.195-.4-.298-.84-.3-1.286a3 3 0 113 3 2.969 2.969 0 01-1.286-.3z"></path>
+                                        <path class="du @if(in_array(Request::segment(2), ['profile', 'settings', 'roles', 'permissions'])){{ 'text-indigo-300' }}@else{{ 'gq' }}@endif" d="M10.714 18.3c.4-.195.84-.298 1.286-.3a3 3 0 11-3 3c.002-.446.105-.885.3-1.286l-6.007-6.007 1.414-1.414 6.007 6.007z"></path>
+                                        <path class="du @if(in_array(Request::segment(2), ['profile', 'settings', 'roles', 'permissions'])){{ 'text-indigo-500' }}@else{{ 'g_' }}@endif" d="M5.7 10.714c.195.4.298.84.3 1.286a3 3 0 11-3-3c.446.002.885.105 1.286.3l7.007-7.007 1.414 1.414L5.7 10.714z"></path>
+                                        <path class="du @if(in_array(Request::segment(2), ['profile', 'settings', 'roles', 'permissions'])){{ 'text-indigo-300' }}@else{{ 'gq' }}@endif" d="M19.707 9.292a3.012 3.012 0 00-1.415 1.415L13.286 5.7c-.4.195-.84.298-1.286.3a3 3 0 113-3 2.969 2.969 0 01-.3 1.286l5.007 5.006z"></path>
                                     </svg>
                                     <span class="text-sm gp ml-3 ttw tnn 2xl:opacity--100 wr">Settings</span>
                                 </div>
                                 <!-- Icon -->
                                 <div class="flex shrink-0 ml-2 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 @if(in_array(Request::segment(2), ['accoun', 'notification', 'roles', 'permissions'])){{ 'rotate-180' }}@endif" :class="open ? 'rotate-180' : 'rotate-0'" viewBox="0 0 12 12">
+                                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 @if(in_array(Request::segment(2), ['profile', 'settings', 'roles', 'permissions'])){{ 'rotate-180' }}@endif" :class="open ? 'rotate-180' : 'rotate-0'" viewBox="0 0 12 12">
                                         <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
                                     </svg>
                                 </div>
                             </div>
                         </a>
                         <div class="tex ttj 2xl:block">
-                            <ul class="me re @if(!in_array(Request::segment(2), ['accoun', 'notification', 'roles', 'permissions'])){{ 'hidden' }}@else{ !block }@endif" :class="open ? '!block' : 'hidden'">
+                            <ul class="me re @if(!in_array(Request::segment(2), ['profile', 'settings', 'roles', 'permissions'])){{ 'hidden' }}@else{ !block }@endif" :class="open ? '!block' : 'hidden'">
                                 <li class="rt ww">
-                                    <a class="block @if(in_array(Request::segment(2), ['accoun'])){{ 'text-indigo-500' }}@else{{ 'gq hover--text-slate-200' }}@endif wt wi ld" href="{{ url('admin/accoun') }}">
+                                    <a class="block @if(in_array(Request::segment(2), ['profile'])){{ 'text-indigo-500' }}@else{{ 'gq hover--text-slate-200' }}@endif wt wi ld" href="{{ url('admin/profile') }}">
                                         <span class="text-sm gp ttw tnn 2xl:opacity--100 wr">My Account</span>
                                     </a>
                                 </li>
                                 <li class="rt ww">
-                                    <a class="block @if(in_array(Request::segment(2), ['notification'])){{ 'text-indigo-500' }}@else{{ 'gq hover--text-slate-200' }}@endif wt wi ld" href="{{ url('admin/notification') }}">
-                                        <span class="text-sm gp ttw tnn 2xl:opacity--100 wr">My Notifications</span>
+                                    <a class="block @if(in_array(Request::segment(2), ['settings'])){{ 'text-indigo-500' }}@else{{ 'gq hover--text-slate-200' }}@endif wt wi ld" href="{{ url('admin/settings') }}">
+                                        <span class="text-sm gp ttw tnn 2xl:opacity--100 wr">Setting</span>
                                     </a>
                                 </li>
-                                <!-- <li class="rt ww">
-                                    <a class="block @if(in_array(Request::segment(2), ['products'])){{ 'text-indigo-500' }}@else{{ 'gq hover--text-slate-200' }}@endif wt wi ld" href="connected-apps.html">
-                                        <span class="text-sm gp ttw tnn 2xl:opacity--100 wr">Connected Apps</span>
-                                    </a>
-                                </li> -->
+                               
                                 <li class="rt ww">
                                     <a class="block @if(in_array(Request::segment(2), ['roles'])){{ 'text-indigo-500' }}@else{{ 'gq hover--text-slate-200' }}@endif wt wi ld" href="{{ url('admin/roles') }}">
                                         <span class="text-sm gp ttw tnn 2xl:opacity--100 wr">Roles</span>
@@ -501,11 +497,7 @@
                                         <span class="text-sm gp ttw tnn 2xl:opacity--100 wr">Permissions</span>
                                     </a>
                                 </li>
-                                <!-- <li class="rt ww">
-                                    <a class="block @if(in_array(Request::segment(2), ['products'])){{ 'text-indigo-500' }}@else{{ 'gq hover--text-slate-200' }}@endif wt wi ld" href="feedback.html">
-                                        <span class="text-sm gp ttw tnn 2xl:opacity--100 wr">Give Feedback</span>
-                                    </a>
-                                </li> -->
+                               
                             </ul>
                         </div>
                     </li>

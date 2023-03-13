@@ -250,7 +250,6 @@
         </div>
     </div>
 
-    <x-pagination-table />
     {{ $users->links() }}
 
     <x-jet-dialog-modal wire:model="showUserModal" class="">

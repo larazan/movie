@@ -624,11 +624,11 @@
                             </td>
                             
                             <td class="vi wy w_ vo lm">
-                                @if ($movie->status === 'active')
+                                @if ($movie->status === 'inactive')
                                     <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $movie->status }}</div>
                                 @endif 
 
-                                @if ($movie->status === 'inactive')
+                                @if ($movie->status === 'active')
                                     <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $movie->status }}</div>
                                 @endif 
                             </td>
@@ -670,7 +670,6 @@
         </div>
     </div>
 
-    <x-pagination-table />
     {{ $movies->links() }}
 
     <x-jet-dialog-modal wire:model="showMovieModal" class="">

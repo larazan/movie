@@ -1,5 +1,7 @@
 <div class="vs jj ttm vl ou uf na">
-
+@dump($firstId)
+@dump($selectAll)
+@dump($mySelected)
     <!-- Page header -->
     <div class="je jd jc ii">
 
@@ -49,42 +51,10 @@
             <div class="table-items-action hidden">
                 <div class="flex items-center">
                     <div class="hidden tnh text-sm gm mr-2 lm"><span class="table-items-count"></span> items selected</div>
-                    <button class="btn bg-white border-slate-200 hover--border-slate-300 yl xy">Delete</button>
+                    <button class="btn bg-white border-slate-200 hover--border-slate-300 yl xy" wire:click="deleteSelected">Delete</button>
+                    <input type="hidden" wire:model="firstId" value="{{ $faq[0]->id }}" />
                 </div>
             </div>
-
-            <!-- Dropdown -->
-            <!-- <div class="y" x-data="{ open: false, selected: 2 }">
-                <button class="btn fe un bg-white border-slate-200 hover--border-slate-300 text-slate-500 hover--text-slate-600" aria-label="Select date range" aria-haspopup="true" @click.prevent="open = !open" :aria-expanded="open" aria-expanded="false">
-                    <span class="flex items-center">
-                        <svg class="oo sl du text-slate-500 ub mr-2" viewBox="0 0 16 16">
-                            <path d="M15 2h-2V0h-2v2H9V0H7v2H5V0H3v2H1a1 1 0 00-1 1v12a1 1 0 001 1h14a1 1 0 001-1V3a1 1 0 00-1-1zm-1 12H2V6h12v8z"></path>
-                        </svg>
-                        <span x-text="$refs.options.children[selected].children[1].innerHTML">Last Month</span>
-                    </span>
-                    <svg class="ub nz du gq" width="11" height="7" viewBox="0 0 11 7">
-                        <path d="M5.4 6.8L0 1.4 1.4 0l4 4 4-4 1.4 1.4z"></path>
-                    </svg>
-                </button>
-                <div class="tk g z q ou bg-white border border-slate-200 va rounded bd la re" @click.outside="open = false" @keydown.escape.window="open = false" x-show="open" x-transition:enter="wt wa ws au" x-transition:enter-start="opacity-0 uq" x-transition:enter-end="ba uj" x-transition:leave="wt wa ws" x-transition:leave-start="ba" x-transition:leave-end="opacity-0" style="display: none;">
-                    <div class="gp text-sm g_" x-ref="options">
-                        <button tabindex="0" class="flex items-center ou xr vf vn al" :class="selected === 0 &amp;&amp; 'text-indigo-500'" @click="selected = 0;open = false" @focus="open = true" @focusout="open = false">
-                            <svg class="ub mr-2 du text-indigo-500 invisible" :class="selected !== 0 &amp;&amp; 'invisible'" width="12" height="9" viewBox="0 0 12 9">
-                                <path d="M10.28.28L3.989 6.575 1.695 4.28A1 1 0 00.28 5.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28.28z"></path>
-                            </svg>
-                            <span>Today</span>
-                        </button>
-
-                        <button tabindex="0" class="flex items-center ou xr vf vn al text-indigo-500" :class="selected === 2 &amp;&amp; 'text-indigo-500'" @click="selected = 2;open = false" @focus="open = true" @focusout="open = false">
-                            <svg class="ub mr-2 du text-indigo-500" :class="selected !== 2 &amp;&amp; 'invisible'" width="12" height="9" viewBox="0 0 12 9">
-                                <path d="M10.28.28L3.989 6.575 1.695 4.28A1 1 0 00.28 5.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28.28z"></path>
-                            </svg>
-                            <span>Last Month</span>
-                        </button>
-
-                    </div>
-                </div>
-            </div> -->
 
             <!-- Filter button -->
             <select wire:model="sort" id="sort" class="a">
@@ -118,7 +88,7 @@
                                 <div class="flex items-center">
                                     <label class="inline-flex">
                                         <span class="d">Select all</span>
-                                        <input id="parent-checkbox" class="i" type="checkbox" @click="toggleAll">
+                                        <input id="parent-checkbox" class="i" type="checkbox" @click="toggleAll" wire:model="selectAll">
                                     </label>
                                 </div>
                             </th>
@@ -195,7 +165,7 @@
                                 <div class="flex items-center">
                                     <label class="inline-flex">
                                         <span class="d">Select</span>
-                                        <input class="table-item i" type="checkbox" @click="uncheckParent">
+                                        <input class="table-item i" type="checkbox" @click="uncheckParent" wire:model="mySelected" value="{{ $faq->id }}">
                                     </label>
                                 </div>
                             </td>
@@ -363,3 +333,38 @@
     </x-jet-dialog-modal>
 
 </div>
+
+@push('js')
+<script>
+    // A basic demo function to handle "select all" functionality
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('handleSelect', () => ({
+            selectall: false,
+            selectAction() {
+                countEl = document.querySelector('.table-items-action');
+                if (!countEl) return;
+                checkboxes = document.querySelectorAll('input.table-item:checked');
+                document.querySelector('.table-items-count').innerHTML = checkboxes.length;
+                if (checkboxes.length > 0) {
+                    countEl.classList.remove('hidden');
+                } else {
+                    countEl.classList.add('hidden');
+                }
+            },
+            toggleAll() {
+                this.selectall = !this.selectall;
+                checkboxes = document.querySelectorAll('input.table-item');
+                [...checkboxes].map((el) => {
+                    el.checked = this.selectall;
+                });
+                this.selectAction();
+            },
+            uncheckParent() {
+                this.selectall = false;
+                document.getElementById('parent-checkbox').checked = false;
+                this.selectAction();
+            }
+        }))
+    })
+</script>
+@endpush

@@ -16,7 +16,7 @@
                             <svg class="oo sl ub du gq mr-2" viewBox="0 0 16 16">
                                 <path d="M14.3.3c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4l-8 8c-.2.2-.4.3-.7.3-.3 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l8-8zM15 7c.6 0 1 .4 1 1 0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8c.6 0 1 .4 1 1s-.4 1-1 1C4.7 2 2 4.7 2 8s2.7 6 6 6 6-2.7 6-6c0-.6.4-1 1-1z"></path>
                             </svg>
-                            <span class="text-sm gp g_ xp">My Notifications</span>
+                            <span class="text-sm gp g_ xp">Settings</span>
                         </a>
                     </li>
                     <li class="rv qm qg">

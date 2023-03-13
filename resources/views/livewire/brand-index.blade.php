@@ -203,11 +203,11 @@
                                 </div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                @if ($brand->status === 'active')
+                                @if ($brand->status === 'inactive')
                                     <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $brand->status }}</div>
                                 @endif 
 
-                                @if ($brand->status === 'inactive')
+                                @if ($brand->status === 'active')
                                     <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $brand->status }}</div>
                                 @endif 
                             </td>

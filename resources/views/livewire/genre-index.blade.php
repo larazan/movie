@@ -195,11 +195,11 @@
                             </td>
                            
                             <td class="vi wy w_ vo lm">
-                                @if ($genre->status === 'active')
+                                @if ($genre->status === 'inactive')
                                     <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $genre->status }}</div>
                                 @endif 
 
-                                @if ($genre->status === 'inactive')
+                                @if ($genre->status === 'active')
                                     <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $genre->status }}</div>
                                 @endif 
                             </td>
@@ -235,7 +235,6 @@
         </div>
     </div>
 
-    <x-pagination-table />
     {{ $genres->links() }}
 
     <x-jet-dialog-modal wire:model="showGenreModal" class="">

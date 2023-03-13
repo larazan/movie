@@ -214,11 +214,11 @@
                                 <div class="gp text-slate-800">{{ $podcast->duration }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                @if ($podcast->status === 'active')
+                                @if ($podcast->status === 'inactive')
                                 <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $podcast->status }}</div>
                                 @endif
 
-                                @if ($podcast->status === 'inactive')
+                                @if ($podcast->status === 'active')
                                 <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $podcast->status }}</div>
                                 @endif
                             </td>
@@ -254,7 +254,6 @@
         </div>
     </div>
 
-    <x-pagination-table />
     {{ $podcasts->links() }}
 
     <x-jet-dialog-modal wire:model="showPodcastModal" class="">

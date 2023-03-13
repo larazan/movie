@@ -201,7 +201,13 @@
                                 <div class="gp ">-</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="inline-flex gp hf yl rounded-full gn vp vd">Overdue</div>
+                                @if ($category->status === 'inactive')
+                                    <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $cast->status }}</div>
+                                @endif 
+
+                                @if ($category->status === 'active')
+                                    <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $cast->status }}</div>
+                                @endif 
                             </td>
 
                             <td class="vi wy w_ vo lm">
@@ -235,7 +241,6 @@
         </div>
     </div>
 
-    <x-pagination-table />
     {{ $categories->links() }}
 
     <x-jet-dialog-modal wire:model="showCategoryModal" class="">

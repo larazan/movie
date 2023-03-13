@@ -224,11 +224,11 @@
                                 <div class="gp text-slate-800">{{ $music->duration }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                @if ($music->status === 'active')
+                                @if ($music->status === 'inactive')
                                     <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $music->status }}</div>
                                 @endif 
 
-                                @if ($music->status === 'inactive')
+                                @if ($music->status === 'active')
                                     <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $music->status }}</div>
                                 @endif 
                             </td>
@@ -264,7 +264,6 @@
         </div>
     </div>
 
-    <x-pagination-table />
     {{ $musics->links() }}
 
     <x-jet-dialog-modal wire:model="showMusicModal" class="">

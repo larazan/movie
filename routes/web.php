@@ -9,6 +9,7 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\SerieController;
 use App\Http\Controllers\WelcomeController;
 // Livewire
+use App\Http\Livewire\Account;
 use App\Http\Livewire\ArticleIndex;
 use App\Http\Livewire\AttributeIndex;
 use App\Http\Livewire\BasketIndex;
@@ -77,6 +78,7 @@ Route::get('/message/created', function () {
 
 Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', Dashboard::class);
+    Route::get('profile', Account::class)->name('account.index');
     Route::get('articles', ArticleIndex::class)->name('articles.index');
     Route::get('attributes', AttributeIndex::class)->name('attributes.index');
     Route::get('baskets', BasketIndex::class)->name('basket.index');
@@ -120,8 +122,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('series/{serie}/seasons', SeasonIndex::class)->name('seasons.index');
     Route::get('series/{serie}/seasons/{season}/episodes', EpisodeIndex::class)->name('episodes.index');
 
-    Route::get('accoun', [DashboardController::class, 'user']);
-    Route::get('notification', [DashboardController::class, 'notification']);
+    
 
 });
 

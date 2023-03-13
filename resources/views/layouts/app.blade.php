@@ -18,14 +18,41 @@
     <link href="{{ URL::asset('admin/css/style.css') }}" rel="stylesheet" />
 
     <script src="{{ mix('js/app.js') }}" defer></script>
-    
+
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
-    
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    
+
+    <style>
+        input[type=file] {
+            width: 100%;
+            max-width: 100%;
+            color: #444;
+            padding: 3px;
+            background: #fff;
+            border-radius: 3px;
+            border: 1px solid #555;
+        }
+
+        input[type=file]::file-selector-button {
+            margin-right: 20px;
+            border: none;
+            background: #1e293b;
+            padding: 6px 14px;
+            border-radius: 3px;
+            color: #fff;
+            cursor: pointer;
+            transition: background .2s ease-in-out;
+        }
+
+        input[type=file]::file-selector-button:hover {
+            background: #0d45a5;
+        }
+    </style>
+
     @stack('styles')
     @livewireStyles
 </head>

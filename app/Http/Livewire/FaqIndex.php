@@ -25,6 +25,10 @@ class FaqIndex extends Component
     public $sort = 'asc';
     public $perPage = 5;
 
+    public $mySelected = [];
+    public $selectAll = false;
+    public $firstId = NULL;
+
     public $showConfirmModal = false;
     public $deleteId = '';
 
@@ -32,6 +36,37 @@ class FaqIndex extends Component
         'question' => 'required',
         'answer' => 'required',
     ];
+
+    public function updatedSelectAll($value)
+    {
+        if ($value) {
+            $this->mySelected = Faq::where('id', '>=', $this->firstId)->limit(5)->pluck('id');
+        } else {
+            $this->mySelected = [];
+        }
+    }
+
+    public function updatedMySelected($value)
+    {
+        if (count($value) == 5) {
+            $this->selectAll = true;
+        } else {
+            $this->selectAll = false;
+        }
+    }
+
+    public function resetSelected()
+    {
+        $this->mySelected = [];
+        $this->selectAll = false;
+    }
+
+    public function deleteSelected()
+    {
+        Faq::WhereIn('id', $this->mySelected)->delete();
+        $this->mySelected = [];
+        $this->selectAll = false;
+    }
 
     public function showCreateModal()
     {
@@ -119,8 +154,10 @@ class FaqIndex extends Component
     
     public function render()
     {
+        $faqs = Faq::OrderBy('created_at', $this->sort)->paginate($this->perPage);
+        $this->firstId = $faqs[0]->id;
         return view('livewire.faq-index', [
-            'faqs' => Faq::OrderBy('created_at', $this->sort)->paginate($this->perPage)
+            'faqs' => $faqs
         ]);
     }
 

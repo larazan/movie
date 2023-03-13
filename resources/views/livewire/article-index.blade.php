@@ -220,11 +220,11 @@
                                 <div class="gp ">{{ $article->published_at }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                @if ($article->status === 'active')
+                                @if ($article->status === 'inactive')
                                     <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $article->status }}</div>
                                 @endif 
 
-                                @if ($article->status === 'inactive')
+                                @if ($article->status === 'active')
                                     <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $article->status }}</div>
                                 @endif 
                             </td>
