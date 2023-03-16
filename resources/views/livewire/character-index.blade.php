@@ -113,7 +113,18 @@
 
                         <div class="flex fe items-center qx">
 
-                            Movie
+                            <div class="pb-1">
+                                <img src="{{ asset('images/lastofus.jpg') }}" alt="foto" />
+                            </div>
+                            <div class="uw">
+                                <header class="ru">
+                                    <a href="#0">
+                                        <h3 class="ga text-slate-800 gh rt">The Last of Us (2023)</h3>
+                                    </a>
+                                    <div class="text-sm">Dua puluh tahun setelah peradaban modern dihancurkan, Joel, seorang penyintas yang...</div>
+                                </header>
+                            </div>
+
 
                         </div>
 

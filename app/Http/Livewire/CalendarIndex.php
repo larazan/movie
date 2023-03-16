@@ -8,8 +8,10 @@ use Livewire\Component;
 
 class CalendarIndex extends Component
 {
+    public $date;
     public $events = '';
     public $showEventModal = false;
+    public $showAddEventModal = false;
     public $name;
     public $start;
     public $end;
@@ -18,13 +20,12 @@ class CalendarIndex extends Component
     public $colorStatus = 'indigo';
     public $colors = [
         'indigo',
-        'light-blue',
+        'blue',
         'yellow',
         'red',
         'green',
     ];
 
-    public $showConfirmModal = false;
     public $deleteId = '';
 
     protected $rules = [
@@ -45,21 +46,15 @@ class CalendarIndex extends Component
         $this->showEventModal = true;
     }
 
-    public function closeConfirmModal()
+    public function showAddModal()
     {
-        $this->showConfirmModal = false;
+        $this->showAddEventModal = true;
     }
-
+    
     public function deleteId($id)
     {
-        $this->showConfirmModal = true;
-        $this->deleteId = $id;
-    }
+        Event::find($id)->delete();
 
-    public function delete()
-    {
-        Event::find($this->deleteId)->delete();
-        $this->showConfirmModal = false;
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'danger', 'message' => 'Event deleted successfully']);
     }
@@ -78,6 +73,21 @@ class CalendarIndex extends Component
 
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Event created successfully']);
+    }
+
+    public function addEventNow($event)
+    {
+
+        Event::create([
+            'user_id' => Auth::user()->id,
+            'name' => $event['name'],
+            'start' => $event['start'],
+            'end' => $event['start'],
+            'color' => $event['theme'],
+        ]);
+
+        $this->reset();
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Event added successfully']);
     }
 
     public function showEditModal($eventId)
@@ -127,6 +137,7 @@ class CalendarIndex extends Component
     public function closeEventModal()
     {
         $this->showEventModal = false;
+        $this->showAddEventModal = false;
     }
 
     public function resetFilters()
@@ -147,5 +158,10 @@ class CalendarIndex extends Component
 
         $this->events = json_encode($events);
         return view('livewire.calendar-index');
+    }
+
+    public function getDate($day)
+    {
+        dd('day');
     }
 }

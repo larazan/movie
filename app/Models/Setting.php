@@ -28,6 +28,7 @@ class Setting extends Model
     ];
 
     public const UPLOAD_DIR = 'uploads/setting';
+    public const UPLOAD_DIR_ICON = 'uploads/icon';
 
     public const MEDIUM = '312x400';
 	public const SMALL = '135x75';

@@ -48,6 +48,7 @@ class MovieIndex extends Component
     ];
 
     public $showMovieModal = false;
+    public $showMovieDetailModal = false;
 
     public $showConfirmModal = false;
     public $deleteId = '';
@@ -320,7 +321,29 @@ class MovieIndex extends Component
         $this->genres = $movie->genre;
         $this->oldImage = $movie->small;
         $this->movieStatus = $movie->status;
+
         $this->showMovieModal = true;
+    }
+
+    public function showDetailModal()
+    {
+        // $this->reset(['title']);
+        // $this->movieId = $movieId;
+        // $movie = Movie::find($movieId);
+        // $this->categoryId = $movie->category_movie_id;
+        // $this->title = $movie->title;
+        // $this->releaseDate = $movie->release_date;
+        // $this->description = $movie->description;
+        // $this->year = $movie->year;
+        // $this->country = $movie->country;
+        // $this->duration = $movie->duration;
+        // $this->lang = $movie->lang;
+        // $this->networks = $movie->network;
+        // $this->genres = $movie->genre;
+        // $this->oldImage = $movie->small;
+        // $this->movieStatus = $movie->status;
+
+        $this->showMovieDetailModal = true;
     }
     
     public function updateMovie()
@@ -378,6 +401,11 @@ class MovieIndex extends Component
     public function closeMovieModal()
     {
         $this->showMovieModal = false;
+    }
+
+    public function closeDetailModal()
+    {
+        $this->showMovieDetailModal = false;
     }
 
     public function resetFilters()

@@ -111,7 +111,7 @@
                                     <div class="flex flex-col space-y-3">
                                         <div 
                                             class="col-span-6 sm:col-span-3" 
-                                            x-data="{ isUploading: true, progress: 5 }"
+                                            x-data="{ isUploading: false, progress: 5 }"
                                             x-on:livewire-upload-start="isUploading = true"
                                             x-on:livewire-upload-finish="isUploading = false; progress = 5"
                                             x-on:livewire-upload-error="isUploading = false"

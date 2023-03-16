@@ -4,35 +4,35 @@
                 <div class="go gh gq gv ro">Business settings</div>
                 <ul class="flex a_ qx ra qm">
                     <li class="rv qm qg">
-                        <a class="flex items-center vp vr rounded lm hm" href="settings.html">
-                            <svg class="oo sl ub du text-indigo-400 mr-2" viewBox="0 0 16 16">
+                        <a class="flex items-center vp vr rounded lm @if(in_array(Request::segment(2), ['profile'])){{ 'hm' }}@endif" href="{{ url('admin/profile') }}">
+                            <svg class="oo sl ub du @if(in_array(Request::segment(2), ['profile'])){{ 'text-indigo-400 ' }}@else{{ 'gq' }}@endif mr-2" viewBox="0 0 16 16">
                                 <path d="M12.311 9.527c-1.161-.393-1.85-.825-2.143-1.175A3.991 3.991 0 0012 5V4c0-2.206-1.794-4-4-4S4 1.794 4 4v1c0 1.406.732 2.639 1.832 3.352-.292.35-.981.782-2.142 1.175A3.942 3.942 0 001 13.26V16h14v-2.74c0-1.69-1.081-3.19-2.689-3.733zM6 4c0-1.103.897-2 2-2s2 .897 2 2v1c0 1.103-.897 2-2 2s-2-.897-2-2V4zm7 10H3v-.74c0-.831.534-1.569 1.33-1.838 1.845-.624 3-1.436 3.452-2.422h.436c.452.986 1.607 1.798 3.453 2.422A1.943 1.943 0 0113 13.26V14z"></path>
                             </svg>
-                            <span class="text-sm gp text-indigo-500">My Account</span>
+                            <span class="text-sm gp @if(in_array(Request::segment(2), ['profile'])){{ 'text-indigo-500 ' }}@else{{ 'g_ xp' }}@endif">My Account</span>
                         </a>
                     </li>
                     <li class="rv qm qg">
-                        <a class="flex items-center vp vr rounded lm" href="notifications.html">
-                            <svg class="oo sl ub du gq mr-2" viewBox="0 0 16 16">
+                        <a class="flex items-center vp vr rounded lm @if(in_array(Request::segment(2), ['settings'])){{ 'hm' }}@endif" href="{{ url('admin/settings') }}">
+                            <svg class="oo sl ub du @if(in_array(Request::segment(2), ['settings'])){{ 'text-indigo-400 ' }}@else{{ 'gq' }}@endif mr-2" viewBox="0 0 16 16">
                                 <path d="M14.3.3c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4l-8 8c-.2.2-.4.3-.7.3-.3 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l8-8zM15 7c.6 0 1 .4 1 1 0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8c.6 0 1 .4 1 1s-.4 1-1 1C4.7 2 2 4.7 2 8s2.7 6 6 6 6-2.7 6-6c0-.6.4-1 1-1z"></path>
                             </svg>
-                            <span class="text-sm gp g_ xp">Settings</span>
+                            <span class="text-sm gp @if(in_array(Request::segment(2), ['settings'])){{ 'text-indigo-500 ' }}@else{{ 'g_ xp' }}@endif ">Settings</span>
                         </a>
                     </li>
                     <li class="rv qm qg">
-                        <a class="flex items-center vp vr rounded lm" href="connected-apps.html">
-                            <svg class="oo sl ub du gq mr-2" viewBox="0 0 16 16">
+                        <a class="flex items-center vp vr rounded lm @if(in_array(Request::segment(2), ['roles'])){{ 'hm' }}@endif" href="{{ url('admin/roles') }}">
+                            <svg class="oo sl ub du @if(in_array(Request::segment(2), ['roles'])){{ 'text-indigo-400 ' }}@else{{ 'gq' }}@endif mr-2" viewBox="0 0 16 16">
                                 <path d="M3.414 2L9 7.586V16H7V8.414l-5-5V6H0V1a1 1 0 011-1h5v2H3.414zM15 0a1 1 0 011 1v5h-2V3.414l-3.172 3.172-1.414-1.414L12.586 2H10V0h5z"></path>
                             </svg>
-                            <span class="text-sm gp g_ xp">Connected Apps</span>
+                            <span class="text-sm gp @if(in_array(Request::segment(2), ['roles'])){{ 'text-indigo-500 ' }}@else{{ 'g_ xp' }}@endif">Roles</span>
                         </a>
                     </li>
                     <li class="rv qm qg">
-                        <a class="flex items-center vp vr rounded lm" href="plans.html">
-                            <svg class="oo sl ub du gq mr-2" viewBox="0 0 16 16">
+                        <a class="flex items-center vp vr rounded lm @if(in_array(Request::segment(2), ['permissions'])){{ 'hm' }}@endif" href="{{ url('admin/permissions') }}">
+                            <svg class="oo sl ub du @if(in_array(Request::segment(2), ['permissions'])){{ 'text-indigo-400 ' }}@else{{ 'gq' }}@endif mr-2" viewBox="0 0 16 16">
                                 <path d="M5 9h11v2H5V9zM0 9h3v2H0V9zm5 4h6v2H5v-2zm-5 0h3v2H0v-2zm5-8h7v2H5V5zM0 5h3v2H0V5zm5-4h11v2H5V1zM0 1h3v2H0V1z"></path>
                             </svg>
-                            <span class="text-sm gp g_ xp">Plans</span>
+                            <span class="text-sm gp @if(in_array(Request::segment(2), ['permissions'])){{ 'text-indigo-500 ' }}@else{{ 'g_ xp' }}@endif">Permission</span>
                         </a>
                     </li>
                     <li class="rv qm qg">

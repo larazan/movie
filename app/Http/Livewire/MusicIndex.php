@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Music;
 use App\Models\Person;
+use App\Models\Country;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,10 @@ class MusicIndex extends Component
     public $minute;
     public $second;
 
+    public $sortDirection = 'asc';
     public $showMusicModal = false;
+    public $showMusicDetailModal = false;
+
     public $actress;
     public $actressId;
     public $title;
@@ -171,6 +175,25 @@ class MusicIndex extends Component
         $this->musicStatus = $music->status;
         $this->showMusicModal = true;
     }
+
+    public function showDetailModal()
+    {
+        // $this->reset(['name']);
+        // $this->musicId = $musicId;
+        // $music = Music::find($musicId);
+        // $this->actress = $music->person_id;
+        // $this->title = $music->title;
+        // $this->album = $music->album;
+        // $this->description = $music->description;
+        // $this->country = $music->country;
+        // $this->duration = $music->duration;
+        // $this->minute = $this->oriDura($music->duration, 'menit');
+        // $this->second = $this->oriDura($music->duration, 'detik');
+        // $this->oldImage = $music->small;
+        // $this->musicStatus = $music->status;
+
+        $this->showMusicDetailModal = true;
+    }
     
     public function updateMusic()
     {
@@ -234,6 +257,11 @@ class MusicIndex extends Component
         $this->showMusicModal = false;
     }
 
+    public function closeDetailModal()
+    {
+        $this->showMusicDetailModal = false;
+    }
+
     public function resetFilters()
     {
         $this->reset();
@@ -243,7 +271,8 @@ class MusicIndex extends Component
     {
         return view('livewire.music-index', [
             'musics' => Music::search('title', $this->search)->orderBy('title', $this->sort)->paginate($this->perPage),
-            'persons' => Person::OrderBy('name', 'asc')->get()
+            'persons' => Person::OrderBy('name', 'asc')->get(),
+            'countries' => Country::OrderBy('name', $this->sortDirection)->get(),
         ]);
     }
 

@@ -18,6 +18,7 @@ class SettingIndex extends Component
     use WithFileUploads;
 
     public $showSettingModal = false;
+
     public $title;
     public $body;
     public $metaDescription; 
@@ -58,17 +59,63 @@ class SettingIndex extends Component
             $this->instagram = $setting->instagram;
             $this->icon = $setting->icon;
         }
+        
+    }
 
+    public function showEditModal()
+    {
+        $this->reset(['title']);
+        $setting = Setting::find($this->settingId);
+      
+        if ($setting) {
+            $this->oldImage = $setting->small;
+        }
+       
+        
+        $this->showSettingModal = true;
+    }
+
+    public function closeSettingModal()
+    {
+        $this->showSettingModal = false;
+    }
+
+    public function updatePhoto()
+    {
+        $setting = Setting::findOrFail($this->settingId);
+        $this->validate();
+  
+        $new = 'logo_' . time();
+        $filename = $new . '.' . $this->file->getClientOriginalName();
+        
+        if ($this->settingId) {
+            if ($setting) {
+               // delete image
+			    $this->deleteImage($this->settingId);
+                $filePath = $this->file->storeAs(Setting::UPLOAD_DIR, $filename, 'public');
+                $resizedImage = $this->_resizeImage($this->file, $filename, Setting::UPLOAD_DIR);
+
+                $setting->update([
+                    'original' => $filePath,
+                    'medium' => $resizedImage['medium'],
+                    'small' => $resizedImage['small'],
+                ]);
+                
+            }
+        }
+
+        $this->reset();
+        $this->showSettingModal = false;
+        $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Logo updated successfully']);
     }
 
     public function updateSetting()
     {
         $this->validate();
 
-        $new = Str::slug($this->title) . '_' . time();
+        $new = 'icon_' . time();
         $filename = $new . '.' . $this->file->getClientOriginalName();
-        $filePath = $this->file->storeAs(Setting::UPLOAD_DIR, $filename, 'public');
-        $resizedImage = $this->_resizeImage($this->file, $filename, Setting::UPLOAD_DIR);
+        $filePath = $this->file->storeAs(Setting::UPLOAD_DIR_ICON, $filename, 'public');
 
         Setting::create([
             'title' => $this->title,
@@ -82,14 +129,16 @@ class SettingIndex extends Component
             'twitter' => $this->twitter,
             'facebook' => $this->facebook,
             'instagram' => $this->instagram,
-            'icon' => $this->icon,
-            'origin' => $filePath,
-            'small' => $resizedImage['small'],
-            'medium' => $resizedImage['medium'],
+            'icon' => $filePath,
         ]);
 
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Setting updated successfully']);
+    }
+
+    public function resetFilters()
+    {
+        $this->reset();
     }
 
     public function render()

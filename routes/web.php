@@ -12,6 +12,7 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Livewire\Account;
 use App\Http\Livewire\ArticleIndex;
 use App\Http\Livewire\AttributeIndex;
+use App\Http\Livewire\AttributeOptionIndex;
 use App\Http\Livewire\BasketIndex;
 use App\Http\Livewire\BrandIndex;
 use App\Http\Livewire\CalendarIndex;
@@ -81,6 +82,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('profile', Account::class)->name('account.index');
     Route::get('articles', ArticleIndex::class)->name('articles.index');
     Route::get('attributes', AttributeIndex::class)->name('attributes.index');
+    Route::get('attributes/{attributeID}/options', AttributeOptionIndex::class)->name('attribute-options.index');
     Route::get('baskets', BasketIndex::class)->name('basket.index');
     Route::get('brands', BrandIndex::class)->name('brands.index');
     Route::get('calendar', CalendarIndex::class)->name('calendar.index');

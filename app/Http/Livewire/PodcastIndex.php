@@ -16,6 +16,7 @@ class PodcastIndex extends Component
 
     public $message;
     public $showPodcastModal = false;
+    public $showPodcastDetailModal = false;
     public $title;
     public $description;
     public $status;
@@ -123,6 +124,20 @@ class PodcastIndex extends Component
         $this->podcastStatus = $podcast->status;
         $this->showPodcastModal = true;
     }
+
+    public function showDetailModal()
+    {
+        // $this->reset(['name']);
+        // $this->podcastId = $podcastId;
+        // $podcast = Podcast::find($podcastId);
+        // $this->title = $podcast->title;
+        // $this->description = $podcast->description;
+        // $this->duration = $podcast->duration;
+        // $this->oldImage = $podcast->small;
+        // $this->podcastStatus = $podcast->status;
+
+        $this->showPodcastDetailModal = true;
+    }
     
     public function updatePodcast()
     {
@@ -179,6 +194,11 @@ class PodcastIndex extends Component
     public function closePodcastModal()
     {
         $this->showPodcastModal = false;
+    }
+
+    public function closeDetailModal()
+    {
+        $this->showPodcastDetailModal = false;
     }
 
     public function resetFilters()

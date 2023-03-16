@@ -158,7 +158,7 @@
                                 </div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp text-slate-800">Dominik</div>
+                                <div class="gp cursor-pointer text-indigo-400 hover:text-indigo-500" wire:click="showDetailModal(1)">Paramore</div>
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="od sy ub mr-2 _b">
@@ -332,6 +332,19 @@
                                             </div>
                                             
                                         </div>
+                                        <div class="flex flex-row space-x-4 justify-between2">
+                                        <div class="col-start-1 sm:col-span-3">
+                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                    Country
+                                                </label>
+                                                <select wire:model="country" class="h-full2 rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
+                                                    <option value="">Select country</option>
+                                                    @foreach($countries as $cat)
+                                                    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="photo" class="block text-sm font-medium text-gray-700">
                                                 Cover
@@ -423,6 +436,135 @@
                 <div class="flex flex-wrap justify-end fc">
                     <x-m-button wire:click="closeConfirmModal" class="border-slate-200 hover:text-white  g_">Cancel</x-m-button>
                     <x-m-button wire:click.prevent="delete()" class=" ho xi ye2">Delete</x-m-button>
+                </div>
+            </div>
+
+        </x-slot>
+    </x-jet-dialog-modal>
+
+    <!-- modal detail -->
+    <x-jet-dialog-modal wire:model="showMusicDetailModal" class="">
+
+        <x-slot name="title" class="border-b bg-slate-200">
+            <span class="font-semibold">Detail Music</span>
+        </x-slot>
+
+
+        <x-slot name="content">
+            <div class="border-t">
+                <div class="vc vu ">
+                    <div class="fw">
+
+                        <div class="je items-center2 vh">
+                            <a class="block ri _y rp zn tnv ub" href="#0">
+                                <img class="rounded-sm" src="{{ asset('images/paramore.jpg') }}" width="200" height="142" alt="Product 01">
+                            </a>
+                            <div class="uw">
+                                <a href="#0">
+                                    <h3 class="text-2xl gh text-slate-800 rt font-bold">After Laughter (2023)</h3>
+                                </a>
+                                <div class="flex flex-wrap">
+                                    <!-- Unique Visitors -->
+                                    <div class="flex items-center vr">
+                                        <div class="rp">
+                                            <div class="flex items-center">
+                                                <div class="text-xl font-bold text-slate-800 mr-2">Paramore</div>
+                                            </div>
+                                            <div class="text-sm text-slate-500">Artist</div>
+                                        </div>
+                                        <div class="hidden qx of sf hu rp" aria-hidden="true"></div>
+                                    </div>
+                                    <!-- Total Pageviews -->
+                                    <div class="flex items-center vr">
+                                        <div class="rp">
+                                            <div class="flex items-center">
+                                                <div class="text-xl font-bold text-slate-800 mr-2">USA</div>
+                                            </div>
+                                            <div class="text-sm text-slate-500">Country</div>
+                                        </div>
+                                        <div class="hidden qx of sf hu rp" aria-hidden="true"></div>
+                                    </div>
+                                    
+                                    <!-- Visit Duration-->
+                                    <div class="flex items-center">
+                                        <div>
+                                            <div class="flex items-center">
+                                                <div class="text-xl font-bold text-slate-800 mr-2">2m 56s</div>
+                                            </div>
+                                            <div class="text-sm text-slate-500">Duration</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-sm ru">
+                                After Laughter is the fifth studio album by American rock band Paramore. It was released on May 12, 2017, through Fueled by Ramen, as a follow-up to their self-titled album Paramore (2013). The album was produced by guitarist Taylor York alongside previous collaborator Justin Meldal-Johnsen. It is the band's first album since the return of drummer Zac Farro, who left the band with his brother Josh in 2010, and the departure of former bassist Jeremy Davis, who left the band in 2015
+                            </div>
+                                <!-- Product meta -->
+                                <div class="flex flex-wrap fe items-center">
+                                    <!-- Rating and price -->
+                                    <div class="flex flex-wrap items-center fc mr-2">
+                                        <!-- Rating -->
+                                        <div class="flex items-center fc">
+                                            <!-- Stars -->
+                                            <div class="flex fm">
+                                                <button>
+                                                    <span class="d">1 star</span>
+                                                    <svg class="oo sl du yn" viewBox="0 0 16 16">
+                                                        <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z"></path>
+                                                    </svg>
+                                                </button>
+                                                <button>
+                                                    <span class="d">2 stars</span>
+                                                    <svg class="oo sl du yn" viewBox="0 0 16 16">
+                                                        <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z"></path>
+                                                    </svg>
+                                                </button>
+                                                <button>
+                                                    <span class="d">3 stars</span>
+                                                    <svg class="oo sl du yn" viewBox="0 0 16 16">
+                                                        <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z"></path>
+                                                    </svg>
+                                                </button>
+                                                <button>
+                                                    <span class="d">4 stars</span>
+                                                    <svg class="oo sl du yn" viewBox="0 0 16 16">
+                                                        <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z"></path>
+                                                    </svg>
+                                                </button>
+                                                <button>
+                                                    <span class="d">5 stars</span>
+                                                    <svg class="oo sl du yf" viewBox="0 0 16 16">
+                                                        <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z"></path>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                            <!-- Rate -->
+                                            <div class="inline-flex text-sm gp ya">4.2</div>
+                                        </div>
+                                        <div class="gq">·</div>
+                                        <!-- Price -->
+
+                                    </div>
+                                </div>
+
+                                <div class='my-3 flex flex-wrap mt-2 space-x-1'>
+                                    <span class="flex flex-wrap justify-between items-center text-xs sm:text-xs bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 rounded px-3 py-1 leading-loose cursor-pointer dark:text-gray-300">
+                                        Pop rock
+                                    </span>
+                                    <span class="flex flex-wrap justify-between items-center text-xs sm:text-xs bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 rounded px-3 py-1 leading-loose cursor-pointer dark:text-gray-300 ">
+                                        New wave
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </x-slot>
+        <x-slot name="footer">
+            <div class="border-slate-200">
+                <div class="flex flex-wrap justify-end fc">
+                    <x-m-button wire:click="closeDetailModal" class="border-slate-200 hover:text-white  g_">Cancel</x-m-button>
                 </div>
             </div>
 

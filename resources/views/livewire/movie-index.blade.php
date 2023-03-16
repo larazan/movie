@@ -127,241 +127,216 @@
                         <tr class="text-gray-700">
                             <td class="px-4 py-3 border">
                                 <span wire:click="showMovieDeatil({{ $table_movie->id }})"
-                                    class="text-blue-500 hover:text-blue-700 cursor-pointer">{{ $table_movie->title }}</span>
-                            </td>
-                            <td class="px-4 py-3 border">
-                                {{ $table_movie->rating }}
-                            </td>
-                            <td class="px-4 py-3 border">
-                                {{ $table_movie->visits }}
-                            </td>
-                            <td class="px-4 py-3 text-ms font-semibold border">
-                                {{ date('H:i', mktime(0, $table_movie->runtime)) }}</td>
-                            <td class="px-4 py-3 text-ms font-semibold border">
-                                @if ($table_movie->is_public)
-                                    <span
-                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                        Published
-                                    </span>
-                                @else
-                                    <span
-                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                        UnPublished
-                                    </span>
+class="text-blue-500 hover:text-blue-700 cursor-pointer">{{ $table_movie->title }}</span>
+</td>
+<td class="px-4 py-3 border">
+    {{ $table_movie->rating }}
+</td>
+<td class="px-4 py-3 border">
+    {{ $table_movie->visits }}
+</td>
+<td class="px-4 py-3 text-ms font-semibold border">
+    {{ date('H:i', mktime(0, $table_movie->runtime)) }}
+</td>
+<td class="px-4 py-3 text-ms font-semibold border">
+    @if ($table_movie->is_public)
+    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+        Published
+    </span>
+    @else
+    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+        UnPublished
+    </span>
 
-                                @endif
-                            </td>
-                            <td class="px-4 py-3 text-ms font-semibold border">
-                                <img class="h-12 w-12 rounded"
-                                    src="https://www.themoviedb.org/t/p/w220_and_h330_face/{{ $table_movie->poster_path }}">
-                            </td>
+    @endif
+</td>
+<td class="px-4 py-3 text-ms font-semibold border">
+    <img class="h-12 w-12 rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/{{ $table_movie->poster_path }}">
+</td>
 
-                            <td class="px-4 py-3 text-sm border">
-                                <x-m-button wire:click="showTrailerModal({{ $table_movie->id }})"
-                                    class="bg-indigo-500 hover:bg-indigo-700 text-white">Trailer</x-m-button>
-                                <x-m-button wire:click="showEditModal({{ $table_movie->id }})"
-                                    class="bg-green-500 hover:bg-green-700 text-white">Edit</x-m-button>
-                                <x-m-button wire:click="deleteMovie({{ $table_movie->id }})"
-                                    class="bg-red-500 hover:bg-red-700 text-white">Delete</x-m-button>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
+<td class="px-4 py-3 text-sm border">
+    <x-m-button wire:click="showTrailerModal({{ $table_movie->id }})" class="bg-indigo-500 hover:bg-indigo-700 text-white">Trailer</x-m-button>
+    <x-m-button wire:click="showEditModal({{ $table_movie->id }})" class="bg-green-500 hover:bg-green-700 text-white">Edit</x-m-button>
+    <x-m-button wire:click="deleteMovie({{ $table_movie->id }})" class="bg-red-500 hover:bg-red-700 text-white">Delete</x-m-button>
+</td>
+</tr>
+@endforeach
+</tbody>
 
-            </table>
-            <div class="m-2 p-2">
-                {{ $movies->links() }}
-            </div>
-        </div>
-    </div>
-    <x-jet-dialog-modal wire:model="showMovieModal">
-        <x-slot name="title">Update Movie</x-slot>
-        <x-slot name="content">
-            <div class="mt-10 sm:mt-0">
-                <div class="mt-5 md:mt-0 md:col-span-2" x-data="{tab: 0}">
-                    <div class="flex border border-black overflow-hidden">
-                        <button class="px-4 py-2 w-full" x-on:click.prevent="tab = 0">Form</button>
-                        <button class="px-4 py-2 w-full" x-on:click.prevent="tab = 1">Tags</button>
-                        <button class="px-4 py-2 w-full" x-on:click.prevent="tab = 2">Casts</button>
-                    </div>
-                    <div>
-                        <div class="p-4 space-x-2" x-show="tab === 0">
-                            <form>
-                                <div class="shadow overflow-hidden sm:rounded-md">
-                                    <div class="px-4 py-5 bg-white sm:p-6">
-                                        <div class="flex flex-col">
-                                            <label for="first-name"
-                                                class="block text-sm font-medium text-gray-700 mr-4">Title</label>
-                                            <input wire:model="title" type="text"
-                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                                            @error('title')
-                                                <div class="go re yl">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <label for="first-name"
-                                                class="block text-sm font-medium text-gray-700 mr-4">Runtime</label>
-                                            <input wire:model="runtime" type="text"
-                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                                            @error('runtime')
-                                                <div class="go re yl">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <label for="first-name"
-                                                class="block text-sm font-medium text-gray-700 mr-4">Language</label>
-                                            <input wire:model="lang" type="text"
-                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                                            @error('lang')
-                                                <div class="go re yl">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <label for="first-name"
-                                                class="block text-sm font-medium text-gray-700 mr-4">Format</label>
-                                            <input wire:model="videoFormat" type="text"
-                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                                            @error('videoFormat')
-                                                <div class="go re yl">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <label for="first-name"
-                                                class="block text-sm font-medium text-gray-700 mr-4">Rating</label>
-                                            <input wire:model="rating" type="text"
-                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                                            @error('rating')
-                                                <div class="go re yl">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <label for="first-name"
-                                                class="block text-sm font-medium text-gray-700 mr-4">Poster</label>
-                                            <input wire:model="posterPath" type="text"
-                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                                            @error('posterPath')
-                                                <div class="go re yl">{{ $message }}</div>
-                                            @enderror
-                                        </div>
+</table>
+<div class="m-2 p-2">
+    {{ $movies->links() }}
+</div>
+</div>
+</div>
+<x-jet-dialog-modal wire:model="showMovieModal">
+    <x-slot name="title">Update Movie</x-slot>
+    <x-slot name="content">
+        <div class="mt-10 sm:mt-0">
+            <div class="mt-5 md:mt-0 md:col-span-2" x-data="{tab: 0}">
+                <div class="flex border border-black overflow-hidden">
+                    <button class="px-4 py-2 w-full" x-on:click.prevent="tab = 0">Form</button>
+                    <button class="px-4 py-2 w-full" x-on:click.prevent="tab = 1">Tags</button>
+                    <button class="px-4 py-2 w-full" x-on:click.prevent="tab = 2">Casts</button>
+                </div>
+                <div>
+                    <div class="p-4 space-x-2" x-show="tab === 0">
+                        <form>
+                            <div class="shadow overflow-hidden sm:rounded-md">
+                                <div class="px-4 py-5 bg-white sm:p-6">
+                                    <div class="flex flex-col">
+                                        <label for="first-name" class="block text-sm font-medium text-gray-700 mr-4">Title</label>
+                                        <input wire:model="title" type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                        @error('title')
+                                        <div class="go re yl">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label for="first-name" class="block text-sm font-medium text-gray-700 mr-4">Runtime</label>
+                                        <input wire:model="runtime" type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                        @error('runtime')
+                                        <div class="go re yl">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label for="first-name" class="block text-sm font-medium text-gray-700 mr-4">Language</label>
+                                        <input wire:model="lang" type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                        @error('lang')
+                                        <div class="go re yl">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label for="first-name" class="block text-sm font-medium text-gray-700 mr-4">Format</label>
+                                        <input wire:model="videoFormat" type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                        @error('videoFormat')
+                                        <div class="go re yl">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label for="first-name" class="block text-sm font-medium text-gray-700 mr-4">Rating</label>
+                                        <input wire:model="rating" type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                        @error('rating')
+                                        <div class="go re yl">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label for="first-name" class="block text-sm font-medium text-gray-700 mr-4">Poster</label>
+                                        <input wire:model="posterPath" type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                        @error('posterPath')
+                                        <div class="go re yl">{{ $message }}</div>
+                                        @enderror
+                                    </div>
 
-                                        <div class="flex flex-col">
-                                            <label for="first-name"
-                                                class="block text-sm font-medium text-gray-700 mr-4">Backdrop</label>
-                                            <input wire:model="backdropPath" type="text"
-                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                                            @error('backdropPath')
-                                                <div class="go re yl">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <label for="overview"
-                                                class="block text-sm font-medium text-gray-700 mr-4">Overview</label>
-                                            <textarea
-                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">{{ $overview }}</textarea>
-                                            @error('overview')
-                                                <div class="go re yl">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <div class="flex items-center px-2 py-6">
-                                                <input wire:model="isPublic" type="checkbox"
-                                                    class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
-                                                <label for="remember-me" class="ml-2 block text-sm text-gray-900">
-                                                    Published
-                                                </label>
-                                            </div>
+                                    <div class="flex flex-col">
+                                        <label for="first-name" class="block text-sm font-medium text-gray-700 mr-4">Backdrop</label>
+                                        <input wire:model="backdropPath" type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                        @error('backdropPath')
+                                        <div class="go re yl">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label for="overview" class="block text-sm font-medium text-gray-700 mr-4">Overview</label>
+                                        <textarea class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">{{ $overview }}</textarea>
+                                        @error('overview')
+                                        <div class="go re yl">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <div class="flex items-center px-2 py-6">
+                                            <input wire:model="isPublic" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                            <label for="remember-me" class="ml-2 block text-sm text-gray-900">
+                                                Published
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="p-4 space-x-2" x-show="tab === 1">
-                            @if ($movie)
-                                <livewire:movie-tag :movie="$movie" />
-                            @endif
-                        </div>
-                        <div class="p-4 space-x-2" x-show="tab === 2">
-                            @if ($movie)
-                                <livewire:movie-cast :movie="$movie" />
-                            @endif
-                        </div>
+                            </div>
+                        </form>
                     </div>
-
+                    <div class="p-4 space-x-2" x-show="tab === 1">
+                        @if ($movie)
+                        <livewire:movie-tag :movie="$movie" />
+                        @endif
+                    </div>
+                    <div class="p-4 space-x-2" x-show="tab === 2">
+                        @if ($movie)
+                        <livewire:movie-cast :movie="$movie" />
+                        @endif
+                    </div>
                 </div>
+
             </div>
+        </div>
 
-        </x-slot>
-        <x-slot name="footer">
-            <x-m-button wire:click="closeMovieModal" class="bg-gray-600 hover:bg-gray-800 text-white">Cancel
-            </x-m-button>
-            <x-m-button wire:click="updateMovie">Update</x-m-button>
-        </x-slot>
-    </x-jet-dialog-modal>
-    <x-jet-dialog-modal wire:model="showTrailer">
-        <x-slot name="title">Trailer Movie</x-slot>
-        <x-slot name="content">
-            @if ($movie)
-                <div class="flex space-x-4 space-y-2 m-2">
-                    @foreach ($movie->trailers as $trailer)
-                        <x-jet-button wire:click="deleteTrailer({{ $trailer->id }})" class="hover:bg-red-500">
-                            {{ $trailer->name }}</x-jet-button>
-                    @endforeach
-                </div>
-            @endif
-            <div class="mt-10 sm:mt-0">
-                <div class="mt-5 md:mt-0 md:col-span-2">
-                    <form>
-                        <div class="shadow overflow-hidden sm:rounded-md">
-                            <div class="px-4 py-5 bg-white sm:p-6">
-                                <div class="flex flex-col">
-                                    <label for="first-name"
-                                        class="block text-sm font-medium text-gray-700 mr-4">Name</label>
-                                    <input wire:model="trailerName" type="text"
-                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                                    @error('trailerName')
-                                        <div class="go re yl">{{ $message }}</span>
+    </x-slot>
+    <x-slot name="footer">
+        <x-m-button wire:click="closeMovieModal" class="bg-gray-600 hover:bg-gray-800 text-white">Cancel
+        </x-m-button>
+        <x-m-button wire:click="updateMovie">Update</x-m-button>
+    </x-slot>
+</x-jet-dialog-modal>
+<x-jet-dialog-modal wire:model="showTrailer">
+    <x-slot name="title">Trailer Movie</x-slot>
+    <x-slot name="content">
+        @if ($movie)
+        <div class="flex space-x-4 space-y-2 m-2">
+            @foreach ($movie->trailers as $trailer)
+            <x-jet-button wire:click="deleteTrailer({{ $trailer->id }})" class="hover:bg-red-500">
+                {{ $trailer->name }}</x-jet-button>
+            @endforeach
+        </div>
+        @endif
+        <div class="mt-10 sm:mt-0">
+            <div class="mt-5 md:mt-0 md:col-span-2">
+                <form>
+                    <div class="shadow overflow-hidden sm:rounded-md">
+                        <div class="px-4 py-5 bg-white sm:p-6">
+                            <div class="flex flex-col">
+                                <label for="first-name" class="block text-sm font-medium text-gray-700 mr-4">Name</label>
+                                <input wire:model="trailerName" type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                @error('trailerName')
+                                <div class="go re yl">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="flex flex-col">
                                     <label for="embedHtml" class="block text-sm font-medium text-gray-700 mr-4">Embed
                                         Html</label>
-                                    <textarea wire:model="embedHtml"
-                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
+                                    <textarea wire:model="embedHtml" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
                                     @error('embedHtml')
-                                        <div class="go re yl">{{ $message }}</span>
-                                    @enderror
+                                    <div class="go re yl">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
-                </div>
+                </form>
             </div>
+        </div>
 
-        </x-slot>
-        <x-slot name="footer">
-            <x-m-button wire:click="closeMovieModal" class="bg-gray-600 hover:bg-gray-800 text-white">Cancel
-            </x-m-button>
-            <x-m-button wire:click="addTrailer">Add Trailer</x-m-button>
-        </x-slot>
-    </x-jet-dialog-modal>
-    <x-jet-dialog-modal wire:model="showMovieDetailModal">
-        <x-slot name="title">Movie Details</x-slot>
-        <x-slot name="content">
-            <div class="mt-10 sm:mt-0">
-                <div class="mt-5 md:mt-0 md:col-span-2">
-                    @if ($movie)
-                        {{ $movie->title }}
-                    @endif
-                </div>
+    </x-slot>
+    <x-slot name="footer">
+        <x-m-button wire:click="closeMovieModal" class="bg-gray-600 hover:bg-gray-800 text-white">Cancel
+        </x-m-button>
+        <x-m-button wire:click="addTrailer">Add Trailer</x-m-button>
+    </x-slot>
+</x-jet-dialog-modal>
+<x-jet-dialog-modal wire:model="showMovieDetailModal">
+    <x-slot name="title">Movie Details</x-slot>
+    <x-slot name="content">
+        <div class="mt-10 sm:mt-0">
+            <div class="mt-5 md:mt-0 md:col-span-2">
+                @if ($movie)
+                {{ $movie->title }}
+                @endif
             </div>
+        </div>
 
-        </x-slot>
-        <x-slot name="footer">
-            <x-m-button wire:click="closeMovieModal" class="bg-gray-600 hover:bg-gray-800 text-white">Cancel
-            </x-m-button>
-        </x-slot>
-    </x-jet-dialog-modal>
-</section> 
+    </x-slot>
+    <x-slot name="footer">
+        <x-m-button wire:click="closeMovieModal" class="bg-gray-600 hover:bg-gray-800 text-white">Cancel
+        </x-m-button>
+    </x-slot>
+</x-jet-dialog-modal>
+</section>
 --}}
 
 <div class="vs jj ttm vl ou uf na">
@@ -533,10 +508,12 @@
                                 </div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp text-slate-800">Dominik</div>
+                                <div class="gp cursor-pointer text-indigo-400 hover:text-indigo-500" wire:click="showDetailModal(1)">Last of Us</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp ">-</div>
+                                <div class="gp ">
+                                    <img src="{{ asset('images/lastofus.jpg') }}" class="rounded" alt="foto" />
+                                </div>
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="gt ">Movie</div>
@@ -553,7 +530,7 @@
                             <td class="vi wy w_ vo lm">
                                 <div class="gt ">korea</div>
                             </td>
-                          
+
                             <td class="vi wy w_ vo lm">
                                 <div class="inline-flex gp hf yl rounded-full gn vp vd">Overdue</div>
                             </td>
@@ -567,7 +544,7 @@
                                     <button class="gq xv rounded-full" wire:click="addCast(12)">
                                         <span class=" d">Add Cast</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 32 32" stroke-width="2" stroke="currentColor" class=" du w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
                                         </svg>
 
                                     </button>
@@ -603,10 +580,10 @@
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="gp ">
-                                <img src="{{ asset('storage/'.$movies->small) }}" class="object-scale-down h-48 w-96" alt="{{ $movie->title }}">
+                                    <img src="{{ asset('storage/'.$movies->small) }}" class="object-scale-down h-48 w-96" alt="{{ $movie->title }}">
                                 </div>
                             </td>
-                          
+
                             <td class="vi wy w_ vo lm">
                                 <div class="gt">{{ $movie->category_movie_id }}</div>
                             </td>
@@ -622,15 +599,15 @@
                             <td class="vi wy w_ vo lm">
                                 <div class="gt">{{ $movie->country }}</div>
                             </td>
-                            
+
                             <td class="vi wy w_ vo lm">
                                 @if ($movie->status === 'inactive')
-                                    <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $movie->status }}</div>
-                                @endif 
+                                <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $movie->status }}</div>
+                                @endif
 
                                 @if ($movie->status === 'active')
-                                    <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $movie->status }}</div>
-                                @endif 
+                                <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $movie->status }}</div>
+                                @endif
                             </td>
 
                             <td class="vi wy w_ vo lm">
@@ -642,10 +619,10 @@
                                     <button class="gq xv rounded-full" wire:click="addCast({{ $movie->id }})">
                                         <span class=" d">Add Cast</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
                                         </svg>
-
                                     </button>
+
                                     <button class="gq xv rounded-full" wire:click="showEditModal({{ $movie->id }})">
                                         <span class=" d">Edit</span>
                                         <svg class="os sf du" viewBox="0 0 32 32">
@@ -653,7 +630,7 @@
                                         </svg>
                                     </button>
                                     <button class="yl xy rounded-full" wire:click="deleteId({{ $movie->id }})">
-                                    <span class=" d">Delete</span>
+                                        <span class=" d">Delete</span>
                                         <svg class="os sf du" viewBox="0 0 32 32">
                                             <path d="M13 15h2v6h-2zM17 15h2v6h-2z"></path>
                                             <path d="M20 9c0-.6-.4-1-1-1h-6c-.6 0-1 .4-1 1v2H8v2h1v10c0 .6.4 1 1 1h12c.6 0 1-.4 1-1V13h1v-2h-4V9zm-6 1h4v1h-4v-1zm7 3v9H11v-9h10z"></path>
@@ -703,7 +680,7 @@
                                                     Category
                                                 </label>
                                                 <select wire:model="categoryId" class="h-full2 rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
-                                                    <option value="" >Select category</option>
+                                                    <option value="">Select category</option>
                                                     @foreach($categories as $cat)
                                                     <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                                                     @endforeach
@@ -713,7 +690,7 @@
                                                 <label for="title" class="block text-sm font-medium text-gray-700">
                                                     Genre
                                                 </label>
-                                                
+
                                                 <x-select2 wire:model="genres" id="genres" placeholder="Select Genres">
                                                     <option>One</option>
                                                     <option>Alaska</option>
@@ -723,14 +700,14 @@
                                                     <option>Texas</option>
                                                     <option>Washington</option>
                                                 </x-select2>
-                                       
+
                                             </div>
                                         </div>
                                         <div class="col-start-1 sm:col-span-3">
                                             <label for="description" class="block text-sm font-medium text-gray-700">
                                                 Description
                                             </label>
-                                            <textarea wire:model="description"  cols="50" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" ></textarea>
+                                            <textarea wire:model="description" cols="50" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
                                         </div>
                                         <div class="flex flex-row space-x-4 justify-between2">
                                             <div class="col-start-1 sm:col-span-3">
@@ -738,18 +715,17 @@
                                                     Year
                                                 </label>
                                                 <select wire:model="year" class="h-full2 rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
-                                                <option value="" >Select year</option>
-                                                @for ($year=1980; $year <= $currentYear; $year++)
-                                                    <option value="{{ $year }}">{{ $year }}</option>
-                                                @endfor
-                                            </select>
+                                                    <option value="">Select year</option>
+                                                    @for ($year=1980; $year <= $currentYear; $year++) <option value="{{ $year }}">{{ $year }}</option>
+                                                        @endfor
+                                                </select>
                                             </div>
                                             <div class="col-start-1 sm:col-span-3">
                                                 <label for="title" class="block text-sm font-medium text-gray-700">
                                                     Country
                                                 </label>
                                                 <select wire:model="country" class="h-full2 rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
-                                                    <option value="" >Select country</option>
+                                                    <option value="">Select country</option>
                                                     @foreach($countries as $cat)
                                                     <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                                                     @endforeach
@@ -762,11 +738,11 @@
                                                     Duration
                                                 </label>
                                                 <div class="y">
-                                                <input wire:model="duration" type="number" min="0" style="padding-left: 4rem;" autocomplete="given-name" class="s ou mv mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                                                <div class="g w j flex items-center pointer-events-none">
-                                                    <span class="text-sm gq gp vn">Minute</span>
+                                                    <input wire:model="duration" type="number" min="0" style="padding-left: 4rem;" autocomplete="given-name" class="s ou mv mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                    <div class="g w j flex items-center pointer-events-none">
+                                                        <span class="text-sm gq gp vn">Minute</span>
+                                                    </div>
                                                 </div>
-                                            </div>
                                             </div>
                                             <div class="col-start-1 sm:col-span-3">
                                                 <label for="title" class="block text-sm font-medium text-gray-700">
@@ -778,36 +754,35 @@
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="photo" class="block text-sm font-medium text-gray-700">Person
                                                 photo</label>
-                                            <input wire:model="file" type="file" autocomplete="given-name"
-                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                                                @if ($oldImage)
-                                                    Photo Preview:
-                                                    <img src="{{ asset('storage/'.$oldImage) }}">
-                                                @endif
-                                                @if ($file)
-                                                    Photo Preview:
-                                                    <img src="{{ $file->temporaryUrl() }}">
-                                                @endif
+                                            <input wire:model="file" type="file" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            @if ($oldImage)
+                                            Photo Preview:
+                                            <img src="{{ asset('storage/'.$oldImage) }}">
+                                            @endif
+                                            @if ($file)
+                                            Photo Preview:
+                                            <img src="{{ $file->temporaryUrl() }}">
+                                            @endif
                                         </div>
                                         <div class="flex justify-between">
-                                        <div class="col-start-1 sm:col-span-3">
-                                            <label for="title" class="block text-sm font-medium text-gray-700">
-                                                Network
-                                            </label>
-                                            <input wire:model="networks" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                                        </div>
-                                        <div class="col-start-1 sm:col-span-3">
-                                            <label for="title" class="block text-sm font-medium text-gray-700">
-                                                Release Date
-                                            </label>
-                                           
-                                            <x-flatpicker wire:model="releaseDate"></x-flatpicker>
-                                        </div>
+                                            <div class="col-start-1 sm:col-span-3">
+                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                    Network
+                                                </label>
+                                                <input wire:model="networks" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            </div>
+                                            <div class="col-start-1 sm:col-span-3">
+                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                    Release Date
+                                                </label>
+
+                                                <x-flatpicker wire:model="releaseDate"></x-flatpicker>
+                                            </div>
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="first-name" class="block text-sm font-medium text-gray-700">Status</label>
                                             <select wire:model="movieStatus" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
-                                                <option value="" >Select Option</option>
+                                                <option value="">Select Option</option>
                                                 @foreach($statuses as $status)
                                                 <option value="{{ $status }}">{{ $status }}</option>
                                                 @endforeach
@@ -839,31 +814,31 @@
     <!-- modal delete confirmation -->
     <x-jet-dialog-modal wire:model="showConfirmModal" class="">
 
-        
+
         <x-slot name="title" class="border-b bg-slate-200">
             <span class="font-semibold">Delete Confirm</span>
         </x-slot>
-        
+
 
         <x-slot name="content">
             <div class="border-t">
                 <div class="vc vu ">
                     <div class="fw">
 
-                        
+
+                        <div class="">
                             <div class="">
-                                <div class="">
-                                    <div class="flex flex-col space-y-3">
-                                        <div class="flex max-w-auto text-center justify-center items-center">
-                                            <div class="text-lg font-semibold ">
+                                <div class="flex flex-col space-y-3">
+                                    <div class="flex max-w-auto text-center justify-center items-center">
+                                        <div class="text-lg font-semibold ">
                                             <p>Are you sure want to delete?</p>
-                                            </div>
                                         </div>
-                                        
                                     </div>
+
                                 </div>
                             </div>
-                        
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -873,6 +848,133 @@
                 <div class="flex flex-wrap justify-end fc">
                     <x-m-button wire:click="closeConfirmModal" class="border-slate-200 hover:text-white  g_">Cancel</x-m-button>
                     <x-m-button wire:click.prevent="delete()" class=" ho xi ye2">Delete</x-m-button>
+                </div>
+            </div>
+
+        </x-slot>
+    </x-jet-dialog-modal>
+
+    <!-- modal detail -->
+    <x-jet-dialog-modal wire:model="showMovieDetailModal" class="">
+
+        <x-slot name="title" class="border-b bg-slate-200">
+            <span class="font-semibold">Detail Movie</span>
+        </x-slot>
+
+
+        <x-slot name="content">
+            <div class="border-t">
+                <div class="vc vu ">
+                    <div class="fw">
+
+                        <div class="je items-center2 vh ">
+                            <a class="block ri _y rp zn tnv ub" href="#0">
+                                <img class="rounded-sm" src="{{ asset('images/lastofus.jpg') }}" width="200" height="142" alt="Product 01">
+                            </a>
+                            <div class="uw">
+                                <a href="#0">
+                                    <h3 class="text-2xl gh text-slate-800 rt font-bold">Last of Us (2023)</h3>
+                                </a>
+                                <div class="flex flex-wrap">
+                                    <!-- Unique Visitors -->
+                                    <div class="flex items-center vr">
+                                        <div class="rp">
+                                            <div class="flex items-center">
+                                                <div class="text-xl font-bold text-slate-800 mr-2">Movie</div>
+                                            </div>
+                                            <div class="text-sm text-slate-500">Category</div>
+                                        </div>
+                                        <div class="hidden qx of sf hu rp" aria-hidden="true"></div>
+                                    </div>
+                                    <!-- Total Pageviews -->
+                                    <div class="flex items-center vr">
+                                        <div class="rp">
+                                            <div class="flex items-center">
+                                                <div class="text-xl font-bold text-slate-800 mr-2">USA</div>
+                                            </div>
+                                            <div class="text-sm text-slate-500">Country</div>
+                                        </div>
+                                        <div class="hidden qx of sf hu rp" aria-hidden="true"></div>
+                                    </div>
+                                    
+                                    <!-- Visit Duration-->
+                                    <div class="flex items-center">
+                                        <div>
+                                            <div class="flex items-center">
+                                                <div class="text-xl font-bold text-slate-800 mr-2">2m 56s</div>
+                                            </div>
+                                            <div class="text-sm text-slate-500">Duration</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-sm ru">Dua puluh tahun setelah peradaban modern dihancurkan, Joel, seorang penyintas yang tangguh, disewa untuk menyelundupkan Ellie, seorang gadis berusia 14 tahun, keluar dari zona karantina yang menindas. Apa yang dimulai sebagai pekerjaan kecil segera menjadi perjalanan yang brutal dan memilukan, karena mereka berdua harus melintasi Amerika Serikat dan bergantung satu sama lain untuk bertahan hidup.</div>
+                                <!-- Product meta -->
+                                <div class="flex flex-wrap fe items-center">
+                                    <!-- Rating and price -->
+                                    <div class="flex flex-wrap items-center fc mr-2">
+                                        <!-- Rating -->
+                                        <div class="flex items-center fc">
+                                            <!-- Stars -->
+                                            <div class="flex fm">
+                                                <button>
+                                                    <span class="d">1 star</span>
+                                                    <svg class="oo sl du yn" viewBox="0 0 16 16">
+                                                        <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z"></path>
+                                                    </svg>
+                                                </button>
+                                                <button>
+                                                    <span class="d">2 stars</span>
+                                                    <svg class="oo sl du yn" viewBox="0 0 16 16">
+                                                        <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z"></path>
+                                                    </svg>
+                                                </button>
+                                                <button>
+                                                    <span class="d">3 stars</span>
+                                                    <svg class="oo sl du yn" viewBox="0 0 16 16">
+                                                        <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z"></path>
+                                                    </svg>
+                                                </button>
+                                                <button>
+                                                    <span class="d">4 stars</span>
+                                                    <svg class="oo sl du yn" viewBox="0 0 16 16">
+                                                        <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z"></path>
+                                                    </svg>
+                                                </button>
+                                                <button>
+                                                    <span class="d">5 stars</span>
+                                                    <svg class="oo sl du yf" viewBox="0 0 16 16">
+                                                        <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z"></path>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                            <!-- Rate -->
+                                            <div class="inline-flex text-sm gp ya">4.2</div>
+                                        </div>
+                                        <div class="gq">·</div>
+                                        <!-- Price -->
+
+                                    </div>
+                                </div>
+
+                                <div class='my-3 flex flex-wrap mt-2 space-x-1'>
+                                    <span class="flex flex-wrap justify-between items-center text-xs sm:text-xs bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 rounded px-3 py-1 leading-loose cursor-pointer dark:text-gray-300">
+                                        Buyer
+                                    </span>
+                                    <span class="flex flex-wrap justify-between items-center text-xs sm:text-xs bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 rounded px-3 py-1 leading-loose cursor-pointer dark:text-gray-300 ">
+                                        Friend
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </x-slot>
+        <x-slot name="footer">
+            <div class="border-slate-200">
+                <div class="flex flex-wrap justify-end fc">
+                    <x-m-button wire:click="closeDetailModal" class="border-slate-200 hover:text-white  g_">Cancel</x-m-button>
                 </div>
             </div>
 
