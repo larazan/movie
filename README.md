@@ -18,6 +18,6 @@ Dashboard admin menggunakan Tall stack (Tailwind, AlpineJs, Laravel, Livewire)
 
 ## Screenshots
 <div>
-<img width="250" src="https://github.com/larazan/movie/blob/main/screenshots/Laravel.png"> </img>
+<img width="500" src="https://github.com/larazan/movie/blob/main/screenshots/Laravel.png"> </img>
 
 </div>
