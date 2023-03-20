@@ -3,6 +3,7 @@
 use App\Events\MessageCreated;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DataFeedController;
 use App\Http\Controllers\CastController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\MovieController;
@@ -26,6 +27,7 @@ use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\EpisodeIndex;
 use App\Http\Livewire\FaqIndex;
 use App\Http\Livewire\GenreIndex;
+use App\Http\Livewire\kanban;
 use App\Http\Livewire\LabelIndex;
 use App\Http\Livewire\MessagesIndex;
 use App\Http\Livewire\MovieCast;
@@ -95,6 +97,8 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('episodes', EpisodeIndex::class)->name('episodes.index');
     Route::get('faqs', FaqIndex::class)->name('faqs.index');
     Route::get('genres', GenreIndex::class)->name('genres.index');
+    Route::get('kanban/{slug?}', Kanban::class)->name('kanban.index');
+    // Route::get('kanban/{slug}/board', Kanban::class)->name('kanban.index');
     Route::get('labels', LabelIndex::class)->name('labels.index');
     Route::get('messages', MessagesIndex::class)->name('messages.index');
     Route::get('movie-cast', MovieCast::class)->name('movie-cast.index');
@@ -138,6 +142,10 @@ Route::middleware([
     // Route::get('/dashboard', function () {
     //     return view('dashboard');
     // })->name('dashboard');
+    
+    // Route for the getting the data feed
+    Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
+
     Route::get('/404', [DashboardController::class, 'empat04']);
     Route::get('/blogs', [DashboardController::class, 'blog']);
     Route::get('/blog/{id}', [DashboardController::class, 'blogDetail']);

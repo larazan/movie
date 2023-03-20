@@ -267,6 +267,16 @@ class MusicIndex extends Component
         $this->reset();
     }
 
+    public function download($id)
+    {
+        $musicPath = Music::where(['id' => $id])->first();
+		$path = 'storage/';
+
+        if (Storage::exists($path.$musicPath->audio)) {
+            return response()->download($path.$musicPath->audio);
+		}
+    }
+
     public function render()
     {
         return view('livewire.music-index', [

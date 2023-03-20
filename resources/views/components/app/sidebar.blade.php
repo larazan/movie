@@ -419,6 +419,21 @@
                             </div>
                         </a>
                     </li>
+                    <!-- Kanban -->
+                    <li class="vn vr rounded-sm n_ ww @if(in_array(Request::segment(2), ['kanban'])){{ 'bg-slate-900' }}@else{{ '' }}@endif">
+                        <a class="block gj xc ld wt wi" href="{{ url('admin/kanban') }}">
+                            <div class="flex items-center">
+                                
+                                <svg class="ub so oi" viewBox="0 0 24 24">
+                                    <circle class="du @if(in_array(Request::segment(2), ['kanban'])){{ 'text-indigo-300' }}@else{{ 'gq' }}@endif" cx="18.5" cy="5.5" r="4.5"></circle>
+                                    <circle class="du @if(in_array(Request::segment(2), ['kanban'])){{ 'text-indigo-500' }}@else{{ 'g_' }}@endif" cx="5.5" cy="5.5" r="4.5"></circle>
+                                    <circle class="du @if(in_array(Request::segment(2), ['kanban'])){{ 'text-indigo-500' }}@else{{ 'g_' }}@endif" cx="18.5" cy="18.5" r="4.5"></circle>
+                                    <circle class="du @if(in_array(Request::segment(2), ['kanban'])){{ 'text-indigo-300' }}@else{{ 'gq' }}@endif" cx="5.5" cy="18.5" r="4.5"></circle>
+                                </svg>
+                                <span class="text-sm gp ml-3 ttw tnn 2xl:opacity--100 wr">Kanban</span>
+                            </div>
+                        </a>
+                    </li>
                     <!-- Quotes -->
                     <li class="vn vr rounded-sm n_ ww @if(in_array(Request::segment(2), ['quotes'])){{ 'bg-slate-900' }}@else{{ '' }}@endif">
                         <a class="block gj xc ld wt wi" href="{{ url('admin/quotes') }}">

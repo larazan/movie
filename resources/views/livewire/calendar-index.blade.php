@@ -1,5 +1,5 @@
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto" x-data="calendar" x-init="initCalendar">
-
+@dump($events)
     <!-- Page header -->
     <div class="sm:flex sm:justify-between sm:items-center mb-4">
 
@@ -244,6 +244,21 @@
                                                 </div>
                                                 @endforeach
                                             </div>
+                                            <div class="px-1">
+                                                <div class="flex flex-wrap -mx-2">
+                                                    <template x-for="(color, index) in colors" :key="index">
+                                                        <div class="px-2">
+                                                            <template x-if="colorSelected.value === color.value">
+                                                                <div class="w-8 h-8 inline-flex rounded-full cursor-pointer border-4 border-white" :style="`background: ${color.label}; box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);`"></div>
+                                                            </template>
+
+                                                            <template x-if="colorSelected.value != color.value">
+                                                                <div @click="colorSelected = color" @keydown.enter="colorSelected = color" role="checkbox" tabindex="0" :aria-checked="colorSelected" class="w-8 h-8 inline-flex rounded-full cursor-pointer border-4 border-white focus:outline-none focus:shadow-outline" :style="`background: ${color.label};`"></div>
+                                                            </template>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -270,27 +285,25 @@
 
     <!-- modal delete confirmation -->
     <div style=" background-color: rgba(0, 0, 0, 0.8)" class="fixed z-40 top-0 right-0 left-0 bottom-0 h-full w-full" x-show.transition.opacity="openDeleteModal">
-        <div class="p-4 max-w-xl mx-auto relative absolute left-0 right-0 overflow-hidden top-20">
-            <div class="shadow absolute right-0 top-0 w-10 h-10 rounded-full bg-white text-gray-500 hover:text-gray-800 inline-flex items-center justify-center cursor-pointer"
-                x-on:click="openDeleteModal = !openDeleteModal">
+        <div class="p-4 max-w-xl mx-auto relative2 absolute left-0 right-0 overflow-hidden top-20">
+            <div class="shadow absolute right-0 top-0 w-10 h-10 rounded-full bg-white text-gray-500 hover:text-gray-800 inline-flex items-center justify-center cursor-pointer" x-on:click="openDeleteModal = !openDeleteModal">
                 <svg class="fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path
-                        d="M16.192 6.344L11.949 10.586 7.707 6.344 6.293 7.758 10.535 12 6.293 16.242 7.707 17.656 11.949 13.414 16.192 17.656 17.606 16.242 13.364 12 17.606 7.758z" />
+                    <path d="M16.192 6.344L11.949 10.586 7.707 6.344 6.293 7.758 10.535 12 6.293 16.242 7.707 17.656 11.949 13.414 16.192 17.656 17.606 16.242 13.364 12 17.606 7.758z" />
                 </svg>
             </div>
 
-            <div class="shadow w-full rounded bg-white overflow-hidden w-full block p-8">
-                
+            <div class="shadow w-full rounded bg-white overflow-hidden block p-8">
+
                 <h2 class="font-bold text-2xl mb-6 text-gray-800 border-b pb-2">Delete Event Details</h2>
-               
+
                 <div x-text="event_id"></div>
                 <div class="mt-8 text-right">
                     <button type="button" class="bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 border border-gray-300 rounded shadow-sm mr-2" @click="openDeleteModal = !openDeleteModal">
                         Cancel
-                    </button>	
+                    </button>
                     <button type="button" class="bg-white hover:bg-gray-700 hover:text-white text-gray-700 font-semibold py-2 px-4 border border-gray-600 rounded shadow-sm" @click="deleteEvent()">
                         Delete Event
-                    </button>	
+                    </button>
                 </div>
             </div>
         </div>
@@ -298,19 +311,17 @@
 
     <!-- Modal -->
     <div style=" background-color: rgba(0, 0, 0, 0.8)" class="fixed z-40 top-0 right-0 left-0 bottom-0 h-full w-full" x-show.transition.opacity="openEventModal">
-        <div class="p-4 max-w-xl mx-auto relative absolute left-0 right-0 overflow-hidden top-20">
-            <div class="shadow absolute right-0 top-0 w-10 h-10 rounded-full bg-white text-gray-500 hover:text-gray-800 inline-flex items-center justify-center cursor-pointer"
-                x-on:click="openEventModal = !openEventModal">
+        <div class="p-4 max-w-xl mx-auto relative2 absolute left-0 right-0 overflow-hidden top-20">
+            <div class="shadow absolute right-0 top-0 w-10 h-10 rounded-full bg-white text-gray-500 hover:text-gray-800 inline-flex items-center justify-center cursor-pointer" x-on:click="openEventModal = !openEventModal">
                 <svg class="fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path
-                        d="M16.192 6.344L11.949 10.586 7.707 6.344 6.293 7.758 10.535 12 6.293 16.242 7.707 17.656 11.949 13.414 16.192 17.656 17.606 16.242 13.364 12 17.606 7.758z" />
+                    <path d="M16.192 6.344L11.949 10.586 7.707 6.344 6.293 7.758 10.535 12 6.293 16.242 7.707 17.656 11.949 13.414 16.192 17.656 17.606 16.242 13.364 12 17.606 7.758z" />
                 </svg>
             </div>
 
-            <div class="shadow w-full rounded bg-white overflow-hidden w-full block p-8">
-                
+            <div class="shadow w-full rounded bg-white overflow-hidden block p-8">
+
                 <h2 class="font-bold text-2xl mb-6 text-gray-800 border-b pb-2">Add Event Details</h2>
-                
+
                 <div class="mb-4">
                     <label class="text-gray-800 block mb-1 font-bold text-sm tracking-wide">Event title</label>
                     <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text" x-model="event_title">
@@ -340,10 +351,10 @@
                 <div class="mt-8 text-right">
                     <button type="button" class="bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 border border-gray-300 rounded shadow-sm mr-2" @click="openEventModal = !openEventModal">
                         Cancel
-                    </button>	
+                    </button>
                     <button type="button" class="bg-white hover:bg-gray-700 hover:text-white text-gray-700 font-semibold py-2 px-4 border border-gray-600 rounded shadow-sm" @click="addEvent()">
                         Save Event
-                    </button>	
+                    </button>
                 </div>
             </div>
         </div>
@@ -545,7 +556,63 @@
                     eventName: '⚽ 2021 - Semi-final',
                     eventColor: 'red'
                 },
+                {
+                    eventId: 26,
+                    eventStart: 'Mon Mar 20 2023 12:00 AM',
+                    eventEnd: 'Mon Mar 20 2023 12:00 AM',
+                    eventName: 'tes',
+                    eventColor: 'yellow'
+                },
+                {
+                    "eventId": 27,
+                    "eventStart": 'Mon Mar 23 2023 12:00 AM',
+                    "eventEnd": 'Mon Mar 29 2023 12:00 AM',
+                    "eventName": 'xsxxs',
+                    "eventColor": 'green'
+                },
             ],
+
+            colors: [{
+                    label: '#3182ce',
+                    value: 'blue'
+                },
+                {
+                    label: '#38a169',
+                    value: 'green'
+                },
+                {
+                    label: '#805ad5',
+                    value: 'purple'
+                },
+                {
+                    label: '#e53e3e',
+                    value: 'red'
+                },
+                {
+                    label: '#dd6b20',
+                    value: 'orange'
+                },
+                {
+                    label: '#5a67d8',
+                    value: 'indigo'
+                },
+                {
+                    label: '#319795',
+                    value: 'teal'
+                },
+                {
+                    label: '#718096',
+                    value: 'gray'
+                },
+                {
+                    label: '#d69e2e',
+                    value: 'yellow'
+                }
+            ],
+            colorSelected: {
+                label: '#3182ce',
+                value: 'blue'
+            },
 
             openEventModal: false,
             openDeleteModal: false,
@@ -571,13 +638,13 @@
             },
 
             deleteEvent() {
-                alert('delete event')    
+                alert('delete event')
                 if (this.event_id == '') {
                     return;
-                }  
-                
+                }
+
                 @this.deleteId(this.event_id)
-                
+
                 //close the modal
                 this.openDeleteModal = false;
             },
@@ -595,7 +662,7 @@
                 }
 
                 @this.addEventNow(eventAdd)
-                
+
                 // alert('Great. Now, update your database...');
 
                 // clear the form data

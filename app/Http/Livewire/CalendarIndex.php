@@ -3,13 +3,16 @@
 namespace App\Http\Livewire;
 
 use App\Models\Event;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class CalendarIndex extends Component
 {
+    // public $events;
     public $date;
-    public $events = '';
+    public $acara = [];
+    public $events;
     public $showEventModal = false;
     public $showAddEventModal = false;
     public $name;
@@ -20,10 +23,11 @@ class CalendarIndex extends Component
     public $colorStatus = 'indigo';
     public $colors = [
         'indigo',
-        'blue',
+        'sky',
         'yellow',
         'red',
         'green',
+        'emerald',
     ];
 
     public $deleteId = '';
@@ -36,9 +40,23 @@ class CalendarIndex extends Component
 
     public function mount()
     {
+        $user_id = Auth::user()->id;
+        $eves = Event::where('user_id', $user_id)->get();
+        foreach ($eves as $eve) {
+            array_push($this->acara, [
+                'eventId' => $eve->id,
+                'eventStart' => str_replace(',', '', Carbon::parse($eve->start)->toDayDateTimeString()),
+                'eventEnd' => str_replace(',', '', Carbon::parse($eve->end)->toDayDateTimeString()),
+                'eventName' => $eve->name,
+                'eventColor' => $eve->color,
+            ]);
+        }
+
+        $this->events = json_encode($this->acara);
+        
         $this->start = today()->format('Y-m-d');
         $this->end = today()->format('Y-m-d');
-        $this->events = Event::select('id','name','start', 'end', 'color')->get();
+        // $this->events = Event::select('id','name','start', 'end', 'color')->get();
     }
 
     public function showCreateModal()
@@ -154,9 +172,10 @@ class CalendarIndex extends Component
 
     public function render()
     {
-        $events = Event::select('id','name','start','end','color')->get();
+        // $events = Event::select('id','name','start','end','color')->get();
 
-        $this->events = json_encode($events);
+        // $this->events = json_encode($events);
+        // $this->date = Carbon::now();
         return view('livewire.calendar-index');
     }
 

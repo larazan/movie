@@ -188,7 +188,20 @@
                                             <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z"></path>
                                         </svg>
                                     </button>
-
+                                    <button class="gq xv rounded-full">
+                                        <span class="d">Download</span>
+                                        <svg class="os sf du" viewBox="0 0 32 32">
+                                            <path d="M16 20c.3 0 .5-.1.7-.3l5.7-5.7-1.4-1.4-4 4V8h-2v8.6l-4-4L9.6 14l5.7 5.7c.2.2.4.3.7.3zM9 22h14v2H9z"></path>
+                                        </svg>
+                                    </button>
+                                    <button class="gq xv rounded-full">
+                                        <span class="d">Download</span>
+                                        <svg class="os sf du" viewBox="0 0 32 32">
+                                                        <circle cx="16" cy="16" r="2"></circle>
+                                                        <circle cx="10" cy="16" r="2"></circle>
+                                                        <circle cx="22" cy="16" r="2"></circle>
+                                                    </svg>
+                                    </button>
                                     <button class="yl xy rounded-full">
                                         <span class="d">Delete</span>
                                         <svg class="os sf du" viewBox="0 0 32 32">
@@ -245,7 +258,12 @@
                                             <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z"></path>
                                         </svg>
                                     </button>
-
+                                    <button class="gq xv rounded-full" wire:click="download({{ $music->id }})">
+                                        <span class="d">Download</span>
+                                        <svg class="os sf du" viewBox="0 0 32 32">
+                                            <path d="M16 20c.3 0 .5-.1.7-.3l5.7-5.7-1.4-1.4-4 4V8h-2v8.6l-4-4L9.6 14l5.7 5.7c.2.2.4.3.7.3zM9 22h14v2H9z"></path>
+                                        </svg>
+                                    </button>
                                     <button class="yl xy rounded-full" wire:click="deleteId({{ $music->id }})">
                                     <span class=" d">Delete</span>
                                         <svg class="os sf du" viewBox="0 0 32 32">
