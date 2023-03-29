@@ -41,6 +41,7 @@ class MovieIndex extends Component
     public $genres;
     public $movieId;
     public $movie;
+    public $movieTags;
     public $movieStatus = 'inactive';
     public $statuses = [
         'active',
@@ -287,6 +288,7 @@ class MovieIndex extends Component
             'slug' => Str::slug($this->title),
             'release_date' => $this->releaseDate,
             'description' => $this->description,
+            'movie_tags' => $this->movieTags,
             'year' => $this->year,
             'country' => $this->country,
             'duration' => $this->duration,
@@ -313,6 +315,7 @@ class MovieIndex extends Component
         $this->title = $movie->title;
         $this->releaseDate = $movie->release_date;
         $this->description = $movie->description;
+        $this->movieTags = $movie->movie_tags;
         $this->year = $movie->year;
         $this->country = $movie->country;
         $this->duration = $movie->duration;
@@ -334,6 +337,7 @@ class MovieIndex extends Component
         // $this->title = $movie->title;
         // $this->releaseDate = $movie->release_date;
         // $this->description = $movie->description;
+        // $this->movieTags = $movie->movie_tags;
         // $this->year = $movie->year;
         // $this->country = $movie->country;
         // $this->duration = $movie->duration;
@@ -369,6 +373,7 @@ class MovieIndex extends Component
                     'slug' => Str::slug($this->title),
                     'release_date' => $this->releaseDate,
                     'description' => $this->description,
+                    'movie_tags' => $this->movieTags,
                     'year' => $this->year,
                     'country' => $this->country,
                     'duration' => $this->duration,

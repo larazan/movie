@@ -123,11 +123,12 @@
                                 </div>
                             </th>
                             <th class="vi wy w_ vo lm">
-                                <div class="gh gt">Album</div>
+                                <div class="gh gt">Song</div>
                             </th>
                             <th class="vi wy w_ vo lm">
-                                <div class="gh gt">Actress</div>
+                                <div class="gh gt">Actress/Group</div>
                             </th>
+                            
                             <th class="vi wy w_ vo lm">
                                 <div class="gh gt">Image</div>
                             </th>
@@ -158,7 +159,10 @@
                                 </div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp cursor-pointer text-indigo-400 hover:text-indigo-500" wire:click="showDetailModal(1)">Paramore</div>
+                                <div class="gp cursor-pointer text-indigo-400 hover:text-indigo-500" wire:click="showDetailModal(1)">The Only Exception</div>
+                            </td>
+                            <td class="vi wy w_ vo lm">
+                                <div class="gp ">Paramore</div>
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="od sy ub mr-2 _b">
@@ -166,9 +170,7 @@
                                 </div>
                                 <!-- <div class="gp ">-</div> -->
                             </td>
-                            <td class="vi wy w_ vo lm">
-                                <div class="gp ">-</div>
-                            </td>
+                            
                             <td class="vi wy w_ vo lm">
                                 <div class="gp ">{{ $minutes }}</div>
                             </td>
@@ -223,7 +225,7 @@
                                 </div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp text-slate-800">{{ $music->album }}</div>
+                                <div class="gp cursor-pointer text-indigo-400 hover:text-indigo-500" wire:click="showDetailModal({{ $music->id }})">{{ $music->title }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="gp text-slate-800">{{ $music->person_id }}</div>
@@ -247,7 +249,7 @@
                             </td>
 
                             <td class="vi wy w_ vo lm">
-                                <div>{{ $music->created_at }}</div>
+                                <div>{{ $music->created_at->format('d-m-Y') }}</div>
                             </td>
 
                             <td class="vi wy w_ vo lm of">
@@ -517,6 +519,11 @@
                                 After Laughter is the fifth studio album by American rock band Paramore. It was released on May 12, 2017, through Fueled by Ramen, as a follow-up to their self-titled album Paramore (2013). The album was produced by guitarist Taylor York alongside previous collaborator Justin Meldal-Johnsen. It is the band's first album since the return of drummer Zac Farro, who left the band with his brother Josh in 2010, and the departure of former bassist Jeremy Davis, who left the band in 2015
                             </div>
                                 <!-- Product meta -->
+                                <div class="flex flex-wrap fe items-center">
+                                    <audio id="myTune" controls controlsList="nofullscreen nodownload noremoteplayback">
+                                        <source  src="{{ asset('musics/blackpink.mp3)}}">
+                                    </audio>
+                                </div>
                                 <div class="flex flex-wrap fe items-center">
                                     <!-- Rating and price -->
                                     <div class="flex flex-wrap items-center fc mr-2">

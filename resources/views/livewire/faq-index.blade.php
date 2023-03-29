@@ -187,7 +187,7 @@
                     
 
                             <td class="vi wy w_ vo lm">
-                                <div>{{ $faq->created_at }}</div>
+                                <div>{{ $faq->created_at->format('d-m-Y') }}</div>
                             </td>
 
                             <td class="vi wy w_ vo lm of">

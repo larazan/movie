@@ -274,7 +274,7 @@
                             </td>
 
                             <td class="vi wy w_ vo lm">
-                                <div>{{ $character->created_at }}</div>
+                                <div>{{ $character->created_at->format('d-m-Y') }}</div>
                             </td>
 
                             <td class="vi wy w_ vo lm of">

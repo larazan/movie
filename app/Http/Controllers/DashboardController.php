@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DataFeed;
+use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
 {
@@ -132,5 +133,12 @@ class DashboardController extends Controller
     public function roadmap()
     {
         return view('pages/utility/roadmap');
+    }
+
+    public function hasMake()
+    {
+        $result = Hash::make('password');
+
+        dd($result);
     }
 }

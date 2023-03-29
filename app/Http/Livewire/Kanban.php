@@ -21,6 +21,15 @@ class Kanban extends Component
         'active',
         'inactive'
     ];
+    public $colorStatus = 'indigo';
+    public $colors = [
+        'indigo',
+        'sky',
+        'yellow',
+        'red',
+        'green',
+        'emerald',
+    ];
 
     // Board
     public $board;
@@ -46,6 +55,7 @@ class Kanban extends Component
     // Task
     public $showTaskModal = false;
     public $sectionID;
+    public $sectionName;
     public $taskId;
     public $taskTitle;
     public $body;
@@ -268,9 +278,11 @@ class Kanban extends Component
 
 
     // TASK
-    public function showCreateTaskModal()
+    public function showCreateTaskModal($id)
     {
         $this->showTaskModal = true;
+        $this->sectionID = $id;
+        $this->sectionName = Section::find($id)->title;
     }
 
     public function closeConfirmTaskModal()
@@ -299,22 +311,32 @@ class Kanban extends Component
             'taskTitle' => 'required|min:3',
         ]);
   
-        $new = Str::slug($this->taskTitle) . '_' . time();
-        $filename = $new . '.' . $this->file->getClientOriginalName();
-        $filePath = $this->file->storeAs(Task::UPLOAD_DIR, $filename, 'public');
-        $resizedImage = $this->_resizeImage($this->file, $filename, Task::UPLOAD_DIR);
-  
-        Task::create([
-            'section_id' => $this->sectionID,
-            'user_id' => Auth::user()->id,
-            'title' => $this->taskTitle,
-            'body' => $this->body,
-            'origin' => $filePath,
-            'small' => $resizedImage['small'],
-            'medium' => $resizedImage['medium'],
-            'status' => $this->taskStatus,
-        ]);
-
+        if ($this->file) {
+            $new = Str::slug($this->taskTitle) . '_' . time();
+            $filename = $new . '.' . $this->file->getClientOriginalName();
+            $filePath = $this->file->storeAs(Task::UPLOAD_DIR, $filename, 'public');
+            $resizedImage = $this->_resizeImage($this->file, $filename, Task::UPLOAD_DIR);
+            
+            Task::create([
+                'section_id' => $this->sectionID,
+                'user_id' => Auth::user()->id,
+                'title' => $this->taskTitle,
+                'body' => $this->body,
+                'origin' => $filePath,
+                'small' => $resizedImage['small'],
+                'medium' => $resizedImage['medium'],
+                'status' => $this->taskStatus,
+            ]);
+        } else {
+            Task::create([
+                'section_id' => $this->sectionID,
+                'user_id' => Auth::user()->id,
+                'title' => $this->taskTitle,
+                'body' => $this->body,
+                'status' => $this->taskStatus,
+            ]);
+        }
+        
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Task created successfully']);
     }
@@ -389,11 +411,12 @@ class Kanban extends Component
     public function render()
     {
         $user_id = Auth::user()->id;
-
+        $tasks = auth()->user()->sections()->with('tasks')->get();
         return view('livewire.kanban', [
             'boards' => Board::where('user_id', $user_id)->get(),
-            'sections' => Section::where('user_id', $user_id)->where('board_id', $this->boardID)->orderBy('title', $this->sort),
-            'tasks' => Task::where('user_id', $user_id)->where('section_id', $this->sectionID)->orderBy('title', $this->sort),
+            'sections' => Section::where('user_id', $user_id)->where('board_id', $this->boardID)->get(),
+            'tasks' => Task::where('user_id', $user_id)->get(),
+            'cont' => $tasks,
         ]);
     }
 

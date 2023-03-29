@@ -228,7 +228,7 @@
                                         <div class="gp ">{{ $attribute->name }}</div>
                                     </td>
                                     <td class="vi wy w_ vo lm">
-                                        <div class="gp ">{{ $attribute->created_at }}</div>
+                                        <div class="gp ">{{ $attribute->created_at->format('d-m-Y') }}</div>
                                     </td>
 
                                     <td class="vi wy w_ vo lm of">

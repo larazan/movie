@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('body')->nullable();
             $table->smallInteger('position')->default(0);
-            $table->string('original');
+            $table->string('original')->nullable();
             $table->string('medium')->nullable();
             $table->string('small')->nullable();
             $table->string('status');

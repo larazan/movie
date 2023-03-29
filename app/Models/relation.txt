@@ -1,0 +1,40 @@
+
+#USER
+User =======one to many======== Article Comment
+User =======one to many======== Comment
+User =======one to many======== Thread
+User =======one to many======== Reply
+User =======one to many======== Rating
+User =======one to many======== Review
+User =======one to many======== Event
+
+# FORUM
+Thread =======one to many======== Reply
+
+#PERSON
+Person =======one to many======== Role
+Person =======one to many======== Cast
+Person =======one to many======== Group
+Person =======one to many======== Music
+
+#NEWS
+Article =======one to many======== Category Article
+Article =======one to many======== Comment
+
+#MOVIE
+Movie =======one to many======== Category Movie
+Movie =======one to many======== Genre
+Movie =======one to many======== Country
+Movie =======one to many======== Cast
+Movie =======one to many======== Network
+
+Season =======one to many======== Episode
+
+#MUSIC
+Music =======one to one======== Label
+Album =======one to one======== Music
+Group =======one to one======== Album
+
+#PRODUCT
+
+#EVENT

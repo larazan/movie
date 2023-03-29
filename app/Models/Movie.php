@@ -21,6 +21,7 @@ class Movie extends Model
         'slug',
         'release_date',
         'description',
+        'movie_tags',
         'year',
         'country',
         'duration',
@@ -52,6 +53,11 @@ class Movie extends Model
     //     );
     // }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function genres()
     {
         return $this->belongsToMany(Genre::class, 'genre_movie');
@@ -61,10 +67,11 @@ class Movie extends Model
     {
         return $this->morphMany(TrailerUrl::class, 'trailerable');
     }
-    public function tags()
-    {
-        return $this->morphToMany(Tag::class, 'taggable');
-    }
+
+    // public function tags()
+    // {
+    //     return $this->morphToMany(Tag::class, 'taggable');
+    // }
 
     public function casts()
     {

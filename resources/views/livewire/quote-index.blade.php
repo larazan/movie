@@ -232,7 +232,7 @@
                             </td>
 
                             <td class="vi wy w_ vo lm">
-                                <div>{{ $quote->created_at }}</div>
+                                <div>{{ $quote->created_at->format('d-m-Y') }}</div>
                             </td>
 
                             <td class="vi wy w_ vo lm of">

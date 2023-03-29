@@ -242,7 +242,7 @@
                             </td>
 
                             <td class="vi wy w_ vo lm">
-                                <div>{{ $slide->created_at }}</div>
+                                <div>{{ $slide->created_at->format('d-m-Y') }}</div>
                             </td>
 
                             <td class="vi wy w_ vo lm of">

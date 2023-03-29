@@ -22,6 +22,7 @@ class CreateMoviesTable extends Migration
             $table->string('slug');
             $table->date('release_date');
             $table->text('description');
+            $table->text('movie_tags')->nullable();
             $table->integer('year');
             $table->integer('country');
             $table->integer('duration');

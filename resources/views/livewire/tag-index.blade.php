@@ -193,7 +193,7 @@
                     
 
                             <td class="vi wy w_ vo lm">
-                                <div>{{ $tag->created_at }}</div>
+                                <div>{{ $tag->created_at->format('d-m-Y') }}</div>
                             </td>
 
                             <td class="vi wy w_ vo lm of">

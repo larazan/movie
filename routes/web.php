@@ -11,6 +11,7 @@ use App\Http\Controllers\SerieController;
 use App\Http\Controllers\WelcomeController;
 // Livewire
 use App\Http\Livewire\Account;
+use App\Http\Livewire\AlbumIndex;
 use App\Http\Livewire\ArticleIndex;
 use App\Http\Livewire\AttributeIndex;
 use App\Http\Livewire\AttributeOptionIndex;
@@ -26,7 +27,9 @@ use App\Http\Livewire\CountryIndex;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\EpisodeIndex;
 use App\Http\Livewire\FaqIndex;
+use App\Http\Livewire\ForumIndex;
 use App\Http\Livewire\GenreIndex;
+use App\Http\Livewire\GroupIndex;
 use App\Http\Livewire\kanban;
 use App\Http\Livewire\LabelIndex;
 use App\Http\Livewire\MessagesIndex;
@@ -51,6 +54,7 @@ use App\Http\Livewire\SettingIndex;
 use App\Http\Livewire\ShipmentIndex;
 use App\Http\Livewire\SlideIndex;
 use App\Http\Livewire\TagIndex;
+use App\Http\Livewire\ThreadDetail;
 use App\Http\Livewire\UserIndex;
 use App\Http\Livewire\Portrait;
 
@@ -82,6 +86,7 @@ Route::get('/message/created', function () {
 Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', Dashboard::class);
     Route::get('profile', Account::class)->name('account.index');
+    Route::get('albums', AlbumIndex::class)->name('albums.index');
     Route::get('articles', ArticleIndex::class)->name('articles.index');
     Route::get('attributes', AttributeIndex::class)->name('attributes.index');
     Route::get('attributes/{attributeID}/options', AttributeOptionIndex::class)->name('attribute-options.index');
@@ -96,7 +101,10 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('countries', CountryIndex::class)->name('countries.index');
     Route::get('episodes', EpisodeIndex::class)->name('episodes.index');
     Route::get('faqs', FaqIndex::class)->name('faqs.index');
+    Route::get('forum', ForumIndex::class)->name('forum.index');
+    Route::get('forum/thread/{slug}', ThreadDetail::class)->name('thread-detail.index');
     Route::get('genres', GenreIndex::class)->name('genres.index');
+    Route::get('groups', GroupIndex::class)->name('groups.index');
     Route::get('kanban/{slug?}', Kanban::class)->name('kanban.index');
     // Route::get('kanban/{slug}/board', Kanban::class)->name('kanban.index');
     Route::get('labels', LabelIndex::class)->name('labels.index');
@@ -170,5 +178,6 @@ Route::middleware([
     Route::get('/changelog', [DashboardController::class, 'changelog']);
     Route::get('/faq', [DashboardController::class, 'faq']);
     Route::get('/roadmap', [DashboardController::class, 'roadmap']);
+    Route::get('/hs', [DashboardController::class, 'hasMake']);
     Route::get('/portrait', Portrait::class);
 });

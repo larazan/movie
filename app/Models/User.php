@@ -20,17 +20,34 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
     use HasRoles;
 
+    const DEFAULT = 1;
+    const MODERATOR = 2;
+    const ADMIN = 3;
+
+    const TABLE = 'users';
+
+    protected $table = self::TABLE;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'phone', 'password', 'address1', 'address2', 'province_id', 'city_id', 'postcode', 'profile_photo_path',
+        'first_name', 
+        'last_name', 
+        'email', 
+        'phone', 
+        'password', 
+        'address1', 
+        'address2', 
+        'province_id', 
+        'city_id', 
+        'postcode', 
+        'profile_photo_path',
     ];
 
     public const UPLOAD_DIR = 'uploads/user';
-    public const EXTRA_LARGE = '1920x643';
 	public const SMALL = '135x75';
 
     /**
@@ -63,6 +80,51 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    public function id(): int
+    {
+        return $this->id;
+    }
+
+    public function firstName(): string
+    {
+        return $this->first_name;
+    }
+
+    public function lastName(): string
+    {
+        return $this->last_name;
+    }
+
+    // public function bio(): string
+    // {
+    //     return $this->bio;
+    // }
+
+    public function emailAddress(): string
+    {
+        return $this->email;
+    }
+
+    public function type(): int
+    {
+        return (int) $this->type;
+    }
+
+    public function isModerator(): bool
+    {
+        return $this->type() === self::MODERATOR;
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->type() === self::ADMIN;
+    }
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
+
     public function tasks()
     {
         return $this->hasMany(Task::class);
@@ -76,5 +138,11 @@ class User extends Authenticatable
     public function boards()
     {
         return $this->hasMany(Board::class);
+    }
+
+    public function threads()
+    {
+        // make database relationship and return threads in proper order
+        return $this->hasMany(Thread::class)->latest();
     }
 }

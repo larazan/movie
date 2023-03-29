@@ -210,17 +210,17 @@
                                 <div class="gp text-slate-800">{{ $user->phone }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                @if ($user->isAdmin === 0)
+                                @if ($user->isAdmin === 1)
                                     <div class="inline-flex gp hf yl rounded-full gn vp vd">user</div>
                                 @endif 
 
-                                @if ($user->isAdmin === 1)
+                                @if ($user->isAdmin === 3)
                                     <div class="inline-flex gp hc ys rounded-full gn vp vd">admin</div>
                                 @endif 
                             </td>
 
                             <td class="vi wy w_ vo lm">
-                                <div>{{ $user->created_at }}</div>
+                                <div>{{ $user->created_at->format('d-m-Y') }}</div>
                             </td>
 
                             <td class="vi wy w_ vo lm of">

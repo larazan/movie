@@ -222,7 +222,7 @@
                             </td>
 
                             <td class="vi wy w_ vo lm">
-                                <div>{{ $label->created_at }}</div>
+                                <div>{{ $label->created_at->format('d-m-Y') }}</div>
                             </td>
 
                             <td class="vi wy w_ vo lm of">

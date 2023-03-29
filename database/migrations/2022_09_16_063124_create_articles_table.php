@@ -23,6 +23,8 @@ class CreateArticlesTable extends Migration
             $table->datetime('published_at')->nullable();
             $table->string('status');
             $table->text('body');
+            $table->text('article_tags')->nullable();
+            $table->text('url')->nullable();
             $table->string('author')->nullable();
             $table->string('original');
             $table->string('large')->nullable();

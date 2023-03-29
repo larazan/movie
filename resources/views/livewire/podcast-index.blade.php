@@ -226,7 +226,7 @@
                             </td>
 
                             <td class="vi wy w_ vo lm">
-                                <div>{{ $podcast->created_at }}</div>
+                                <div>{{ $podcast->created_at->format('d-m-Y') }}</div>
                             </td>
 
                             <td class="vi wy w_ vo lm of">

@@ -15,12 +15,14 @@ class CreateMusicsTable extends Migration
     {
         Schema::create('musics', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->foreignId('user_id')->constrained('users');
             $table->string('title');
             $table->string('slug');
             $table->string('rand_id');
-            $table->unsignedBigInteger('person_id');
-            $table->string('album');
+            $table->integer('person_id')->nullable();
+            $table->integer('album_id')->nullable();
             $table->string('description');
+            $table->smallInteger('type')->default('1');
             $table->string('original');
             $table->string('medium');
             $table->string('small');
@@ -30,7 +32,9 @@ class CreateMusicsTable extends Migration
             $table->string('status');
             $table->timestamps();
 
-            $table->foreign('person_id')->references('id')->on('persons')->onDelete('cascade');
+            // $table->foreign('person_id')->references('id')->on('persons')->onDelete('cascade');
+            // $table->foreign('album_id')->references('id')->on('albums')->onDelete('cascade');
+            // $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
         });
     }
    

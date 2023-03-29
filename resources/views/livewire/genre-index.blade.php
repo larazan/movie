@@ -205,7 +205,7 @@
                             </td>
 
                             <td class="vi wy w_ vo lm">
-                                <div>{{ $genre->created_at }}</div>
+                                <div>{{ $genre->created_at->format('d-m-Y') }}</div>
                             </td>
 
                             <td class="vi wy w_ vo lm of">

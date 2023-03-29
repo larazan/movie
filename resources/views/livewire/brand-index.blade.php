@@ -213,7 +213,7 @@
                             </td>
 
                             <td class="vi wy w_ vo lm">
-                                <div>{{ $brand->created_at }}</div>
+                                <div>{{ $brand->created_at->format('d-m-Y') }}</div>
                             </td>
 
                             <td class="vi wy w_ vo lm of">

@@ -19,7 +19,7 @@ return new class extends Migration
 			$table->renameColumn('name', 'first_name');
 			$table->string('last_name')->nullable()->after('name');
 			$table->string('phone')->nullable()->after('email');
-			$table->boolean('isAdmin')->nullable()->default(0)->after('password');
+			// $table->boolean('isAdmin')->nullable()->default(0)->after('password');
 			$table->string('address1')->nullable()->after('phone');
 			$table->string('address2')->nullable()->after('address1');
 			$table->integer('province_id')->nullable()->after('address2');

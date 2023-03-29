@@ -35,7 +35,11 @@
         <!-- Cards -->
         <div class="grid grid-cols-12 gap-6">
 
-           
+        
+        <x-dashboard.dashboard-card-04 />
+        <x-dashboard.dashboard-card-05 />
+        <x-dashboard.dashboard-card-06 />
+
 
             <!-- Table (Top Channels) -->
             <x-dashboard.dashboard-card-07 />

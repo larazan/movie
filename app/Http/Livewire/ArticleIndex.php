@@ -21,9 +21,11 @@ class ArticleIndex extends Component
     public $body;
     public $status;
     public $articleId;
+    public $articleTags = [];
     public $categoryId;
     public $file;
     public $author;
+    public $url;
     public $publishedAt;
     public $oldImage;
     public $articleStatus = 'inactive';
@@ -90,7 +92,9 @@ class ArticleIndex extends Component
             'slug' => Str::slug($this->title),
             'rand_id' => Str::random(10),
             'body' => $this->body,
+            'article_tags' => $this->articleTags,
             'author' => $this->author,
+            'url' => $this->url,
             'published_at' => $this->publishedAt,
             'origin' => $filePath,
             'small' => $resizedImage['small'],
@@ -110,7 +114,9 @@ class ArticleIndex extends Component
         $this->categoryId = $article->category_id;
         $this->title = $article->title;
         $this->body = $article->body;
+        $this->articleTags = $article->article_tags;
         $this->author = $article->author;
+        $this->url = $article->url;
         $this->publishedAt = $article->published_at;
         $this->oldImage = $article->small;
         $this->articleStatus = $article->status;
@@ -139,7 +145,9 @@ class ArticleIndex extends Component
                     'slug' => Str::slug($this->title),
                     'rand_id' => Str::random(10),
                     'body' => $this->body,
+                    'article_tags' => $this->articleTags,
                     'author' => $this->author,
+                    'url' => $this->url,
                     'published_at' => $this->publishedAt,
                     'origin' => $filePath,
                     'small' => $resizedImage['small'],

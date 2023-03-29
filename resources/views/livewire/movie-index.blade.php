@@ -611,7 +611,7 @@ class="text-blue-500 hover:text-blue-700 cursor-pointer">{{ $table_movie->title 
                             </td>
 
                             <td class="vi wy w_ vo lm">
-                                <div>{{ $movie->created_at }}</div>
+                                <div>{{ $movie->created_at->format('d-m-Y') }}</div>
                             </td>
 
                             <td class="vi wy w_ vo lm of">
@@ -708,6 +708,18 @@ class="text-blue-500 hover:text-blue-700 cursor-pointer">{{ $table_movie->title 
                                                 Description
                                             </label>
                                             <textarea wire:model="description" cols="50" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
+                                        </div>
+                                        <div class="col-start-1 sm:col-span-3">
+                                            <label for="title" class="block text-sm font-medium text-gray-700">
+                                                Tags
+                                            </label>
+                                            <input
+                                                type="text"
+                                                class="w-full px-4 py-6 text-sm border border-gray-300 rounded outline-none"
+                                                name="tags"
+                                                autofocus
+                                                wire:model="movieTags"
+                                            />
                                         </div>
                                         <div class="flex flex-row space-x-4 justify-between2">
                                             <div class="col-start-1 sm:col-span-3">
@@ -955,15 +967,21 @@ class="text-blue-500 hover:text-blue-700 cursor-pointer">{{ $table_movie->title 
 
                                     </div>
                                 </div>
-
+                                @if($movieTags)
+                                @php
+                                    $tagsArray = explode(',', $movieTags);
+                                @endphp
                                 <div class='my-3 flex flex-wrap mt-2 space-x-1'>
+                                    @foreach($tagsArray as $tag)
                                     <span class="flex flex-wrap justify-between items-center text-xs sm:text-xs bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 rounded px-3 py-1 leading-loose cursor-pointer dark:text-gray-300">
-                                        Buyer
+                                        {{ $tag }}
                                     </span>
+                                    @endforeach
                                     <span class="flex flex-wrap justify-between items-center text-xs sm:text-xs bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 rounded px-3 py-1 leading-loose cursor-pointer dark:text-gray-300 ">
                                         Friend
                                     </span>
                                 </div>
+                                @endif
                             </div>
                         </div>
 
@@ -982,3 +1000,18 @@ class="text-blue-500 hover:text-blue-700 cursor-pointer">{{ $table_movie->title 
     </x-jet-dialog-modal>
 
 </div>
+
+@push('styles')
+<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+@endpush
+
+@push('js')
+<script src="https://unpkg.com/@yaireo/tagify"></script>
+<script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+<script>
+    // The DOM element you wish to replace with Tagify
+    var input = document.querySelector('input[name=tags]');
+    // initialize Tagify on the above input node reference
+    new Tagify(input);
+</script>
+@endpush

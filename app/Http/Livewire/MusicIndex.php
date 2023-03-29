@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Album;
+use App\Models\Group;
 use App\Models\Music;
 use App\Models\Person;
 use App\Models\Country;
@@ -31,6 +33,8 @@ class MusicIndex extends Component
 
     public $actress;
     public $actressId;
+    public $groupId;
+    public $albumId;
     public $title;
     public $description;
     public $status;
@@ -39,6 +43,7 @@ class MusicIndex extends Component
     public $audio;
     public $duration;
     public $album;
+    public $group;
     public $country;
     public $oldImage;
     public $musicStatus = 'inactive';
@@ -114,10 +119,11 @@ class MusicIndex extends Component
         Music::create([
             'user_id' => Auth::user()->id,
             'person_id' => $this->actress,
+            'group_id' => $this->groupId,
             'title' => $this->title,
             'slug' => Str::slug($this->title),
             'rand_id' => Str::random(18),
-            'album' => $this->album,
+            'album_id' => $this->albumId,
             'description' => $this->description,
             'country' => $this->country,
             'duration' => $originalTime,
@@ -164,8 +170,9 @@ class MusicIndex extends Component
         $this->musicId = $musicId;
         $music = Music::find($musicId);
         $this->actress = $music->person_id;
+        $this->group = $music->group_id;
         $this->title = $music->title;
-        $this->album = $music->album;
+        $this->album = $music->album_id;
         $this->description = $music->description;
         $this->country = $music->country;
         $this->duration = $music->duration;
@@ -222,10 +229,11 @@ class MusicIndex extends Component
                 $music->update([
                     'user_id' => Auth::user()->id,
                     'person_id' => $this->actress,
+                    'group_id' => $this->groupId,
                     'title' => $this->title,
                     'slug' => Str::slug($this->title),
                     'rand_id' => Str::random(18),
-                    'album' => $this->album,
+                    'album_id' => $this->albumId,
                     'description' => $this->description,
                     'country' => $this->country,
                     'duration' => $originalTime,
@@ -282,6 +290,8 @@ class MusicIndex extends Component
         return view('livewire.music-index', [
             'musics' => Music::search('title', $this->search)->orderBy('title', $this->sort)->paginate($this->perPage),
             'persons' => Person::OrderBy('name', 'asc')->get(),
+            'albums' => Album::OrderBy('name', 'asc')->get(),
+            'groups' => Group::OrderBy('name', 'asc')->get(),
             'countries' => Country::OrderBy('name', $this->sortDirection)->get(),
         ]);
     }
