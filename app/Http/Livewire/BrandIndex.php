@@ -67,19 +67,27 @@ class BrandIndex extends Component
     {
         $this->validate();
   
-        $new = Str::slug($this->name) . '_' . time();
-        $filename = $new . '.' . $this->file->getClientOriginalName();
-        $filePath = $this->file->storeAs(Brand::UPLOAD_DIR, $filename, 'public');
-        $resizedImage = $this->_resizeImage($this->file, $filename, Brand::UPLOAD_DIR);
-  
-        Brand::create([
-            'name' => $this->name,
-            'slug' => Str::slug($this->name),
-            'origin' => $filePath,
-            'small' => $resizedImage['small'],
-            'status' => $this->brandStatus,
-        ]);
+        if (!empty($this->file)) {
+            // dd('not empty');
+            $new = Str::slug($this->name) . '_' . time();
+            $filename = $new . '.' . $this->file->getClientOriginalName();
+            $filePath = $this->file->storeAs(Brand::UPLOAD_DIR, $filename, 'public');
+            $resizedImage = $this->_resizeImage($this->file, $filename, Brand::UPLOAD_DIR);
 
+            Brand::create([
+                'name' => $this->name,
+                'slug' => Str::slug($this->name),
+                'origin' => $filePath,
+                'small' => $resizedImage['small'],
+                'status' => $this->brandStatus,
+            ]);
+        } else {
+            Brand::create([
+                'name' => $this->name,
+                'slug' => Str::slug($this->name),
+            ]);
+        }
+        
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Brand created successfully']);
     }
@@ -105,19 +113,27 @@ class BrandIndex extends Component
         
         if ($this->brandId) {
             if ($brand) {
-               // delete image
-			    $this->deleteImage($this->brandId);
-                $filePath = $this->file->storeAs(Brand::UPLOAD_DIR, $filename, 'public');
-                $resizedImage = $this->_resizeImage($this->file, $filename, Brand::UPLOAD_DIR);
-
-                $brand->update([
-                    'name' => $this->name,
-                    'slug' => Str::slug($this->name),
-                    'origin' => $filePath,
-                    'small' => $resizedImage['small'],
-                    'status' => $this->brandStatus,
-                ]);
-                
+                if (!empty($this->file)) {
+                    // dd('not empty');
+                   
+                    // delete image
+			        $this->deleteImage($this->brandId);
+                    $filePath = $this->file->storeAs(Brand::UPLOAD_DIR, $filename, 'public');
+                    $resizedImage = $this->_resizeImage($this->file, $filename, Brand::UPLOAD_DIR);
+        
+                    Brand::create([
+                        'name' => $this->name,
+                        'slug' => Str::slug($this->name),
+                        'origin' => $filePath,
+                        'small' => $resizedImage['small'],
+                        'status' => $this->brandStatus,
+                    ]);
+                } else {
+                    Brand::create([
+                        'name' => $this->name,
+                        'slug' => Str::slug($this->name),
+                    ]);
+                }
             }
         }
 

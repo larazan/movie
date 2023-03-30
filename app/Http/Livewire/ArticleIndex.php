@@ -26,6 +26,7 @@ class ArticleIndex extends Component
     public $file;
     public $author;
     public $url;
+    public $embedUrl;
     public $publishedAt;
     public $oldImage;
     public $articleStatus = 'inactive';
@@ -95,6 +96,7 @@ class ArticleIndex extends Component
             'article_tags' => $this->articleTags,
             'author' => $this->author,
             'url' => $this->url,
+            'embed_url' => $this->embedUrl,
             'published_at' => $this->publishedAt,
             'origin' => $filePath,
             'small' => $resizedImage['small'],
@@ -117,6 +119,7 @@ class ArticleIndex extends Component
         $this->articleTags = $article->article_tags;
         $this->author = $article->author;
         $this->url = $article->url;
+        $this->embedUrl = $article->embed_url;
         $this->publishedAt = $article->published_at;
         $this->oldImage = $article->small;
         $this->articleStatus = $article->status;
@@ -148,6 +151,7 @@ class ArticleIndex extends Component
                     'article_tags' => $this->articleTags,
                     'author' => $this->author,
                     'url' => $this->url,
+                    'embed_url' => $this->embedUrl,
                     'published_at' => $this->publishedAt,
                     'origin' => $filePath,
                     'small' => $resizedImage['small'],

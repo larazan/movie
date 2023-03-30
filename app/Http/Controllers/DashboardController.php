@@ -137,8 +137,15 @@ class DashboardController extends Controller
 
     public function hasMake()
     {
-        $result = Hash::make('password');
+        // $result = Hash::make('password');
 
-        dd($result);
+        // dd($result);
+        $file = null;
+        if (!empty($file)) {
+            dd('not empty');
+        } else {
+            dd('empty');
+        }
+        
     }
 }
