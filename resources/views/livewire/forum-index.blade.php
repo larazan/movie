@@ -401,12 +401,12 @@
                                                 <div class="go re yl">{{ $message }}</div>
                                             @enderror
                                         </div>
-                                        <div class="col-start-1 sm:col-span-3">
+                                        <div wire:ignore class="col-start-1 sm:col-span-3">
                                             <label for="body" class="block text-sm font-medium text-gray-700">
                                                 Body
                                             </label>
-                                            <div wire:ignore>
-                                                <textarea wire:model="body" class="min-h-80 h-96 " name="message" id="message">{{ $body }}</textarea>
+                                            <div>
+                                                <textarea wire:model="body" class="min-h-80 h-96 " name="body" id="body">{{ $body }}</textarea>
                                             </div>
                                             @error('body')
                                                 <div class="go re yl">{{ $message }}</div>
@@ -517,22 +517,11 @@
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.js"></script>
 <script>
-    // CKEDITOR.replace( 'my-ckeditor' );
-    // $(document).ready(function(){
-    //     const editor = CKEDITOR.replace('my-ckeditor');
-    //     editor.on('change', function(event){
-    //         console.log(event.editor.getData())
-    //         // @this.set('content', event.editor.getData());
-    //     })
-    //     $('#my-submit').click(function(event){
-    //         CKEDITOR.instances['my-ckeditor'].setData('');
-    //     })
-    // })
     ClassicEditor
-        .create(document.querySelector('#message'))
+        .create(document.querySelector('#body'))
         .then(editor => {
             editor.model.document.on('change:data', () => {
-                @this.set('message', editor.getData());
+                @this.set('body', editor.getData());
             })
         })
         .catch(error => {

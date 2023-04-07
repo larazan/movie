@@ -18,4 +18,14 @@ class Person extends Model
     public const SMALL = '135x141';
 	public const MEDIUM = '312x400';
 	public const LARGE = '1000x600';
+
+    /**
+	 * Define relationship with the ProductImage
+	 *
+	 * @return void
+	 */
+	public function personImages()
+	{
+		return $this->hasMany(PersonImage::class, 'person_id', 'id')->orderBy('id', 'DESC');
+	}
 }

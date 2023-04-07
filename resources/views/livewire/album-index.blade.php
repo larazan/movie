@@ -295,18 +295,18 @@
                                 <div class="">
                                     <div class="flex flex-col space-y-3">
                                         <div class="col-span-6 sm:col-span-3">
-                                            <label for="first-name" class="block text-sm font-medium text-gray-700">Status</label>
+                                            <label for="first-name" class="block text-sm font-medium text-gray-700">Actress</label>
                                             <select wire:model="actress" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
-                                                <option value="" >Select Option</option>
+                                                <option value="" >Select Person</option>
                                                 @foreach($persons as $person)
                                                 <option value="{{ $person->id }}">{{ $person->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
-                                            <label for="first-name" class="block text-sm font-medium text-gray-700">Status</label>
+                                            <label for="first-name" class="block text-sm font-medium text-gray-700">Group</label>
                                             <select wire:model="actress" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
-                                                <option value="" >Select Option</option>
+                                                <option value="" >Select Group</option>
                                                 @foreach($groups as $group)
                                                 <option value="{{ $group->id }}">{{ $group->name }}</option>
                                                 @endforeach
@@ -319,11 +319,11 @@
                                             <input wire:model="name" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                         </div>
                                         
-                                        <div class="col-start-1 sm:col-span-3">
+                                        <div wire:ignore class="col-start-1 sm:col-span-3">
                                             <label for="description" class="block text-sm font-medium text-gray-700">
                                                 Description
                                             </label>
-                                            <textarea wire:model="description"  cols="50" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" ></textarea>
+                                            <textarea wire:model="description" name="description" id="description" cols="50" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" >{{ $description }}</textarea>
                                         </div>
                                         
                                         <div class="flex flex-row space-x-4 justify-between2">
@@ -560,3 +560,18 @@
     </x-jet-dialog-modal>
 
 </div>
+
+@push('js')
+<script>
+    ClassicEditor
+        .create(document.querySelector('#description'))
+        .then(editor => {
+            editor.model.document.on('change:data', () => {
+                @this.set('description', editor.getData());
+            })
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+@endpush

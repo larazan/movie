@@ -686,7 +686,7 @@ class="text-blue-500 hover:text-blue-700 cursor-pointer">{{ $table_movie->title 
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="col-start-1 sm:col-span-3">
+                                            <div class="col-start-1 sm:col-span-3 w-1/2 ml-4">
                                                 <label for="title" class="block text-sm font-medium text-gray-700">
                                                     Genre
                                                 </label>
@@ -703,11 +703,11 @@ class="text-blue-500 hover:text-blue-700 cursor-pointer">{{ $table_movie->title 
 
                                             </div>
                                         </div>
-                                        <div class="col-start-1 sm:col-span-3">
+                                        <div wire:ignore class="col-start-1 sm:col-span-3">
                                             <label for="description" class="block text-sm font-medium text-gray-700">
                                                 Description
                                             </label>
-                                            <textarea wire:model="description" cols="50" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
+                                            <textarea wire:model="description" name="description" id="description" cols="50" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">{{ $description }}</textarea>
                                         </div>
                                         <div class="col-start-1 sm:col-span-3">
                                             <label for="title" class="block text-sm font-medium text-gray-700">
@@ -1013,5 +1013,17 @@ class="text-blue-500 hover:text-blue-700 cursor-pointer">{{ $table_movie->title 
     var input = document.querySelector('input[name=tags]');
     // initialize Tagify on the above input node reference
     new Tagify(input);
+</script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#description'))
+        .then(editor => {
+            editor.model.document.on('change:data', () => {
+                @this.set('description', editor.getData());
+            })
+        })
+        .catch(error => {
+            console.error(error);
+        });
 </script>
 @endpush

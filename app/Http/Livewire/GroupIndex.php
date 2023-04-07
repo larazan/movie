@@ -37,7 +37,7 @@ class GroupIndex extends Component
     public $search = '';
     public $sort = 'asc';
     public $perPage = 5;
-
+    public $sortDirection = 'asc';
     public $showConfirmModal = false;
     public $deleteId = '';
 

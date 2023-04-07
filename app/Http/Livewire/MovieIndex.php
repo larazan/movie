@@ -38,7 +38,7 @@ class MovieIndex extends Component
     public $country;
     public $duration;
     public $networks;
-    public $genres;
+    public $genres = [];
     public $movieId;
     public $movie;
     public $movieTags;

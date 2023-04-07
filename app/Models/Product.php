@@ -12,21 +12,29 @@ class Product extends Model
 
     protected $fillable = [
 		'rand_id',
+		'code',
 		'parent_id',
 		'user_id',
-		'shop_id',
 		'sku',
 		'type',
 		'name',
 		'slug',
+		'images',
+		'thumbnail',
+		'published',
+		'discount_type',
+		'current_stock',
+		'featured_status',
+		'meta_title',
+		'meta_description',
+		'meta_image',
 		'price',
 		'discount',
 		'weight',
 		'length',
 		'width',
 		'height',
-		'short_description',
-		'description',
+		'details',
 		'status',
 	];
 
@@ -35,6 +43,12 @@ class Product extends Model
     // protected $keyType = 'string';
 
     // public $incrementing = false;
+
+	public const UPLOAD_DIR = 'uploads';
+	public const SMALL = '135x141';
+	public const MEDIUM = '312x400';
+	public const LARGE = '600x656';
+	public const EXTRA_LARGE = '1125x1200';
 
 	public const DRAFT = 0;
 	public const ACTIVE = 1;

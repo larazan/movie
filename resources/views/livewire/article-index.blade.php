@@ -285,7 +285,7 @@
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="first-name" class="block text-sm font-medium text-gray-700">Status</label>
                                             <select wire:model="categoryId" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
-                                                <option value="" >Select Option</option>
+                                                <option value="" >Select Category</option>
                                                 @foreach($categories as $cat)
                                                 <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                                                 @endforeach
@@ -297,54 +297,72 @@
                                             </label>
                                             <input wire:model="title" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                         </div>
-                                        <div class="col-start-1 sm:col-span-3">
+                                        <div wire:ignore class="col-start-1 sm:col-span-3">
                                             <label for="title" class="block text-sm font-medium text-gray-700">
                                                 Body
                                             </label>
-                                            <textarea wire:model="body" cols="50" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" >{{ $body }}</textarea>
+                                            <textarea wire:model="body" name="body" id="body" cols="50" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" >{{ $body }}</textarea>
                                         </div>
+                                        
                                         <div class="col-start-1 sm:col-span-3">
                                             <label for="title" class="block text-sm font-medium text-gray-700">
                                                 Tags
                                             </label>
                                             <input
                                                 type="text"
-                                                class="w-full px-4 py-6 text-sm border border-gray-300 rounded outline-none"
+                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm"
                                                 name="tags"
+                                                style="appearance: none;
+                                                    background-color: #fff;
+                                                    border-color: #000;
+                                                    border-width: 1px;
+                                                    border-radius: 0;
+                                                    padding-top: 0.5rem;
+                                                    padding-right: 0.75rem;
+                                                    padding-bottom: 0.5rem;
+                                                    padding-left: 0.75rem;
+                                                    font-size: 1rem;
+                                                    line-height: 1.5rem;"
                                                 autofocus
                                                 wire:model="articleTags"
                                             />
                                         </div>
-                                        <div class="col-start-1 sm:col-span-3">
-                                            <label for="title" class="block text-sm font-medium text-gray-700">
-                                                Author
-                                            </label>
-                                            <input wire:model="author" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                        
+                                        <div class="flex flex-row justify-between">
+                                            <div class="col-start-1 sm:col-span-3">
+                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                    Url
+                                                </label>
+                                                <input wire:model="url" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            </div>
+                                            <div class="col-start-1 sm:col-span-3">
+                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                    Embed Url
+                                                </label>
+                                                <input wire:model="embedUrl" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            </div>
                                         </div>
-                                        <div class="col-start-1 sm:col-span-3">
-                                            <label for="title" class="block text-sm font-medium text-gray-700">
-                                                Url
-                                            </label>
-                                            <input wire:model="url" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                                        </div>
-                                        <div class="col-start-1 sm:col-span-3">
-                                            <label for="title" class="block text-sm font-medium text-gray-700">
-                                                Embed Url
-                                            </label>
-                                            <input wire:model="embedUrl" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                                        </div>
-                                        <div class="col-start-1 sm:col-span-3">
-                                            <label for="title" class="block text-sm font-medium text-gray-700">
-                                                Published At
-                                            </label>
-                                            {{-- 
-                                                <input wire:model="publishedAt" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                                            --}}
-                                                <x-flatpicker wire:model="publishedAt"></x-flatpicker>
+                                        <div class="flex flex-row justify-between">
+                                            <div class="col-start-1 sm:col-span-3">
+                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                    Published At
+                                                </label>
+                                                {{-- 
+                                                    <input wire:model="publishedAt" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                --}}
+                                                    <x-flatpicker wire:model="publishedAt"></x-flatpicker>
+                                            </div>
+                                            <div class="col-start-1 sm:col-span-3">
+                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                    Author
+                                                </label>
+                                                <input wire:model="author" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            </div>
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
-                                            <label for="photo" class="block text-sm font-medium text-gray-700">Person
-                                                photo</label>
+                                            <label for="photo" class="block text-sm font-medium text-gray-700">
+                                                Image
+                                            </label>
                                             <input wire:model="file" type="file" autocomplete="given-name"
                                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                                 @if ($oldImage)
@@ -446,4 +464,17 @@
     // initialize Tagify on the above input node reference
     new Tagify(input);
 </script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#body'))
+        .then(editor => {
+            editor.model.document.on('change:data', () => {
+                @this.set('body', editor.getData());
+            })
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
 @endpush
+

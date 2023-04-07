@@ -28,6 +28,7 @@ class MusicIndex extends Component
     public $second;
 
     public $sortDirection = 'asc';
+    
     public $showMusicModal = false;
     public $showMusicDetailModal = false;
 

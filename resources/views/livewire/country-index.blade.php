@@ -39,7 +39,7 @@
 
         <!-- Left side -->
         <div class="ri _y">
-
+            <livewire:select-search />
         </div>
 
         <!-- Right side -->
@@ -266,7 +266,7 @@
                                             @enderror
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
-                                            <label for="first-name" class="block text-sm font-medium text-gray-700">Status</label>
+                                            <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
                                             <select wire:model="countryStatus" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
                                                 <option value="" >Select Option</option>
                                                 @foreach($statuses as $status)
@@ -274,6 +274,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
