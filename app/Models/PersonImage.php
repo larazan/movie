@@ -19,7 +19,7 @@ class PersonImage extends Model
 
 	public const SMALL = '135x141';
 	public const MEDIUM = '312x400';
-	public const LARGE = '600x656';
+	public const LARGE = '640x960';
 
 	/**
 	 * Relationship with the product

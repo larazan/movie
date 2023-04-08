@@ -8,6 +8,7 @@ use Livewire\WithPagination;
 use App\Models\Person;
 use App\Models\PersonImage;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -30,6 +31,7 @@ class PersonIndex extends Component
     public $file;
     public $files = [];
     public $oldImage;
+    public $personImages;
     public $genderStatus = 0;
     public $genderStatuses = [
         0 => 'Male',
@@ -294,50 +296,50 @@ class PersonIndex extends Component
 
     public function createPerson()
     {
-        dd($this->bio);
+        // if(!empty($this->files)) {
+        //     dd('ada file');
+        // } else {
+        //     dd('tidak ada file');
+        // }
+
         $this->validate();
 
         $randId = Str::random(10);
-        
-        $person = Person::create([
-            'name' => $this->name,
-            'rand_id' => $randId,
-            'slug' => Str::slug($this->name) . '_' . $randId,
-            'gender_id' => $this->genderStatus,
-            'bio' => $this->bio,
-            'birth_date' => $this->birthDate,
-            'birth_location' => $this->birthLocation,
-            'nationality' => $this->nationality,
-            'facebook' => $this->facebook,
-            'instagram' => $this->instagram,
-            'twitter' => $this->twitter,
-            // 'origin' => $filePath,
-            // 'large' => $resizedImage['large'],
-            // 'medium' => $resizedImage['medium'],
-            // 'small' => $resizedImage['small'],
-            'status' => $this->personStatus,
-        ]);
 
-        if ($this->files) {
-            // $this->files = json_encode($this->files);
-            $i = 1;
-            foreach ($this->files as $image) {
-                $new = Str::slug($this->name) . '_' . time().$i++;
-                $filename = $new . '.' . $image->getClientOriginalName();
-                $filePath = $image->storeAs(PersonImage::UPLOAD_DIR, $filename, 'public');
-                $resizedImage = $this->_resizeImage($image, $filename, PersonImage::UPLOAD_DIR); 
+        $person = new Person();
+        $person->name = $this->name;
+        $person->rand_id = $randId;
+        $person->slug = Str::slug($this->name) . '_' . $randId;
+        $person->gender_id = $this->genderStatus;
+        $person->bio = $this->bio;
+        $person->birth_date = $this->birthDate;
+        $person->birth_location = $this->birthLocation;
+        $person->nationality = $this->nationality;
+        $person->facebook = $this->facebook;
+        $person->instagram = $this->instagram;
+        $person->twitter = $this->twitter;
+        $person->status = $this->personStatus;
 
-                $person->personImages()->create([
-                    'person_id' => $person->id,
-                    'origin' => $filePath,
-                    'large' => $resizedImage['large'],
-                    'medium' => $resizedImage['medium'],
-                    'small' => $resizedImage['small'],
-                    'status' => $this->personStatus,
-                ]);
+        $person->save();
+
+        if(!empty($this->files)) {
+            foreach ($this->files as $key => $image) {
+                $pimage = new PersonImage();
+                $pimage->person_id = $person->id;
+                $new = Str::slug($this->name) . '_' . Carbon::now()->timestamp . $key;
+                $filename = $new . '.' . $this->files[$key]->getClientOriginalExtension();
+                $filePath = $this->files[$key]->storeAs(PersonImage::UPLOAD_DIR, $filename, 'public');
+                $resizedImage = $this->_resizeImage($this->files[$key], $filename, PersonImage::UPLOAD_DIR); 
+
+                $pimage->original = $filePath;
+                $pimage->large = $resizedImage['large'];
+                $pimage->medium = $resizedImage['medium'];
+                $pimage->small = $resizedImage['small'];
+                $pimage->status = 'active';
+
+                $pimage->save();
             }
         }
-
         
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Person created successfully']);
@@ -356,7 +358,8 @@ class PersonIndex extends Component
         $this->facebook = $person->facebook;
         $this->instagram = $person->instagram;
         $this->twitter = $person->twitter;
-        $this->oldImage = $person->small;
+        $this->oldImage = $person->personImages->first()->small;
+        $this->personImages = $person->personImages;
         $this->personStatus = $person->status;
         
         $this->showPersonModal = true;
@@ -367,36 +370,49 @@ class PersonIndex extends Component
         $person = Person::findOrFail($this->personId);
 
         $this->validate();
-        
-        $new = Str::slug($this->name) . '_' . time();
-        $filename = $new . '.' . $this->file->getClientOriginalName();
 
         if ($this->personId) {
             if ($person) {
                 $randId = Str::random(10);
-               // delete image
-			    $this->deleteImage($this->personId);
-                $filePath = $this->file->storeAs(Person::UPLOAD_DIR, $filename, 'public');
-                $resizedImage = $this->_resizeImage($this->file, $filename, Person::UPLOAD_DIR);
+                
+                $person = Person::where('id', $this->personId)->first();
+                $person->name = $this->name;
+                $person->rand_id = $randId;
+                $person->slug = Str::slug($this->name) . '_' . $randId;
+                $person->gender_id = $this->genderStatus;
+                $person->bio = $this->bio;
+                $person->birth_date = $this->birthDate;
+                $person->birth_location = $this->birthLocation;
+                $person->nationality = $this->nationality;
+                $person->facebook = $this->facebook;
+                $person->instagram = $this->instagram;
+                $person->twitter = $this->twitter;
+                $person->status = $this->personStatus;
 
-                Person::create([
-                    'name' => $this->name,
-                    'rand_id' => $randId,
-                    'slug' => Str::slug($this->name) . '_' . $randId,
-                    'gender_id' => $this->genderStatus,
-                    'bio' => $this->bio,
-                    'birth_date' => $this->birthDate,
-                    'birth_location' => $this->birthLocation,
-                    'nationality' => $this->nationality,
-                    'facebook' => $this->facebook,
-                    'instagram' => $this->instagram,
-                    'twitter' => $this->twitter,
-                    'origin' => $filePath,
-                    'large' => $resizedImage['large'],
-                    'medium' => $resizedImage['medium'],
-                    'small' => $resizedImage['small'],
-                    'status' => $this->personStatus,
-                ]);
+                $person->save();
+
+                if(!empty($this->files)) {
+                    // delete image
+                    $this->deleteImage($this->personId);
+                    foreach ($this->files as $key => $image) {
+                        $pimage = new PersonImage();
+                        $pimage->person_id = $person->id;
+
+                        $new = Str::slug($this->name) . '_' . Carbon::now()->timestamp . $key;
+                        $filename = $new . '.' . $this->files[$key]->getClientOriginalExtension();
+                        $filePath = $this->files[$key]->storeAs(PersonImage::UPLOAD_DIR, $filename, 'public');
+                        $resizedImage = $this->_resizeImage($this->files[$key], $filename, PersonImage::UPLOAD_DIR); 
+            
+                        $pimage->original = $filePath;
+                        $pimage->large = $resizedImage['large'];
+                        $pimage->medium = $resizedImage['medium'];
+                        $pimage->small = $resizedImage['small'];
+                        $pimage->status = 'active';
+            
+                        $pimage->save();
+                    }
+                }
+                
             }
         }
 
@@ -436,7 +452,7 @@ class PersonIndex extends Component
 
         // SMALL
 		$smallImageFilePath = $folder . '/small/' . $fileName;
-		$size = explode('x', Person::SMALL);
+		$size = explode('x', PersonImage::SMALL);
 		list($width, $height) = $size;
 
 		$smallImageFile = Image::make($image)->fit($width, $height)->stream();
@@ -446,7 +462,7 @@ class PersonIndex extends Component
 		
         // MEDIUM
 		$mediumImageFilePath = $folder . '/medium/' . $fileName;
-		$size = explode('x', Person::MEDIUM);
+		$size = explode('x', PersonImage::MEDIUM);
 		list($width, $height) = $size;
 
 		$mediumImageFile = Image::make($image)->fit($width, $height)->stream();
@@ -456,7 +472,7 @@ class PersonIndex extends Component
 
         // LARGE
 		$largeImageFilePath = $folder . '/large/' . $fileName;
-		$size = explode('x', Person::LARGE);
+		$size = explode('x', PersonImage::LARGE);
 		list($width, $height) = $size;
 
 		$largeImageFile = Image::make($image)->fit($width, $height)->stream();
@@ -478,7 +494,7 @@ class PersonIndex extends Component
 	}
 
     public function deleteImage($id = null) {
-        $personImage = Person::where(['id' => $id])->first();
+        $personImage = PersonImage::where(['person_id' => $id])->first();
 		$path = 'storage/';
 
         if (Storage::exists($path.$personImage->original)) {

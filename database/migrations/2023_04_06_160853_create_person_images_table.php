@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('person_images', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('person_id');
-            $table->text('path');
+            $table->string('origin')->nullable();
             $table->string('large')->nullable();
             $table->string('medium')->nullable();
             $table->string('small')->nullable();

@@ -36,6 +36,7 @@ class CreateMoviesTable extends Migration
             $table->string('small');
             $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('category_movie_id')->references('id')->on('category_movies')->onDelete('cascade');

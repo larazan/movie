@@ -31,6 +31,7 @@ class CreateMusicsTable extends Migration
             $table->integer('country');
             $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
 
             // $table->foreign('person_id')->references('id')->on('persons')->onDelete('cascade');
             // $table->foreign('album_id')->references('id')->on('albums')->onDelete('cascade');

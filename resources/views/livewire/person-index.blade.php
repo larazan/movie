@@ -268,7 +268,7 @@
                                 <div class="gh gt">Birth</div>
                             </th>
                             <th class="vi wy w_ vo lm">
-                                <div class="gh gt">Nationality</div>
+                                <div class="gh gt">Nation</div>
                             </th>
                             <th class="vi wy w_ vo lm">
                                 <div class="gh gt">Status</div>
@@ -351,28 +351,32 @@
                                 </div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp text-slate-800">{{ $person->name }}</div>
+                                <div class="gp text-slate-800 capitalize">{{ $person->name }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp ">
-                                    <img src="{{ asset('storage/'.$persons->small) }}" class="object-scale-down h-48 w-96" alt="{{ $person->name }}">
+                                <div class="od sy ub mr-2 _b">
+                                    @if ($person->personImages->first())                                        
+                                        <img src="{{ asset('storage/'.$person->personImages->first()->small) }}" class="rounded-full" width="40" height="40" alt="{{ $person->name }}">
+                                    @else
+                                        <img src="{{ asset('images/avatar-03.jpg') }}" class="rounded-full" width="40" height="40" alt="{{ $person->name }}">
+                                    @endif
                                 </div>
                             </td>
 
                             <td class="vi wy w_ vo lm">
                                 @if ($person->gender_id === 0)
-                                <div class="inline-flex gp hf yl rounded-full gn vp vd">Male</div>
+                                <div class="gt">Male</div>
                                 @endif
 
-                                @if ($person->status === 1)
-                                <div class="inline-flex gp hc ys rounded-full gn vp vd">{Female</div>
+                                @if ($person->gender_id === 1)
+                                <div class="gt">Female</div>
                                 @endif
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp text-slate-800">{{ $person->birth_date }}</div>
+                                <div class="gt">{{ \Carbon\Carbon::parse($person->birth_date)->format('j F Y') }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp text-slate-800">{{ $person->nationality }}</div>
+                                <div class="gt">{{ $person->nationality }}</div>
                             </td>
 
                             <td class="vi wy w_ vo lm">
@@ -515,9 +519,12 @@
                                             <label for="photo" class="block text-sm font-medium text-gray-700">
                                                 Person photo</label>
                                             <input wire:model="files" type="file" multiple autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                                            @if ($oldImage)
-                                            Photo Preview:
-                                            <img src="{{ asset('storage/'.$oldImage) }}">
+                                            @if ($personImages)
+                                                <div class="flex space-x-4">
+                                                @foreach ($personImages as $image)
+                                                    <img src="{{ asset('storage/'.$image->small) }}">
+                                                @endforeach
+                                                </div>
                                             @endif
                                             @if ($file)
                                             Photo Preview:
@@ -525,7 +532,7 @@
                                             @endif
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
-                                            <label for="first-name" class="block text-sm font-medium text-gray-700">Status</label>
+                                            <label for="personStatus" class="block text-sm font-medium text-gray-700">Status</label>
                                             <select wire:model="personStatus" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
                                                 <option value="">Select Option</option>
                                                 @foreach($statuses as $status)

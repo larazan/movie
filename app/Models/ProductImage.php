@@ -9,7 +9,7 @@ class ProductImage extends Model
 {
     use HasFactory;
 
-    public const UPLOAD_DIR = 'uploads';
+    public const UPLOAD_DIR = 'uploads/products';
 
 	protected $guarded = [
 		'id',

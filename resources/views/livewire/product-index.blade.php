@@ -222,21 +222,25 @@
                                 </div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp">{{ $product->sku }}</div>
+                                <div class="gt">{{ $product->sku }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp text-slate-800">{{ $product->type }}</div>
+                                <div class="gt">{{ $product->type }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="gp cursor-pointer text-indigo-400 hover:text-indigo-500" wire:click="showDetailModal({{ $product->id }})">{{ $product->name }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp ">
-                                <img src="{{ asset('storage/'.$products->thumbnail) }}" class="object-scale-down h-48 w-96" alt="{{ $product->name }}">
+                                <div class="od sy ub mr-2 _b">
+                                    @if ($product->productImages->first())                                        
+                                        <img src="{{ asset('storage/'.$product->productImages->first()->small) }}" class="rounded-full" width="40" height="40" alt="{{ $person->name }}">
+                                    @else
+                                        <img src="{{ asset('images/avatar-03.jpg') }}" class="rounded-full" width="40" height="40" alt="{{ $person->name }}">
+                                    @endif
                                 </div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp text-slate-800">{{ $product->price }}</div>
+                                <div class="gt">{{ $product->price }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
                                 @if ($product->status === 'inactive')
@@ -302,13 +306,13 @@
                                     <div class="flex flex-col space-y-3">
                                         <div class="flex flex-row justify-between">
                                             <div class="col-start-1 sm:col-span-3">
-                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                <label for="name" class="block text-sm font-medium text-gray-700">
                                                     Name
                                                 </label>
                                                 <input wire:model="name" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             </div>
                                             <div class="col-start-1 sm:col-span-3">
-                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                <label for="sku" class="block text-sm font-medium text-gray-700">
                                                     SKU
                                                 </label>
                                                 <input wire:model="sku" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
@@ -318,23 +322,23 @@
                                             <label for="description" class="block text-sm font-medium text-gray-700">
                                                 Description
                                             </label>
-                                            <textarea wire:model="details" name="details" id="details" cols="50" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" >{{ $details }}</textarea>
+                                            <textarea wire:model="description" name="description" id="description" cols="50" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" >{{ $description }}</textarea>
                                         </div>
                                         <div class="flex flex-row justify-between space-x-2">
                                             <div class="col-start-1 sm:col-span-3">
-                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                <label for="price" class="block text-sm font-medium text-gray-700">
                                                     Price
                                                 </label>
                                                 <input wire:model="price" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             </div>
                                             <div class="col-start-1 sm:col-span-3">
-                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                <label for="discount" class="block text-sm font-medium text-gray-700">
                                                     Discount
                                                 </label>
                                                 <input wire:model="discount" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             </div>
                                             <div class="col-start-1 sm:col-span-3">
-                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                <label for="weight" class="block text-sm font-medium text-gray-700">
                                                 Weight
                                                 </label>
                                                 <input wire:model="weight" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
@@ -343,19 +347,19 @@
                                         <div class="flex flex-row justify-between space-x-2">
                                             
                                             <div class="col-start-1 sm:col-span-3">
-                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                <label for="height" class="block text-sm font-medium text-gray-700">
                                                 Height
                                                 </label>
                                                 <input wire:model="height" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             </div>
                                             <div class="col-start-1 sm:col-span-3">
-                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                <label for="length" class="block text-sm font-medium text-gray-700">
                                                 Length
                                                 </label>
                                                 <input wire:model="length" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             </div>
                                             <div class="col-start-1 sm:col-span-3">
-                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                <label for="width" class="block text-sm font-medium text-gray-700">
                                                 Width
                                                 </label>
                                                 <input wire:model="width" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
@@ -364,30 +368,30 @@
                                         
                                         <div class="flex flex-row space-x-4 justify-between">
                                             <div class="col-start-1 sm:col-span-3">
-                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                <label for="metaTitle" class="block text-sm font-medium text-gray-700">
                                                     Meta Title
                                                 </label>
                                                 <textarea wire:model="metaTitle" cols="50" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" >{{ $metaTitle }}</textarea>
                                             </div>
                                             <div class="col-start-1 sm:col-span-3">
-                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                <label for="metaDesc" class="block text-sm font-medium text-gray-700">
                                                     Meta Description
                                                 </label>
                                                 <textarea wire:model="metaDesc" cols="50" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" >{{ $metaDesc }}</textarea>
                                             </div>
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
-                                            <label for="photo" class="block text-sm font-medium text-gray-700">
+                                            <label for="files" class="block text-sm font-medium text-gray-700">
                                                 Image
                                             </label>
-                                            <input wire:model="filename" type="file" autocomplete="given-name"
+                                            <input wire:model="files" multiple type="file" autocomplete="given-name"
                                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                                 @if ($oldImage)
-                                                    Photo Preview:
+                                                    Old Image:
                                                     <img src="{{ asset('storage/'.$oldImage) }}">
                                                 @endif
                                                 @if ($file)
-                                                    Photo Preview:
+                                                    Image Preview:
                                                     <img src="{{ $file->temporaryUrl() }}">
                                                 @endif
                                         </div>
@@ -617,10 +621,10 @@
 <script>
  
     ClassicEditor
-        .create(document.querySelector('#details'))
+        .create(document.querySelector('#description'))
         .then(editor => {
             editor.model.document.on('change:data', () => {
-                @this.set('details', editor.getData());
+                @this.set('description', editor.getData());
             })
         })
         .catch(error => {

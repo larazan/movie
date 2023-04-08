@@ -19,7 +19,7 @@ class CreatePersonsTable extends Migration
             $table->string('rand_id');
             $table->integer('gender_id');
             $table->text('bio');
-            $table->dateTime('birth_date');
+            $table->date('birth_date');
             $table->string('birth_location');
             $table->string('nationality');
             $table->string('facebook');
@@ -30,6 +30,7 @@ class CreatePersonsTable extends Migration
             $table->string('medium')->nullable();
             $table->string('small')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
     

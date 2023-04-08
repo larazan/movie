@@ -3,9 +3,12 @@
 namespace App\Http\Livewire;
 
 use App\Models\Product;
+use App\Models\ProductImage;
+use App\Models\ProductInventory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use Intervention\Image\ImageManagerStatic as Image;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
@@ -18,19 +21,19 @@ class ProductIndex extends Component
     public $showProductModal = false;
     public $showProductDetailModal = false;
 
-    public $code;
     public $sku;
     public $type;
     public $name;
-    public $details;
+    public $description;
     public $productId;
-    public $file;
+    public $files = [];
     public $publishStatus = 0;
     public $status = [
         0 => 'unpublish',
         1 => 'publish',
     ]; 
     public $stock;
+    public $qty;
     public $metaTitle;
     public $metaDesc;
     public $metaImg;
@@ -42,6 +45,7 @@ class ProductIndex extends Component
     public $length;
     public $width;
     public $oldImage;
+    public $productImages;
     public $productStatus = 'inactive';
     public $statuses = [
         'active',
@@ -57,7 +61,7 @@ class ProductIndex extends Component
 
     protected $rules = [
         'name' => 'required',
-        'file' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
+        'files' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
     ];
 
     public function mount()
@@ -92,37 +96,52 @@ class ProductIndex extends Component
     public function createProduct()
     {
         $this->validate();
-  
-        $new = Str::slug($this->name) . '_' . time();
-        // IMAGE
-        $filename = $new . '.' . $this->file->getClientOriginalName();
-        $filePath = $this->file->storeAs(Product::UPLOAD_DIR, $filename, 'public');
-        $resizedImage = $this->_resizeImage($this->file, $filename, Product::UPLOAD_DIR);
-  
 
-        Product::create([
-            'user_id' => Auth::user()->id,
-            'rand_id' => Str::random(18),
-            'parent_id' => $this->groupId,
-            'name' => $this->name,
-            'slug' => Str::slug($this->name),
-            'sku' => $this->sku,
-            'details' => $this->details,
-            'meta_title' => $this->metaTitle,
-            'meta_description' => $this->metaDesc,
-            'price' => $this->price,
-            'discount' => $this->discount,
-            'discount_type' => $this->discountType,
-            'current_stock' => $this->stock,
-            'published' => $this->publishStatus,
-            'weight' => $this->weight,
-            'height' => $this->height,
-            'length' => $this->length,
-            'width' => $this->width,
-            'images' => $filePath,
-            'thumbnail' => $resizedImage['small'],
-            'status' => $this->productStatus,
-        ]);
+        $randId = Str::random(18);
+
+        $product = new Product();
+        $product->user_id = Auth::user()->id;
+        $product->rand_id = $randId;
+        $product->name = $this->name;
+        $product->slug = Str::slug($this->name) . '_' . $randId;
+        $product->sku = $this->sku;
+        $product->description = $this->description;
+        $product->meta_title = $this->metaTitle;
+        $product->meta_description = $this->metaDesc;
+        $product->price = $this->price;
+        $product->discount = $this->discount;
+        $product->discount_type = $this->discountType;
+        $product->published = $this->publishStatus;
+        $product->weight = $this->weight;
+        $product->height = $this->height;
+        $product->length = $this->length;
+        $product->width = $this->width;
+        $product->status = $this->productStatus;
+        $product->save();
+
+        $inventory = new ProductInventory();
+        $inventory->product_id = $product->id; 
+        $inventory->qty = $this->stock; 
+        $inventory->save();
+
+        if(!empty($this->files)) {
+            foreach ($this->files as $key => $image) {
+                $pimage = new ProductImage();
+                $pimage->product_id = $product->id;
+                $new = Str::slug($this->name) . '_' . Carbon::now()->timestamp . $key;
+                $filename = $new . '.' . $this->files[$key]->getClientOriginalExtension();
+                $filePath = $this->files[$key]->storeAs(ProductImage::UPLOAD_DIR, $filename, 'public');
+                $resizedImage = $this->_resizeImage($this->files[$key], $filename, ProductImage::UPLOAD_DIR); 
+
+                $pimage->original = $filePath;
+                $pimage->large = $resizedImage['large'];
+                $pimage->medium = $resizedImage['medium'];
+                $pimage->small = $resizedImage['small'];
+                $pimage->status = 'active';
+
+                $pimage->save();
+            }
+        }
 
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Product created successfully']);
@@ -136,21 +155,21 @@ class ProductIndex extends Component
         $this->sku = $product->sku;
         $this->type = $product->type;
         $this->name = $product->name;
-        $this->details = $product->details;
+        $this->description = $product->description;
         $this->publishStatus = $product->published;
         $this->discountType = $product->discount_type;
         $this->stock = $product->current_stock;
         $this->metaTitle = $product->meta_title;
         $this->metaDesc = $product->meta_description;
-        $this->metaImg = $product->meta_image;
+        // $this->metaImg = $product->meta_image;
         $this->price = $product->price;
         $this->discount = $product->discount;
         $this->weight = $product->weight;
         $this->width = $product->width;
         $this->height = $product->height;
         $this->length = $product->length;
-      
-        $this->oldImage = $product->thumbnail;
+        $this->oldImage = $product->productImages->first()->small;
+        $this->productImages = $product->productImages;
         $this->productStatus = $product->status;
         $this->showProductModal = true;
     }
@@ -162,7 +181,7 @@ class ProductIndex extends Component
         // $product = Product::find($productId);
         // $this->name = $product->name;
         // $this->sku = $product->sku;
-        // $this->details = $product->details;
+        // $this->description = $product->description;
         // $this->discount = $product->discount;
         // $this->discountType = $product->discount_type;
         // $this->weight = $product->weight;
@@ -171,7 +190,7 @@ class ProductIndex extends Component
         // $this->length = $product->length;
         // $this->metaTitle = $product->meta_title;
         // $this->metaDesc = $product->meta_description;
-        // $this->oldImage = $product->thumbnail;
+        // $this->oldImage = $product->productImages->first()->small;
         // $this->publishStatus = $product->published;
         // $this->productStatus = $product->status;
 
@@ -182,40 +201,52 @@ class ProductIndex extends Component
     {
         $product = Product::findOrFail($this->productId);
         $this->validate();
-  
-        $new = Str::slug($this->name) . '_' . time();
-        $filename = $new . '.' . $this->file->getClientOriginalName();
         
         if ($this->productId) {
             if ($product) {
-               // delete image
-			    $this->deleteImage($this->productId);
-                // IMAGE
-                $filePath = $this->file->storeAs(Product::UPLOAD_DIR, $filename, 'public');
-                $resizedImage = $this->_resizeImage($this->file, $filename, Product::UPLOAD_DIR);
+                $randId = Str::random(18);
 
-                $product->update([
-                    'user_id' => Auth::user()->id,
-                    'rand_id' => Str::random(18),
-                    'parent_id' => $this->groupId,
-                    'name' => $this->name,
-                    'slug' => Str::slug($this->name),
-                    'sku' => $this->sku,
-                    'details' => $this->details,
-                    'meta_title' => $this->metaTitle,
-                    'meta_description' => $this->metaDesc,
-                    'price' => $this->price,
-                    'discount' => $this->discount,
-                    'discount_type' => $this->discountType,
-                    'current_stock' => $this->stock,
-                    'published' => $this->publishStatus,
-                    'weight' => $this->weight,
-                    'length' => $this->length,
-                    'width' => $this->width,
-                    'images' => $filePath,
-                    'thumbnail' => $resizedImage['small'],
-                    'status' => $this->productStatus,
-                ]);
+                $product = Product::where('id', $this->productId)->first();;
+                $product->user_id = Auth::user()->id;
+                $product->rand_id = $randId;
+                $product->name = $this->name;
+                $product->slug = Str::slug($this->name) . '_' . $randId;
+                $product->sku = $this->sku;
+                $product->description = $this->description;
+                $product->meta_title = $this->metaTitle;
+                $product->meta_description = $this->metaDesc;
+                $product->price = $this->price;
+                $product->discount = $this->discount;
+                $product->discount_type = $this->discountType;
+                $product->published = $this->publishStatus;
+                $product->weight = $this->weight;
+                $product->height = $this->height;
+                $product->length = $this->length;
+                $product->width = $this->width;
+                $product->status = $this->productStatus;
+                $product->save();
+
+                ProductInventory::updateOrCreate(['product_id' => $product->id], ['qty' => $this->stock]);
+        
+                if(!empty($this->files)) {
+                    foreach ($this->files as $key => $image) {
+                        $pimage = new ProductImage();
+                        $pimage->product_id = $product->id;
+
+                        $new = Str::slug($this->name) . '_' . Carbon::now()->timestamp . $key;
+                        $filename = $new . '.' . $this->files[$key]->getClientOriginalExtension();
+                        $filePath = $this->files[$key]->storeAs(ProductImage::UPLOAD_DIR, $filename, 'public');
+                        $resizedImage = $this->_resizeImage($this->files[$key], $filename, ProductImage::UPLOAD_DIR); 
+        
+                        $pimage->original = $filePath;
+                        $pimage->large = $resizedImage['large'];
+                        $pimage->medium = $resizedImage['medium'];
+                        $pimage->small = $resizedImage['small'];
+                        $pimage->status = 'active';
+        
+                        $pimage->save();
+                    }
+                }
                 
             }
         }
@@ -248,16 +279,6 @@ class ProductIndex extends Component
         $this->reset();
     }
 
-    public function download($id)
-    {
-        $productPath = Product::where(['id' => $id])->first();
-		$path = 'storage/';
-
-        if (Storage::exists($path.$productPath->audio)) {
-            return response()->download($path.$productPath->audio);
-		}
-    }
-
     public function render()
     {
         return view('livewire.product-index', [
@@ -271,7 +292,7 @@ class ProductIndex extends Component
 
         // SMALL
 		$smallImageFilePath = $folder . '/small/' . $fileName;
-		$size = explode('x', Product::SMALL);
+		$size = explode('x', ProductImage::SMALL);
 		list($width, $height) = $size;
 
 		$smallImageFile = Image::make($image)->fit($width, $height)->stream();
@@ -281,7 +302,7 @@ class ProductIndex extends Component
 		
         // MEDIUM
 		$mediumImageFilePath = $folder . '/medium/' . $fileName;
-		$size = explode('x', Product::MEDIUM);
+		$size = explode('x', ProductImage::MEDIUM);
 		list($width, $height) = $size;
 
 		$mediumImageFile = Image::make($image)->fit($width, $height)->stream();
@@ -290,14 +311,14 @@ class ProductIndex extends Component
 		}
 
         // LARGE
-		// $largeImageFilePath = $folder . '/large/' . $fileName;
-		// $size = explode('x', Product::LARGE);
-		// list($width, $height) = $size;
+		$largeImageFilePath = $folder . '/large/' . $fileName;
+		$size = explode('x', ProductImage::LARGE);
+		list($width, $height) = $size;
 
-		// $largeImageFile = Image::make($image)->fit($width, $height)->stream();
-		// if (Storage::put('public/' . $largeImageFilePath, $largeImageFile)) {
-		// 	$resizedImage['large'] = $largeImageFilePath;
-		// }
+		$largeImageFile = Image::make($image)->fit($width, $height)->stream();
+		if (Storage::put('public/' . $largeImageFilePath, $largeImageFile)) {
+			$resizedImage['large'] = $largeImageFilePath;
+		}
 
         // EXTRA_LARGE
 		// $extraLargeImageFilePath  = $folder . '/xlarge/' . $fileName;
@@ -313,20 +334,24 @@ class ProductIndex extends Component
 	}
 
     public function deleteImage($id = null) {
-        $productImage = Product::where(['id' => $id])->first();
+        $productImage = ProductImage::where(['product_id' => $id])->first();
 		$path = 'storage/';
 
-        if (Storage::exists($path.$productImage->images)) {
-            Storage::delete($path.$productImage->images);
+        if (Storage::exists($path.$productImage->original)) {
+            Storage::delete($path.$productImage->original);
 		}
 		
-        if (Storage::exists($path.$productImage->thumbnail)) {
-            Storage::delete($path.$productImage->thumbnail);
+        if (Storage::exists($path.$productImage->small)) {
+            Storage::delete($path.$productImage->small);
         }   
 
-		// if (Storage::exists($path.$productImage->medium)) {
-        //     Storage::delete($path.$productImage->medium);
-        // }
+		if (Storage::exists($path.$productImage->medium)) {
+            Storage::delete($path.$productImage->medium);
+        }
+
+        if (Storage::exists($path.$productImage->large)) {
+            Storage::delete($path.$productImage->large);
+        }
              
         return true;
     }
