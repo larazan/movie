@@ -128,9 +128,7 @@
                             <th class="vi wy w_ vo lm">
                                 <div class="gh gt">Image</div>
                             </th>
-                            <th class="vi wy w_ vo lm">
-                                <div class="gh gt">Description</div>
-                            </th>
+                          
                             <th class="vi wy w_ vo lm">
                                 <div class="gh gt">Country</div>
                             </th>
@@ -163,13 +161,11 @@
                           
                             <td class="vi wy w_ vo lm">
                                 <div class="od sy ub mr-2 _b">
-                                    <img class="rounded-full" src="{{ asset('images/Born_Pink.jpeg') }}" width="40" height="40" alt="User 01">
+                                    <img class="" src="{{ asset('images/bp.jpg') }}" width="50" height="50" alt="User 01">
                                 </div>
                                 
                             </td>
-                            <td class="vi wy w_ vo lm">
-                                <div class="gp ">Lorem ipsum dolor sit amet</div>
-                            </td>
+                           
                             <td class="vi wy w_ vo lm">
                                 <div class="gp ">South Korea</div>
                             </td>
@@ -218,9 +214,7 @@
                                 <img src="{{ asset('storage/'.$groups->small) }}" class="object-scale-down h-48 w-96" alt="{{ $group->title }}">
                                 </div>
                             </td>
-                            <td class="vi wy w_ vo lm">
-                                <div class="gp text-slate-800">{{ Str::limit($group->description, 20) }}</div>
-                            </td>
+                            
                             <td class="vi wy w_ vo lm">
                                 <div class="gp text-slate-800">{{ $group->country }}</div>
                             </td>
@@ -288,10 +282,17 @@
                                     <div class="flex flex-col space-y-3">
                                 
                                         <div class="col-start-1 sm:col-span-3">
-                                            <label for="title" class="block text-sm font-medium text-gray-700">
+                                            <label for="name" class="block text-sm font-medium text-gray-700">
                                                 Name
                                             </label>
                                             <input wire:model="name" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                        </div>
+                                        
+                                        <div class="col-start-1 sm:col-span-3">
+                                            <label for="" class="block text-sm font-medium text-gray-700">
+                                                Member
+                                            </label>
+                                            <livewire:group-member :group="$group" />
                                         </div>
                                         
                                         <div wire:ignore class="col-start-1 sm:col-span-3">
@@ -313,7 +314,17 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            
+                                            <div class="col-start-1 sm:col-span-3">
+                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                    Year
+                                                </label>
+                                                <select wire:model="year" class="h-full2 rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
+                                                    <option value="">Select year</option>
+                                                    @foreach($years as $year)
+                                                    <option value="{{ $year }}">{{ $year }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="photo" class="block text-sm font-medium text-gray-700">
@@ -409,11 +420,11 @@
 
                         <div class="je items-center2 vh">
                             <a class="block ri _y rp zn tnv ub" href="#0">
-                                <img class="rounded-sm" src="{{ asset('images/Born_Pink.jpeg') }}" width="200" height="142" alt="Product 01">
+                                <img class="rounded-sm" src="{{ asset('images/bp.jpg') }}" width="200" height="142" alt="Product 01">
                             </a>
                             <div class="uw">
                                 <a href="#0">
-                                    <h3 class="text-2xl gh text-slate-800 rt font-bold">Born Pink (2022)</h3>
+                                    <h3 class="text-2xl gh text-slate-800 rt font-bold">BlackPink</h3>
                                 </a>
                                 <div class="flex flex-wrap">
                                     <!-- Unique Visitors -->
@@ -441,9 +452,9 @@
                                     <div class="flex items-center">
                                         <div>
                                             <div class="flex items-center">
-                                                <div class="text-xl font-bold text-slate-800 mr-2">2m 56s</div>
+                                                <div class="text-xl font-bold text-slate-800 mr-2">2016</div>
                                             </div>
-                                            <div class="text-sm text-slate-500">Duration</div>
+                                            <div class="text-sm text-slate-500">Year</div>
                                         </div>
                                     </div>
                                 </div>

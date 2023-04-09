@@ -28,7 +28,7 @@ class CountryIndex extends Component
     public $deleteId = '';
 
     protected $rules = [
-        'name' => 'required',
+        'countryName' => 'required',
     ];
 
     public function showCreateModal()

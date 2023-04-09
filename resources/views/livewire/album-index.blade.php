@@ -476,9 +476,9 @@
                                     <div class="flex items-center">
                                         <div>
                                             <div class="flex items-center">
-                                                <div class="text-xl font-bold text-slate-800 mr-2">2m 56s</div>
+                                                <div class="text-xl font-bold text-slate-800 mr-2">2022</div>
                                             </div>
-                                            <div class="text-sm text-slate-500">Duration</div>
+                                            <div class="text-sm text-slate-500">Year</div>
                                         </div>
                                     </div>
                                 </div>
@@ -487,61 +487,16 @@
                                 Born Pink's English-heavy sound draws mostly from pop, hip-hop, rock and EDM, with melodies characterized by more uptempo production than in its predecessor The Album. The songs incorporate eclectic styles ranging from disco and bubblegum pop to pop-rock and stadium rock. Lyrically, the album discusses themes of love, self-confidence, self-encouragement, dealing with fame and detractors, and more. Blackpink members Jisoo and Rosé co-wrote the fourth track "Yeah Yeah Yeah".
                                 </div>
                                 <!-- Product meta -->
-                                <div class="flex flex-wrap fe items-center">
-                                    <!-- Rating and price -->
-                                    <div class="flex flex-wrap items-center fc mr-2">
-                                        <!-- Rating -->
-                                        <div class="flex items-center fc">
-                                            <!-- Stars -->
-                                            <div class="flex fm">
-                                                <button>
-                                                    <span class="d">1 star</span>
-                                                    <svg class="oo sl du yn" viewBox="0 0 16 16">
-                                                        <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z"></path>
-                                                    </svg>
-                                                </button>
-                                                <button>
-                                                    <span class="d">2 stars</span>
-                                                    <svg class="oo sl du yn" viewBox="0 0 16 16">
-                                                        <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z"></path>
-                                                    </svg>
-                                                </button>
-                                                <button>
-                                                    <span class="d">3 stars</span>
-                                                    <svg class="oo sl du yn" viewBox="0 0 16 16">
-                                                        <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z"></path>
-                                                    </svg>
-                                                </button>
-                                                <button>
-                                                    <span class="d">4 stars</span>
-                                                    <svg class="oo sl du yn" viewBox="0 0 16 16">
-                                                        <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z"></path>
-                                                    </svg>
-                                                </button>
-                                                <button>
-                                                    <span class="d">5 stars</span>
-                                                    <svg class="oo sl du yf" viewBox="0 0 16 16">
-                                                        <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z"></path>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                            <!-- Rate -->
-                                            <div class="inline-flex text-sm gp ya">4.2</div>
-                                        </div>
-                                        <div class="gq">·</div>
-                                        <!-- Price -->
+                                
 
-                                    </div>
-                                </div>
-
-                                <div class='my-3 flex flex-wrap mt-2 space-x-1'>
+                                <!-- <div class='my-3 flex flex-wrap mt-2 space-x-1'>
                                     <span class="flex flex-wrap justify-between items-center text-xs sm:text-xs bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 rounded px-3 py-1 leading-loose cursor-pointer dark:text-gray-300">
                                         Pop
                                     </span>
                                     <span class="flex flex-wrap justify-between items-center text-xs sm:text-xs bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 rounded px-3 py-1 leading-loose cursor-pointer dark:text-gray-300 ">
                                         New wave
                                     </span>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
 

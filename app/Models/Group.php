@@ -32,4 +32,8 @@ class Group extends Model
         return $this->hasMany(Album::class);
     }
 
+    public function members()
+    {
+        return $this->belongsToMany(Person::class, 'member_group');
+    }
 }

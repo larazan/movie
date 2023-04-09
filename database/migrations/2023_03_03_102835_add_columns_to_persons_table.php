@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::table('persons', function (Blueprint $table) {
             //
             $table->string('slug')->after('rand_id');
-            $table->string('status')->after('small');
+            $table->string('status')->after('twitter');
         });
     }
 

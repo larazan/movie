@@ -7,6 +7,7 @@ use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use App\Models\Person;
 use App\Models\PersonImage;
+use App\Models\Nationality;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -442,7 +443,8 @@ class PersonIndex extends Component
     public function render()
     {
         return view('livewire.person-index', [
-            'persons' => Person::search('name', $this->search)->orderBy('name', $this->sort)->paginate($this->perPage)
+            'persons' => Person::search('name', $this->search)->orderBy('name', $this->sort)->paginate($this->perPage),
+            'nationalities' => Nationality::OrderBy('name', 'asc')->get(),
         ]);
     }
 

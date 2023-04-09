@@ -26,6 +26,7 @@ class ProductIndex extends Component
     public $name;
     public $description;
     public $productId;
+    public $file;
     public $files = [];
     public $publishStatus = 0;
     public $status = [

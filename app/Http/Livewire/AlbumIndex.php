@@ -95,19 +95,38 @@ class AlbumIndex extends Component
         $filePath = $this->file->storeAs(Album::UPLOAD_DIR, $filename, 'public');
         $resizedImage = $this->_resizeImage($this->file, $filename, Album::UPLOAD_DIR);
 
-        Album::create([ 
-            'name' => $this->name,
-            'slug' => Str::slug($this->name),
-            'rand_id' => Str::random(18),
-            'person_id' => $this->actress,
-            'group_id' => $this->groupId,
-            'description' => $this->description,
-            'country' => $this->country,
-            'origin' => $filePath,
-            'small' => $resizedImage['small'],
-            'medium' => $resizedImage['medium'],
-            'status' => $this->albumStatus,
-        ]);
+        // Album::create([ 
+        //     'name' => $this->name,
+        //     'slug' => Str::slug($this->name),
+        //     'rand_id' => Str::random(18),
+        //     'person_id' => $this->actress,
+        //     'group_id' => $this->groupId,
+        //     'description' => $this->description,
+        //     'country' => $this->country,
+        //     'origin' => $filePath,
+        //     'small' => $resizedImage['small'],
+        //     'medium' => $resizedImage['medium'],
+        //     'status' => $this->albumStatus,
+        // ]);
+
+        $album = new Album();
+        $album->name = $this->name;
+        $album->slug = Str::slug($this->name);
+        $album->rand_id = Str::random(18);
+        $album->person_id = $this->actress;
+        $album->group_id = $this->groupId;
+        $album->description = $this->description;
+        $album->country = $this->country;
+        $album->year = $this->year;
+        $album->status = $this->albumStatus;
+
+        if (!empty($this->file)) {
+            $album->origin = $filePath;
+            $album->small =$resizedImage['small'];
+            $album->medium = $resizedImage['medium'];
+        }
+
+        $album->save();
 
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Album created successfully']);
@@ -160,25 +179,45 @@ class AlbumIndex extends Component
         
         if ($this->albumId) {
             if ($album) {
-               // delete image
-			    $this->deleteImage($this->albumId);
-                // IMAGE
+               
                 $filePath = $this->file->storeAs(Album::UPLOAD_DIR, $filename, 'public');
                 $resizedImage = $this->_resizeImage($this->file, $filename, Album::UPLOAD_DIR);
 
-                $album->update([
-                    'name' => $this->name,
-                    'slug' => Str::slug($this->name),
-                    'rand_id' => Str::random(18),
-                    'person_id' => $this->actress,
-                    'group_id' => $this->groupId,
-                    'description' => $this->description,
-                    'country' => $this->country,
-                    'origin' => $filePath,
-                    'small' => $resizedImage['small'],
-                    'medium' => $resizedImage['medium'],
-                    'status' => $this->albumStatus,
-                ]);
+                // $album->update([
+                //     'name' => $this->name,
+                //     'slug' => Str::slug($this->name),
+                //     'rand_id' => Str::random(18),
+                //     'person_id' => $this->actress,
+                //     'group_id' => $this->groupId,
+                //     'description' => $this->description,
+                //     'country' => $this->country,
+                //     'origin' => $filePath,
+                //     'small' => $resizedImage['small'],
+                //     'medium' => $resizedImage['medium'],
+                //     'status' => $this->albumStatus,
+                // ]);
+
+                $album = Album::where('id', $this->albumId);
+                $album->name = $this->name;
+                $album->slug = Str::slug($this->name);
+                $album->rand_id = Str::random(18);
+                $album->person_id = $this->actress;
+                $album->group_id = $this->groupId;
+                $album->description = $this->description;
+                $album->country = $this->country;
+                $album->year = $this->year;
+                $album->status = $this->albumStatus;
+
+                if (!empty($this->file)) {
+                    // delete image
+			        $this->deleteImage($this->albumId);
+                    // IMAGE
+                    $album->origin = $filePath;
+                    $album->small =$resizedImage['small'];
+                    $album->medium = $resizedImage['medium'];
+                }
+
+                $album->save();
                 
             }
         }

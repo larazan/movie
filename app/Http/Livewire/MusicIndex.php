@@ -117,23 +117,48 @@ class MusicIndex extends Component
         $audioname = $new . '.' . $this->audio->getClientOriginalName();
         $audioPath = $this->audio->storeAs(Music::UPLOAD_AUDIO, $audioname, 'public');
 
-        Music::create([
-            'user_id' => Auth::user()->id,
-            'person_id' => $this->actress,
-            'group_id' => $this->groupId,
-            'title' => $this->title,
-            'slug' => Str::slug($this->title),
-            'rand_id' => Str::random(18),
-            'album_id' => $this->albumId,
-            'description' => $this->description,
-            'country' => $this->country,
-            'duration' => $originalTime,
-            'audio' => $audioPath,
-            'origin' => $filePath,
-            'small' => $resizedImage['small'],
-            'medium' => $resizedImage['medium'],
-            'status' => $this->musicStatus,
-        ]);
+        // Music::create([
+        //     'user_id' => Auth::user()->id,
+        //     'person_id' => $this->actress,
+        //     'group_id' => $this->groupId,
+        //     'title' => $this->title,
+        //     'slug' => Str::slug($this->title),
+        //     'rand_id' => Str::random(18),
+        //     'album_id' => $this->albumId,
+        //     'description' => $this->description,
+        //     'country' => $this->country,
+        //     'duration' => $originalTime,
+        //     'audio' => $audioPath,
+        //     'origin' => $filePath,
+        //     'small' => $resizedImage['small'],
+        //     'medium' => $resizedImage['medium'],
+        //     'status' => $this->musicStatus,
+        // ]);
+
+        $music = new Music();
+        $music->user_id = Auth::user()->id;
+        $music->person_id = $this->actress;
+        $music->group_id = $this->groupId;
+        $music->title = $this->title;
+        $music->slug = Str::slug($this->title);
+        $music->album_id = $this->albumId;
+        $music->rand_id = Str::random(18);
+        $music->description = $this->description;
+        $music->country = $this->country;
+        $music->duration = $originalTime;
+        $music->status = $this->musicStatus;
+
+        if (!empty($this->file)) {
+            $music->origin = $filePath;
+            $music->small =$resizedImage['small'];
+            $music->medium = $resizedImage['medium'];
+        }
+
+        if (!empty($this->audio)) {
+            $music->audio = $audioPath;
+        }
+
+        $music->save();
 
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Music created successfully']);
@@ -216,34 +241,62 @@ class MusicIndex extends Component
         
         if ($this->musicId) {
             if ($music) {
-               // delete image
-			    $this->deleteImage($this->musicId);
+               
                 // IMAGE
                 $filePath = $this->file->storeAs(Music::UPLOAD_DIR, $filename, 'public');
                 $resizedImage = $this->_resizeImage($this->file, $filename, Music::UPLOAD_DIR);
-
-                // delete audio
-                $this->deleteAudio($this->musicId);
+                
                 // AUDIO
                 $audioPath = $this->audio->storeAs(Music::UPLOAD_AUDIO, $audioname, 'public');
 
-                $music->update([
-                    'user_id' => Auth::user()->id,
-                    'person_id' => $this->actress,
-                    'group_id' => $this->groupId,
-                    'title' => $this->title,
-                    'slug' => Str::slug($this->title),
-                    'rand_id' => Str::random(18),
-                    'album_id' => $this->albumId,
-                    'description' => $this->description,
-                    'country' => $this->country,
-                    'duration' => $originalTime,
-                    'audio' => $audioPath,
-                    'origin' => $filePath,
-                    'small' => $resizedImage['small'],
-                    'medium' => $resizedImage['medium'],
-                    'status' => $this->musicStatus,
-                ]);
+                // $music->update([
+                //     'user_id' => Auth::user()->id,
+                //     'person_id' => $this->actress,
+                //     'group_id' => $this->groupId,
+                //     'title' => $this->title,
+                //     'slug' => Str::slug($this->title),
+                //     'rand_id' => Str::random(18),
+                //     'album_id' => $this->albumId,
+                //     'description' => $this->description,
+                //     'country' => $this->country,
+                //     'duration' => $originalTime,
+                //     'audio' => $audioPath,
+                //     'origin' => $filePath,
+                //     'small' => $resizedImage['small'],
+                //     'medium' => $resizedImage['medium'],
+                //     'status' => $this->musicStatus,
+                // ]);
+
+                $music = Music::where('id', $this->musicId);
+                $music->user_id = Auth::user()->id;
+                $music->person_id = $this->actress;
+                $music->group_id = $this->groupId;
+                $music->title = $this->title;
+                $music->slug = Str::slug($this->title);
+                $music->album_id = $this->albumId;
+                $music->rand_id = Str::random(18);
+                $music->description = $this->description;
+                $music->country = $this->country;
+                $music->duration = $originalTime;
+                $music->status = $this->musicStatus;
+
+                if (!empty($this->file)) {
+                    // delete image
+			        $this->deleteImage($this->musicId);
+
+                    $music->origin = $filePath;
+                    $music->small =$resizedImage['small'];
+                    $music->medium = $resizedImage['medium'];
+                }
+
+                if (!empty($this->audio)) {
+                    // delete audio
+                    $this->deleteAudio($this->musicId);
+
+                    $music->audio = $audioPath;
+                }
+
+                $music->save();
                 
             }
         }

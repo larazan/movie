@@ -283,6 +283,7 @@
                                             </label>
                                             <input wire:model="title" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                         </div>
+                                        {{--
                                         <div class="col-start-1 sm:col-span-3" wire:model.debounce.365ms="description" wire:ignore>
                                             <label for="description" class="block text-sm font-medium text-gray-700">
                                                 Description
@@ -290,9 +291,10 @@
                                             <input id="desc" value="{{ $this->description}}" type="hidden" name="description">
                                             <trix-editor input="desc" class="w-full p-4">{{ $description }}</trix-editor>
                                         </div>
+                                        --}}
                                         <div class="col-start-1 sm:col-span-3" wire:model.debounce.365ms="description" wire:ignore>
                                             <label for="description" class="block text-sm font-medium text-gray-700">
-                                                Message
+                                            Description
                                             </label>
                                             <div wire:ignore>
                                                 <textarea wire:model="description" class="min-h-80 h-96 " name="description" id="description">{{ $description }}</textarea>
@@ -413,34 +415,24 @@
 
                         <div class="je items-center2 vh">
                             <a class="block ri _y rp zn tnv ub" href="#0">
-                                <img class="rounded-sm" src="{{ asset('images/paramore.jpg') }}" width="200" height="142" alt="Product 01">
+                                <img class="rounded-sm" src="{{ asset('images/podcast.jpg') }}" width="200" height="142" alt="Product 01">
                             </a>
                             <div class="uw">
                                 <a href="#0">
-                                    <h3 class="text-2xl gh text-slate-800 rt font-bold">After Laughter (2023)</h3>
+                                    <h3 class="text-2xl gh text-slate-800 rt font-bold">Building a 6-figure creator business - Jay Clouse, Creator Science</h3>
                                 </a>
                                 <div class="flex flex-wrap">
                                     <!-- Unique Visitors -->
                                     <div class="flex items-center vr">
                                         <div class="rp">
                                             <div class="flex items-center">
-                                                <div class="text-xl font-bold text-slate-800 mr-2">Paramore</div>
+                                                <div class="text-xl font-bold text-slate-800 mr-2">Michele Hansen</div>
                                             </div>
-                                            <div class="text-sm text-slate-500">Artist</div>
+                                            <div class="text-sm text-slate-500">Creator</div>
                                         </div>
                                         <div class="hidden qx of sf hu rp" aria-hidden="true"></div>
                                     </div>
-                                    <!-- Total Pageviews -->
-                                    <div class="flex items-center vr">
-                                        <div class="rp">
-                                            <div class="flex items-center">
-                                                <div class="text-xl font-bold text-slate-800 mr-2">USA</div>
-                                            </div>
-                                            <div class="text-sm text-slate-500">Country</div>
-                                        </div>
-                                        <div class="hidden qx of sf hu rp" aria-hidden="true"></div>
-                                    </div>
-
+                                    
                                     <!-- Visit Duration-->
                                     <div class="flex items-center">
                                         <div>
@@ -451,65 +443,17 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="text-sm font-bold text-slate-800">April 4, 2023</div>
                                 <div class="text-sm ru">
-                                    After Laughter is the fifth studio album by American rock band Paramore. It was released on May 12, 2017, through Fueled by Ramen, as a follow-up to their self-titled album Paramore (2013). The album was produced by guitarist Taylor York alongside previous collaborator Justin Meldal-Johnsen. It is the band's first album since the return of drummer Zac Farro, who left the band with his brother Josh in 2010, and the departure of former bassist Jeremy Davis, who left the band in 2015
+                                Jay Clouse is the founder of Creator Science, which is a membership, community, newsletter and podcast helping you become build a creator business, which he bootstrapped to over $40k a month towards the end of last year. His podcast is one of the best produced shows out there and it’s on my very short list of shows that I can listen to every episode and know it’s going to be killer. I think the creator business angle is interesting for indie hackers who haven’t quite found a product yet and want to build something. Creating content and speaking to people in your niche, can help you find pain points and problems, while also building extra income for yourself.
                                 </div>
                                 <!-- Product meta -->
                                 <div class="flex flex-wrap fe items-center">
-                                    <!-- Rating and price -->
-                                    <div class="flex flex-wrap items-center fc mr-2">
-                                        <!-- Rating -->
-                                        <div class="flex items-center fc">
-                                            <!-- Stars -->
-                                            <div class="flex fm">
-                                                <button>
-                                                    <span class="d">1 star</span>
-                                                    <svg class="oo sl du yn" viewBox="0 0 16 16">
-                                                        <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z"></path>
-                                                    </svg>
-                                                </button>
-                                                <button>
-                                                    <span class="d">2 stars</span>
-                                                    <svg class="oo sl du yn" viewBox="0 0 16 16">
-                                                        <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z"></path>
-                                                    </svg>
-                                                </button>
-                                                <button>
-                                                    <span class="d">3 stars</span>
-                                                    <svg class="oo sl du yn" viewBox="0 0 16 16">
-                                                        <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z"></path>
-                                                    </svg>
-                                                </button>
-                                                <button>
-                                                    <span class="d">4 stars</span>
-                                                    <svg class="oo sl du yn" viewBox="0 0 16 16">
-                                                        <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z"></path>
-                                                    </svg>
-                                                </button>
-                                                <button>
-                                                    <span class="d">5 stars</span>
-                                                    <svg class="oo sl du yf" viewBox="0 0 16 16">
-                                                        <path d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z"></path>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                            <!-- Rate -->
-                                            <div class="inline-flex text-sm gp ya">4.2</div>
-                                        </div>
-                                        <div class="gq">·</div>
-                                        <!-- Price -->
-
-                                    </div>
+                                    <audio id="myTune" controls controlsList="nofullscreen nodownload noremoteplayback">
+                                        <source src="{{ asset('musics/dpa.mp3') }}">
+                                    </audio>
                                 </div>
-
-                                <div class='my-3 flex flex-wrap mt-2 space-x-1'>
-                                    <span class="flex flex-wrap justify-between items-center text-xs sm:text-xs bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 rounded px-3 py-1 leading-loose cursor-pointer dark:text-gray-300">
-                                        Pop rock
-                                    </span>
-                                    <span class="flex flex-wrap justify-between items-center text-xs sm:text-xs bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 rounded px-3 py-1 leading-loose cursor-pointer dark:text-gray-300 ">
-                                        New wave
-                                    </span>
-                                </div>
+                                
                             </div>
                         </div>
 

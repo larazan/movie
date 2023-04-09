@@ -105,20 +105,21 @@ class User extends Authenticatable
         return $this->email;
     }
 
-    public function type(): int
-    {
-        return (int) $this->type;
-    }
+    // public function type(): int
+    // {
+    //     return (int) $this->type;
+    // }
 
-    public function isModerator(): bool
-    {
-        return $this->type() === self::MODERATOR;
-    }
+    // public function isModerator(): bool
+    // {
+    //     return $this->type() === self::MODERATOR;
+    // }
 
-    public function isAdmin(): bool
-    {
-        return $this->type() === self::ADMIN;
-    }
+    // public function isAdmin()
+    // {
+    //     // return $this->type() === self::ADMIN;
+    //     return self::where('type', self::ADMIN)->first();
+    // }
 
     public function articles()
     {

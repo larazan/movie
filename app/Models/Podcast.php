@@ -12,7 +12,7 @@ class Podcast extends Model
     protected $guarded = [];
 
     public const UPLOAD_DIR = 'uploads/podcasts';
-    public const UPLOAD_AUDIO = 'uploads/files/podcasts';
+    public const UPLOAD_AUDIO = 'uploads/podcasts/files';
 
     public const SMALL = '135x141';
 	public const MEDIUM = '312x400';

@@ -485,12 +485,12 @@
                                                     Nationality
                                                 </label>
                                                 <div x-init="select2Alpine">
-                                                <select wire:model="nationality" x-ref="select" class="form-control" id="select2-dropdown">
-                                                    <option value="">Select Option</option>
-                                                    @foreach($countries as $country)
-                                                    <option value="{{ $country }}">{{ $country }}</option>
-                                                    @endforeach
-                                                </select>
+                                                    <select wire:model="nationality" x-ref="select" class="form-control" id="select2-dropdown">
+                                                        <option value="">Select Option</option>
+                                                        @foreach($nationalities as $nationality)
+                                                        <option value="{{ $nationality->name }}">{{ $nationality->name }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-start-1 sm:col-span-3">

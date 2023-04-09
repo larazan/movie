@@ -81,7 +81,7 @@ class PodcastIndex extends Component
 
     public function createPodcast()
     {
-        dd($this->message);
+        // dd($this->message);
         $this->validate();
   
         $new = Str::slug($this->name) . '_' . time();
@@ -94,19 +94,42 @@ class PodcastIndex extends Component
         $audioname = $new . '.' . $this->audio->getClientOriginalName();
         $audioPath = $this->audio->storeAs(Podcast::UPLOAD_AUDIO, $audioname, 'public');
 
-        Podcast::create([
-            'user_id' => Auth::user()->id,
-            'title' => $this->title,
-            'slug' => Str::slug($this->title),
-            'rand_id' => Str::random(18),
-            'description' => $this->description,
-            'duration' => $this->duration,
-            'audio' => $audioPath,
-            'origin' => $filePath,
-            'small' => $resizedImage['small'],
-            'medium' => $resizedImage['medium'],
-            'status' => $this->podcastStatus,
-        ]);
+        // Podcast::create([
+        //     'user_id' => Auth::user()->id,
+        //     'title' => $this->title,
+        //     'slug' => Str::slug($this->title),
+        //     'rand_id' => Str::random(18),
+        //     'description' => $this->description,
+        //     'duration' => $this->duration,
+        //     'audio' => $audioPath,
+        //     'origin' => $filePath,
+        //     'small' => $resizedImage['small'],
+        //     'medium' => $resizedImage['medium'],
+        //     'status' => $this->podcastStatus,
+        // ]);
+
+        $rand_id = Str::random(18);
+
+        $podcast = new Podcast();
+        $podcast->user_id = Auth::user()->id;
+        $podcast->title = $this->title;
+        $podcast->slug = Str::slug($this->title);
+        $podcast->rand_id = $rand_id;
+        $podcast->description = $this->description;
+        $podcast->duration = $this->duration;
+        $podcast->status = $this->podcastStatus;
+
+        if (!empty($this->file)) {
+            $podcast->origin = $filePath;
+            $podcast->small =$resizedImage['small'];
+            $podcast->medium = $resizedImage['medium'];
+        }
+
+        if (!empty($this->audio)) {
+            $podcast->audio = $audioPath;
+        }
+
+        $podcast->save();
 
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Podcast created successfully']);
@@ -149,32 +172,56 @@ class PodcastIndex extends Component
         $audioname = $new . '.' . $this->audio->getClientOriginalName();
         
         if ($this->podcastId) {
-            if ($podcast) {
-               // delete image
-			    $this->deleteImage($this->podcastId);
+            if ($podcast) {               
                 // IMAGE
                 $filePath = $this->file->storeAs(Podcast::UPLOAD_DIR, $filename, 'public');
                 $resizedImage = $this->_resizeImage($this->file, $filename, Podcast::UPLOAD_DIR);
 
-                // delete audio
-                $this->deleteAudio($this->podcastId);
                 // AUDIO
                 $audioPath = $this->audio->storeAs(Podcast::UPLOAD_AUDIO, $audioname, 'public');
 
-                $podcast->update([
-                    'user_id' => Auth::user()->id,
-                    'title' => $this->title,
-                    'slug' => Str::slug($this->title),
-                    'rand_id' => Str::random(18),
-                    'description' => $this->description,
-                    'duration' => $this->duration,
-                    'audio' => $audioPath,
-                    'origin' => $filePath,
-                    'small' => $resizedImage['small'],
-                    'medium' => $resizedImage['medium'],
-                    'status' => $this->podcastStatus,
-                ]);
+                // $podcast->update([
+                //     'user_id' => Auth::user()->id,
+                //     'title' => $this->title,
+                //     'slug' => Str::slug($this->title),
+                //     'rand_id' => Str::random(18),
+                //     'description' => $this->description,
+                //     'duration' => $this->duration,
+                //     'audio' => $audioPath,
+                //     'origin' => $filePath,
+                //     'small' => $resizedImage['small'],
+                //     'medium' => $resizedImage['medium'],
+                //     'status' => $this->podcastStatus,
+                // ]);
                 
+                $rand_id = Str::random(18);
+
+                $podcast = Podcast::where('id', $this->podcastId)->first();
+                $podcast->user_id = Auth::user()->id;
+                $podcast->title = $this->title;
+                $podcast->slug = Str::slug($this->title);
+                $podcast->rand_id = $rand_id;
+                $podcast->description = $this->description;
+                $podcast->duration = $this->duration;
+                $podcast->status = $this->podcastStatus;
+
+                if (!empty($this->file)) {
+                    // delete image
+			        $this->deleteImage($this->podcastId);
+
+                    $podcast->origin = $filePath;
+                    $podcast->small =$resizedImage['small'];
+                    $podcast->medium = $resizedImage['medium'];
+                }
+
+                if (!empty($this->audio)) {
+                    // delete audio
+                    $this->deleteAudio($this->podcastId);
+                    
+                    $podcast->audio = $audioPath;
+                }
+
+                $podcast->save();
             }
         }
 

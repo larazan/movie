@@ -8,6 +8,7 @@ use App\Models\Country;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use Intervention\Image\ImageManagerStatic as Image;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
@@ -21,12 +22,15 @@ class GroupIndex extends Component
     public $showGroupModal = false;
     public $showGroupDetailModal = false;
 
+    public $group;
     public $groupId;
     public $name;
     public $description;
     public $file;
     public $members;
     public $country;
+    public $year;
+    public $years = [];
     public $oldImage;
     public $groupStatus = 'inactive';
     public $statuses = [
@@ -45,6 +49,14 @@ class GroupIndex extends Component
         'name' => 'required',
         // 'file' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
     ];
+
+    public function mount()
+    {
+        $yearNow = Carbon::now()->format('Y');
+        for ($i=1950; $i < $yearNow + 2 ; $i++) { 
+            array_push($this->years, $i);
+        }
+    }
 
     public function showCreateModal()
     {
@@ -82,18 +94,36 @@ class GroupIndex extends Component
         $filePath = $this->file->storeAs(Group::UPLOAD_DIR, $filename, 'public');
         $resizedImage = $this->_resizeImage($this->file, $filename, Group::UPLOAD_DIR);
 
-        Group::create([ 
-            'name' => $this->name,
-            'slug' => Str::slug($this->name),
-            'rand_id' => Str::random(18),
-            'members' => $this->members,
-            'description' => $this->description,
-            'country' => $this->country,
-            'origin' => $filePath,
-            'small' => $resizedImage['small'],
-            'medium' => $resizedImage['medium'],
-            'status' => $this->groupStatus,
-        ]);
+        // Group::create([ 
+        //     'name' => $this->name,
+        //     'slug' => Str::slug($this->name),
+        //     'rand_id' => Str::random(18),
+        //     'members' => $this->members,
+        //     'description' => $this->description,
+        //     'country' => $this->country,
+        //     'origin' => $filePath,
+        //     'small' => $resizedImage['small'],
+        //     'medium' => $resizedImage['medium'],
+        //     'status' => $this->groupStatus,
+        // ]);
+
+        $group = new Group();
+        $group->name =  $this->name;
+        $group->slug =  Str::slug($this->name);
+        $group->rand_id =  Str::random(18);
+        $group->members =  $this->members;
+        $group->description =  $this->description;
+        $group->country =  $this->country;
+        $group->year = $this->year;
+        $group->status =  $this->groupStatus;
+
+        if (!empty($this->file)) {
+            $group->origin = $filePath;
+            $group->small =$resizedImage['small'];
+            $group->medium = $resizedImage['medium'];
+        }
+
+        $group->save();
 
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Group created successfully']);
@@ -108,6 +138,7 @@ class GroupIndex extends Component
         $this->name = $group->name;
         $this->description = $group->description;
         $this->country = $group->country;
+        $this->year = $group->year;
         $this->members = $group->members;
         $this->oldImage = $group->small;
         $this->groupStatus = $group->status;
@@ -145,25 +176,44 @@ class GroupIndex extends Component
         
         if ($this->groupId) {
             if ($group) {
-               // delete image
-			    $this->deleteImage($this->groupId);
+               
                 // IMAGE
                 $filePath = $this->file->storeAs(Group::UPLOAD_DIR, $filename, 'public');
                 $resizedImage = $this->_resizeImage($this->file, $filename, Group::UPLOAD_DIR);
 
-                $group->update([
-                    'name' => $this->name,
-                    'slug' => Str::slug($this->name),
-                    'rand_id' => Str::random(18),
-                    'members' => $this->members,
-                    'description' => $this->description,
-                    'country' => $this->country,
-                    'origin' => $filePath,
-                    'small' => $resizedImage['small'],
-                    'medium' => $resizedImage['medium'],
-                    'status' => $this->groupStatus,
-                ]);
+                // $group->update([
+                //     'name' => $this->name,
+                //     'slug' => Str::slug($this->name),
+                //     'rand_id' => Str::random(18),
+                //     'members' => $this->members,
+                //     'description' => $this->description,
+                //     'country' => $this->country,
+                //     'origin' => $filePath,
+                //     'small' => $resizedImage['small'],
+                //     'medium' => $resizedImage['medium'],
+                //     'status' => $this->groupStatus,
+                // ]);
                 
+                $group = Group::where('id', $this->groupId);
+                $group->name =  $this->name;
+                $group->slug =  Str::slug($this->name);
+                $group->rand_id =  Str::random(18);
+                $group->members =  $this->members;
+                $group->description =  $this->description;
+                $group->country =  $this->country;
+                $group->year = $this->year;
+                $group->status =  $this->groupStatus;
+
+                if (!empty($this->file)) {
+                    // delete image
+			        $this->deleteImage($this->groupId);
+                    
+                    $group->origin = $filePath;
+                    $group->small =$resizedImage['small'];
+                    $group->medium = $resizedImage['medium'];
+                }
+
+                $group->save();
             }
         }
 

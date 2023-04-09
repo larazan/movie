@@ -614,10 +614,10 @@
 @push('js')
 <script>
     ClassicEditor
-        .create(document.querySelector('#message'))
+        .create(document.querySelector('#description'))
         .then(editor => {
             editor.model.document.on('change:data', () => {
-                @this.set('message', editor.getData());
+                @this.set('description', editor.getData());
             })
         })
         .catch(error => {

@@ -37,6 +37,7 @@ use App\Http\Livewire\MovieCast;
 use App\Http\Livewire\MovieCategoryIndex;
 use App\Http\Livewire\MovieIndex;
 use App\Http\Livewire\MusicIndex;
+use App\Http\Livewire\NationalityIndex;
 use App\Http\Livewire\NetworkIndex;
 use App\Http\Livewire\OrderIndex;
 use App\Http\Livewire\PermissionIndex;
@@ -114,6 +115,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('movie-category', MovieCategoryIndex::class)->name('movie-category.index');
     Route::get('movies', MovieIndex::class)->name('movies.index');
     Route::get('musics', MusicIndex::class)->name('musics.index');
+    Route::get('nationalities', NationalityIndex::class)->name('nationalities.index');
     Route::get('networks', NetworkIndex::class)->name('networks.index');
     Route::get('orders', OrderIndex::class)->name('orders.index');
     Route::get('permissions', PermissionIndex::class)->name('permissions.index');

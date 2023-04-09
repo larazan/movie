@@ -191,7 +191,7 @@
                                 </div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp text-slate-800">{{ $country->name }}</div>
+                                <div class="gp text-slate-800 capitalize">{{ $country->name }}</div>
                             </td>
                            
                             <td class="vi wy w_ vo lm">

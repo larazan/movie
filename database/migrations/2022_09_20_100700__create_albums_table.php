@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('group_id')->nullable();
             $table->string('slug');
             $table->string('rand_id');
-            $table->string('year');
+            $table->string('year')->nullable();
             $table->string('description');
             $table->string('original');
             $table->string('medium');

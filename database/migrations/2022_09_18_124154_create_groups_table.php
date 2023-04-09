@@ -14,13 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('groups', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('name');
             $table->string('slug');
             $table->string('rand_id');
             $table->text('members');
             $table->string('description');
             $table->integer('country');
+            $table->string('year')->nullable();
             $table->string('original');
             $table->string('medium');
             $table->string('small');

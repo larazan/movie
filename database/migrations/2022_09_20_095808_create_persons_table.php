@@ -14,7 +14,7 @@ class CreatePersonsTable extends Migration
     public function up()
     {
         Schema::create('persons', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('name');
             $table->string('rand_id');
             $table->integer('gender_id');
@@ -25,10 +25,7 @@ class CreatePersonsTable extends Migration
             $table->string('facebook');
             $table->string('instagram');
             $table->string('twitter');
-            $table->string('original')->nullable();
-            $table->string('large')->nullable();
-            $table->string('medium')->nullable();
-            $table->string('small')->nullable();
+            
             $table->timestamps();
             $table->softDeletes();
         });

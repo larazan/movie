@@ -24,4 +24,9 @@ class Person extends Model
 	{
 		return $this->hasMany(PersonImage::class, 'person_id', 'id')->orderBy('id', 'DESC');
 	}
+
+	public function groups()
+	{
+		return $this->belongsToMany(Group::class, 'member_group')->latest();
+	}
 }
