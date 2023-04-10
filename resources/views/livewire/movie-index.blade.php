@@ -982,6 +982,10 @@ class="text-blue-500 hover:text-blue-700 cursor-pointer">{{ $table_movie->title 
                                     </span>
                                 </div>
                                 @endif
+
+                                <div>
+                                    <livewire:report-modal :reportType="movie" :reportCode="29" >
+                                </div>
                             </div>
                         </div>
 

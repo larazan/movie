@@ -18,6 +18,7 @@ class PersonIndex extends Component
     use WithFileUploads, WithPagination;
 
     public $showPersonModal = false;
+    public $showPersonDetailModal = false;
     public $name;
     public $bio;
     public $message;
@@ -364,6 +365,24 @@ class PersonIndex extends Component
         $this->personStatus = $person->status;
         
         $this->showPersonModal = true;
+    }
+
+    public function showDetailModal()
+    {
+        // $this->reset(['name']);
+        // $this->personId = $personId;
+        // $person = Podcast::find($personId);
+        // $this->name = $person->name;
+        // $this->bio = $person->bio;
+        // $this->nationality = $person->nationality;
+        // $this->facebook = $person->facebook;
+        // $this->twitter = $person->twitter;
+        // $this->instagram = $person->instagram;
+        // $this->genderStatus = $person->gender_id;
+        // $this->birthDate = $person->birth_date;
+        // $this->personStatus = $person->status;
+
+        $this->showPersonDetailModal = true;
     }
     
     public function updatePerson()

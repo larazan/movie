@@ -48,6 +48,7 @@ use App\Http\Livewire\ProductIndex;
 use App\Http\Livewire\ProductSliderIndex;
 use App\Http\Livewire\ProductReviewIndex;
 use App\Http\Livewire\QuoteIndex;
+use App\Http\Livewire\ReportIndex;
 use App\Http\Livewire\RoleIndex;
 use App\Http\Livewire\SeasonIndex;
 use App\Http\Livewire\SerieIndex;
@@ -126,6 +127,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('product-slide', ProductSliderIndex::class)->name('product-slider.index');
     Route::get('product-review', ProductReviewIndex::class)->name('product-review.index');
     Route::get('quotes', QuoteIndex::class)->name('quotes.index');
+    Route::get('reports', ReportIndex::class)->name('reports.index');
     Route::get('roles', RoleIndex::class)->name('roles.index');
     Route::get('seasons', SeasonIndex::class)->name('seasons.index');
     Route::get('series', SerieIndex::class)->name('series.index');
