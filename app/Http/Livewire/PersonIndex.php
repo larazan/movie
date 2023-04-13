@@ -21,7 +21,7 @@ class PersonIndex extends Component
     public $showPersonDetailModal = false;
     public $name;
     public $bio;
-    public $message;
+    // public $message;
     public $content;
     public $birthDate;
     public $birthLocation;

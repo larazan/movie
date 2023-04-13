@@ -140,21 +140,21 @@
                         </div>
                     </li>
                     <!-- Movie -->
-                    <li class="vn vr rounded-sm n_ ww @if(in_array(Request::segment(2), ['movies', 'movie-category', 'genres', 'countries', 'tags', 'networks', 'casts'])){{ 'bg-slate-900' }}@else{{ '' }}@endif" x-data="{ open: false }">
+                    <li class="vn vr rounded-sm n_ ww @if(in_array(Request::segment(2), ['movies', 'movie-category', 'genres', 'countries', 'rate-types', 'networks', 'casts'])){{ 'bg-slate-900' }}@else{{ '' }}@endif" x-data="{ open: false }">
                         <a class="block gj ld wt wi" href="#0" @click.prevent="sidebarExpanded ? open = !open : sidebarExpanded = true">
                             <div class="flex items-center fe">
                                 <div class="flex items-center">
                                
                                     <svg class="ub so oi" viewBox="0 0 24 24">
-                                        <path class="du @if(in_array(Request::segment(2), ['movies', 'movie-category', 'genres', 'countries', 'tags', 'networks', 'casts'])){{ 'text-indigo-600' }}@else{{ 'gz' }}@endif" d="M4.418 19.612A9.092 9.092 0 0 1 2.59 17.03L.475 19.14c-.848.85-.536 2.395.743 3.673a4.413 4.413 0 0 0 1.677 1.082c.253.086.519.131.787.135.45.011.886-.16 1.208-.474L7 21.44a8.962 8.962 0 0 1-2.582-1.828Z"></path>
-                                        <path class="du @if(in_array(Request::segment(2), ['movies', 'movie-category', 'genres', 'countries', 'tags', 'networks', 'casts'])){{ 'text-indigo-500' }}@else{{ 'g_' }}@endif" d="M10.034 13.997a11.011 11.011 0 0 1-2.551-3.862L4.595 13.02a2.513 2.513 0 0 0-.4 2.645 6.668 6.668 0 0 0 1.64 2.532 5.525 5.525 0 0 0 3.643 1.824 2.1 2.1 0 0 0 1.534-.587l2.883-2.882a11.156 11.156 0 0 1-3.861-2.556Z"></path>
-                                        <path class="du @if(in_array(Request::segment(2), ['movies', 'movie-category', 'genres', 'countries', 'tags', 'networks', 'casts'])){{ 'text-indigo-300' }}@else{{ 'gq' }}@endif" d="M21.554 2.471A8.958 8.958 0 0 0 18.167.276a3.105 3.105 0 0 0-3.295.467L9.715 5.888c-1.41 1.408-.665 4.275 1.733 6.668a8.958 8.958 0 0 0 3.387 2.196c.459.157.94.24 1.425.246a2.559 2.559 0 0 0 1.87-.715l5.156-5.146c1.415-1.406.666-4.273-1.732-6.666Zm.318 5.257c-.148.147-.594.2-1.256-.018A7.037 7.037 0 0 1 18.016 6c-1.73-1.728-2.104-3.475-1.73-3.845a.671.671 0 0 1 .465-.129c.27.008.536.057.79.146a7.07 7.07 0 0 1 2.6 1.711c1.73 1.73 2.105 3.472 1.73 3.846Z"></path>
+                                        <path class="du @if(in_array(Request::segment(2), ['movies', 'movie-category', 'genres', 'countries', 'rate-types', 'networks', 'casts'])){{ 'text-indigo-600' }}@else{{ 'gz' }}@endif" d="M4.418 19.612A9.092 9.092 0 0 1 2.59 17.03L.475 19.14c-.848.85-.536 2.395.743 3.673a4.413 4.413 0 0 0 1.677 1.082c.253.086.519.131.787.135.45.011.886-.16 1.208-.474L7 21.44a8.962 8.962 0 0 1-2.582-1.828Z"></path>
+                                        <path class="du @if(in_array(Request::segment(2), ['movies', 'movie-category', 'genres', 'countries', 'rate-types', 'networks', 'casts'])){{ 'text-indigo-500' }}@else{{ 'g_' }}@endif" d="M10.034 13.997a11.011 11.011 0 0 1-2.551-3.862L4.595 13.02a2.513 2.513 0 0 0-.4 2.645 6.668 6.668 0 0 0 1.64 2.532 5.525 5.525 0 0 0 3.643 1.824 2.1 2.1 0 0 0 1.534-.587l2.883-2.882a11.156 11.156 0 0 1-3.861-2.556Z"></path>
+                                        <path class="du @if(in_array(Request::segment(2), ['movies', 'movie-category', 'genres', 'countries', 'rate-types', 'networks', 'casts'])){{ 'text-indigo-300' }}@else{{ 'gq' }}@endif" d="M21.554 2.471A8.958 8.958 0 0 0 18.167.276a3.105 3.105 0 0 0-3.295.467L9.715 5.888c-1.41 1.408-.665 4.275 1.733 6.668a8.958 8.958 0 0 0 3.387 2.196c.459.157.94.24 1.425.246a2.559 2.559 0 0 0 1.87-.715l5.156-5.146c1.415-1.406.666-4.273-1.732-6.666Zm.318 5.257c-.148.147-.594.2-1.256-.018A7.037 7.037 0 0 1 18.016 6c-1.73-1.728-2.104-3.475-1.73-3.845a.671.671 0 0 1 .465-.129c.27.008.536.057.79.146a7.07 7.07 0 0 1 2.6 1.711c1.73 1.73 2.105 3.472 1.73 3.846Z"></path>
                                     </svg>
                                     <span class="text-sm gp ml-3 ttw tnn 2xl:opacity--100 wr">Movies</span>
                                 </div>
                                 <!-- Icon -->
                                 <div class="flex shrink-0 ml-2 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 @if(in_array(Request::segment(2), ['movies', 'movie-category', 'genres', 'countries', 'tags', 'networks'])){{ 'rotate-180' }}@endif" :class="open ? 'rotate-180' : 'rotate-0'" viewBox="0 0 12 12">
+                                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 @if(in_array(Request::segment(2), ['movies', 'movie-category', 'genres', 'countries', 'rate-types', 'networks'])){{ 'rotate-180' }}@endif" :class="open ? 'rotate-180' : 'rotate-0'" viewBox="0 0 12 12">
                                         <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
                                     </svg>
                                 </div>
@@ -166,7 +166,7 @@
                             </div>
                         </a>
                         <div class="tex ttj 2xl:block">
-                            <ul class="me re @if(!in_array(Request::segment(2), ['movies', 'movie-category', 'genres', 'countries', 'tags', 'networks', 'casts'])){{ 'hidden' }}@else{ !block }@endif" :class="open ? '!block' : 'hidden'">
+                            <ul class="me re @if(!in_array(Request::segment(2), ['movies', 'movie-category', 'genres', 'countries', 'rate-types', 'networks', 'casts'])){{ 'hidden' }}@else{ !block }@endif" :class="open ? '!block' : 'hidden'">
                                 <li class="rt ww">
                                     <a class="block @if(in_array(Request::segment(2), ['movies'])){{ 'text-indigo-500' }}@else{{ 'gq hover--text-slate-200' }}@endif wt wi ld" href="{{ url('admin/movies') }}">
                                         <span class="text-sm gp ttw tnn 2xl:opacity--100 wr">Movie</span>
@@ -192,11 +192,11 @@
                                         <span class="text-sm gp ttw tnn 2xl:opacity--100 wr">Country</span>
                                     </a>
                                 </li>
-                                <!-- <li class="rt ww">
-                                    <a class="block @if(in_array(Request::segment(2), ['tags'])){{ 'text-indigo-500' }}@else{{ 'gq hover--text-slate-200' }}@endif wt wi ld" href="{{ url('admin/tags') }}">
-                                        <span class="text-sm gp ttw tnn 2xl:opacity--100 wr">Tag</span>
+                                <li class="rt ww">
+                                    <a class="block @if(in_array(Request::segment(2), ['rate-types'])){{ 'text-indigo-500' }}@else{{ 'gq hover--text-slate-200' }}@endif wt wi ld" href="{{ url('admin/rate-types') }}">
+                                        <span class="text-sm gp ttw tnn 2xl:opacity--100 wr">Rate Type</span>
                                     </a>
-                                </li> -->
+                                </li>
                                 <li class="rt ww">
                                     <a class="block @if(in_array(Request::segment(2), ['networks'])){{ 'text-indigo-500' }}@else{{ 'gq hover--text-slate-200' }}@endif wt wi ld" href="{{ url('admin/networks') }}">
                                         <span class="text-sm gp ttw tnn 2xl:opacity--100 wr">Network</span>
@@ -572,21 +572,21 @@
                         </div>
                     </li>
                     <!-- Utility -->
-                    <li class="vn vr rounded-sm n_ ww @if(in_array(Request::segment(2), ['faqs', 'slides'])){{ 'bg-slate-900' }}@else{{ '' }}@endif" x-data="{ open: false }">
+                    <li class="vn vr rounded-sm n_ ww @if(in_array(Request::segment(2), ['faqs', 'slides', 'reports', 'subscribers'])){{ 'bg-slate-900' }}@else{{ '' }}@endif" x-data="{ open: false }">
                         <a class="block gj xc ld wt wi" href="#0" @click.prevent="sidebarExpanded ? open = !open : sidebarExpanded = true">
                             <div class="flex items-center fe">
                                 <div class="flex items-center">
                                     <svg class="ub so oi" viewBox="0 0 24 24">
-                                        <circle class="du @if(in_array(Request::segment(2), ['faqs', 'slides'])){{ 'text-indigo-300' }}@else{{ 'gq' }}@endif" cx="18.5" cy="5.5" r="4.5"></circle>
-                                        <circle class="du @if(in_array(Request::segment(2), ['faqs', 'slides'])){{ 'text-indigo-500' }}@else{{ 'g_' }}@endif" cx="5.5" cy="5.5" r="4.5"></circle>
-                                        <circle class="du @if(in_array(Request::segment(2), ['faqs', 'slides'])){{ 'text-indigo-500' }}@else{{ 'g_' }}@endif" cx="18.5" cy="18.5" r="4.5"></circle>
-                                        <circle class="du @if(in_array(Request::segment(2), ['faqs', 'slides'])){{ 'text-indigo-300' }}@else{{ 'gq' }}@endif" cx="5.5" cy="18.5" r="4.5"></circle>
+                                        <circle class="du @if(in_array(Request::segment(2), ['faqs', 'slides', 'reports', 'subscribers'])){{ 'text-indigo-300' }}@else{{ 'gq' }}@endif" cx="18.5" cy="5.5" r="4.5"></circle>
+                                        <circle class="du @if(in_array(Request::segment(2), ['faqs', 'slides', 'reports', 'subscribers'])){{ 'text-indigo-500' }}@else{{ 'g_' }}@endif" cx="5.5" cy="5.5" r="4.5"></circle>
+                                        <circle class="du @if(in_array(Request::segment(2), ['faqs', 'slides', 'reports', 'subscribers'])){{ 'text-indigo-500' }}@else{{ 'g_' }}@endif" cx="18.5" cy="18.5" r="4.5"></circle>
+                                        <circle class="du @if(in_array(Request::segment(2), ['faqs', 'slides', 'reports', 'subscribers'])){{ 'text-indigo-300' }}@else{{ 'gq' }}@endif" cx="5.5" cy="18.5" r="4.5"></circle>
                                     </svg>
                                     <span class="text-sm gp ml-3 ttw tnn 2xl:opacity--100 wr">Utility</span>
                                 </div>
                                 <!-- Icon -->
                                 <div class="flex shrink-0 ml-2 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 @if(in_array(Request::segment(2), ['faqs', 'slides'])){{ 'rotate-180' }}@endif" :class="open ? 'rotate-180' : 'rotate-0'" viewBox="0 0 12 12">
+                                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 @if(in_array(Request::segment(2), ['faqs', 'slides', 'reports', 'subscribers'])){{ 'rotate-180' }}@endif" :class="open ? 'rotate-180' : 'rotate-0'" viewBox="0 0 12 12">
                                         <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
                                     </svg>
                                 </div>
@@ -598,17 +598,17 @@
                             </div>
                         </a>
                         <div class="tex ttj 2xl:block">
-                            <ul class="me re @if(!in_array(Request::segment(2), ['faqs', 'slides'])){{ 'hidden' }}@else{ !block }@endif" :class="open ? '!block' : 'hidden'">
-                                <!-- <li class="rt ww">
-                                    <a class="block @if(in_array(Request::segment(2), ['products'])){{ 'text-indigo-500' }}@else{{ 'gq hover--text-slate-200' }}@endif wt wi ld" href="changelog.html">
-                                        <span class="text-sm gp ttw tnn 2xl:opacity--100 wr">Changelog</span>
+                            <ul class="me re @if(!in_array(Request::segment(2), ['faqs', 'slides', 'reports', 'subscribers'])){{ 'hidden' }}@else{ !block }@endif" :class="open ? '!block' : 'hidden'">
+                                <li class="rt ww">
+                                    <a class="block @if(in_array(Request::segment(2), ['subscribers'])){{ 'text-indigo-500' }}@else{{ 'gq hover--text-slate-200' }}@endif wt wi ld" href="{{ url('admin/subscribers') }}">
+                                        <span class="text-sm gp ttw tnn 2xl:opacity--100 wr">Subscribers</span>
                                     </a>
                                 </li>
                                 <li class="rt ww">
-                                    <a class="block @if(in_array(Request::segment(2), ['products'])){{ 'text-indigo-500' }}@else{{ 'gq hover--text-slate-200' }}@endif wt wi ld" href="roadmap.html">
-                                        <span class="text-sm gp ttw tnn 2xl:opacity--100 wr">Roadmap</span>
+                                    <a class="block @if(in_array(Request::segment(2), ['reports'])){{ 'text-indigo-500' }}@else{{ 'gq hover--text-slate-200' }}@endif wt wi ld" href="{{ url('admin/reports') }}">
+                                        <span class="text-sm gp ttw tnn 2xl:opacity--100 wr">Reports</span>
                                     </a>
-                                </li> -->
+                                </li> 
                                 <li class="rt ww">
                                     <a class="block @if(in_array(Request::segment(2), ['faqs'])){{ 'text-indigo-500' }}@else{{ 'gq hover--text-slate-200' }}@endif wt wi ld" href="{{ url('admin/faqs') }}">
                                         <span class="text-sm gp ttw tnn 2xl:opacity--100 wr">FAQs</span>

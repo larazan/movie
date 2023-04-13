@@ -9,6 +9,9 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\SerieController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\SubscribersController;
+
+
 // Livewire
 use App\Http\Livewire\Account;
 use App\Http\Livewire\AlbumIndex;
@@ -48,6 +51,7 @@ use App\Http\Livewire\ProductIndex;
 use App\Http\Livewire\ProductSliderIndex;
 use App\Http\Livewire\ProductReviewIndex;
 use App\Http\Livewire\QuoteIndex;
+use App\Http\Livewire\RateTypeIndex;
 use App\Http\Livewire\ReportIndex;
 use App\Http\Livewire\RoleIndex;
 use App\Http\Livewire\SeasonIndex;
@@ -55,6 +59,7 @@ use App\Http\Livewire\SerieIndex;
 use App\Http\Livewire\SettingIndex;
 use App\Http\Livewire\ShipmentIndex;
 use App\Http\Livewire\SlideIndex;
+use App\Http\Livewire\SubscribeIndex;
 use App\Http\Livewire\TagIndex;
 use App\Http\Livewire\ThreadDetail;
 use App\Http\Livewire\UserIndex;
@@ -127,6 +132,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('product-slide', ProductSliderIndex::class)->name('product-slider.index');
     Route::get('product-review', ProductReviewIndex::class)->name('product-review.index');
     Route::get('quotes', QuoteIndex::class)->name('quotes.index');
+    Route::get('rate-types', RateTypeIndex::class)->name('rate-types.index');
     Route::get('reports', ReportIndex::class)->name('reports.index');
     Route::get('roles', RoleIndex::class)->name('roles.index');
     Route::get('seasons', SeasonIndex::class)->name('seasons.index');
@@ -134,6 +140,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('settings', SettingIndex::class)->name('settings.index');
     Route::get('shipments', ShipmentIndex::class)->name('shipments.index');
     Route::get('slides', SlideIndex::class)->name('slides.index');
+    Route::get('subscribes', SubscribeIndex::class)->name('subscribes.index');
     Route::get('tags', TagIndex::class)->name('tags.index');
     Route::get('users', UserIndex::class)->name('users.index');
 
@@ -143,6 +150,9 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     
 
 });
+
+// Subscribe & unsubscribe
+Route::get('/unsubscribe', [SubscribersController::class, 'destroy'])->name('public.subscriber.destroy');
 
 
 Route::middleware([

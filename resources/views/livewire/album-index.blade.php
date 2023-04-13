@@ -313,10 +313,13 @@
                                             </select>
                                         </div>
                                         <div class="col-start-1 sm:col-span-3">
-                                            <label for="title" class="block text-sm font-medium text-gray-700">
+                                            <label for="name" class="block text-sm font-medium text-gray-700">
                                                 Title
                                             </label>
                                             <input wire:model="name" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            @error('name')
+                                                <div class="go re yl">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         
                                         <div wire:ignore class="col-start-1 sm:col-span-3">
@@ -337,6 +340,9 @@
                                                     <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                                                     @endforeach
                                                 </select>
+                                                @error('country')
+                                                    <div class="go re yl">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                             <div class="col-start-1 sm:col-span-3">
                                                 <label for="title" class="block text-sm font-medium text-gray-700">
@@ -348,13 +354,16 @@
                                                     <option value="{{ $year }}">{{ $year }}</option>
                                                     @endforeach
                                                 </select>
+                                                @error('year')
+                                                    <div class="go re yl">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="photo" class="block text-sm font-medium text-gray-700">
                                                 Cover
                                             </label>
-                                            <input wire:model="filename" type="file" autocomplete="given-name"
+                                            <input wire:model="file" type="file" autocomplete="given-name"
                                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                                 @if ($oldImage)
                                                     Photo Preview:
@@ -374,6 +383,9 @@
                                                 <option value="{{ $status }}">{{ $status }}</option>
                                                 @endforeach
                                             </select>
+                                            @error('albumStatus')
+                                                <div class="go re yl">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>

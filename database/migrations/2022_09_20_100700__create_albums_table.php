@@ -21,10 +21,11 @@ return new class extends Migration
             $table->string('slug');
             $table->string('rand_id');
             $table->string('year')->nullable();
+            $table->string('country')->nullable();
             $table->string('description');
-            $table->string('original');
-            $table->string('medium');
-            $table->string('small');
+            $table->string('original')->nullable();
+            $table->string('medium')->nullable();
+            $table->string('small')->nullable();
             $table->string('status');
             $table->timestamps();
 

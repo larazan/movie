@@ -44,11 +44,53 @@ class GroupIndex extends Component
     public $sortDirection = 'asc';
     public $showConfirmModal = false;
     public $deleteId = '';
+    public $canSubmit = false;
+
+    // Array to save the valid state of all the inputs to validate. False by default.
+    public $valid = [
+        "name" => false, 
+        "members" => false,
+        "country" => false,
+        "year" => false,
+        "groupStatus" => false,
+    ];
 
     protected $rules = [
-        'name' => 'required',
+        'name' => 'required|min:5',
+        'country' => 'required',
+        'year' => 'required',
+        'groupStatus' => 'required',
         // 'file' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
     ];
+
+    public function updated($propertyName)
+    {
+        //can_submit is false if validation fails 
+        $this->canSubmit = false;
+
+        $this->valid[$propertyName] = false;
+        $this->validateOnly($propertyName);
+
+        //This input is valid
+        $this->valid[$propertyName] = true;
+
+        //We can submit if all inputs are valid
+        $this->canSubmit = true;
+        foreach($this->valid as $property) {
+            if(!$property) {
+                $this->canSubmit = false;
+                break;
+            }
+        }
+
+        $this->validateOnly($propertyName, [
+            'name' => 'required|min:5',
+            'members' => 'required',
+            'country' => 'required',
+            'year' => 'required',
+            'groupStatus' => 'required',
+        ]);
+    }
 
     public function mount()
     {
@@ -85,15 +127,9 @@ class GroupIndex extends Component
     public function createGroup()
     {
         $this->validate();
-
-        $originalTime = ($this->minute * 60) + $this->second;
   
         $new = Str::slug($this->name) . '_' . time();
-        // IMAGE
-        $filename = $new . '.' . $this->file->getClientOriginalName();
-        $filePath = $this->file->storeAs(Group::UPLOAD_DIR, $filename, 'public');
-        $resizedImage = $this->_resizeImage($this->file, $filename, Group::UPLOAD_DIR);
-
+       
         // Group::create([ 
         //     'name' => $this->name,
         //     'slug' => Str::slug($this->name),
@@ -118,7 +154,12 @@ class GroupIndex extends Component
         $group->status =  $this->groupStatus;
 
         if (!empty($this->file)) {
-            $group->origin = $filePath;
+             // IMAGE
+            $filename = $new . '.' . $this->file->getClientOriginalName();
+            $filePath = $this->file->storeAs(Group::UPLOAD_DIR, $filename, 'public');
+            $resizedImage = $this->_resizeImage($this->file, $filename, Group::UPLOAD_DIR);
+
+            $group->original = $filePath;
             $group->small =$resizedImage['small'];
             $group->medium = $resizedImage['medium'];
         }
@@ -169,18 +210,11 @@ class GroupIndex extends Component
         $group = Group::findOrFail($this->groupId);
         $this->validate();
   
-        $originalTime = ($this->minute * 60) + $this->second;
-
         $new = Str::slug($this->name) . '_' . time();
-        $filename = $new . '.' . $this->file->getClientOriginalName();
         
         if ($this->groupId) {
             if ($group) {
                
-                // IMAGE
-                $filePath = $this->file->storeAs(Group::UPLOAD_DIR, $filename, 'public');
-                $resizedImage = $this->_resizeImage($this->file, $filename, Group::UPLOAD_DIR);
-
                 // $group->update([
                 //     'name' => $this->name,
                 //     'slug' => Str::slug($this->name),
@@ -207,8 +241,12 @@ class GroupIndex extends Component
                 if (!empty($this->file)) {
                     // delete image
 			        $this->deleteImage($this->groupId);
+                    // IMAGE
+                    $filename = $new . '.' . $this->file->getClientOriginalName();
+                    $filePath = $this->file->storeAs(Group::UPLOAD_DIR, $filename, 'public');
+                    $resizedImage = $this->_resizeImage($this->file, $filename, Group::UPLOAD_DIR);
                     
-                    $group->origin = $filePath;
+                    $group->original = $filePath;
                     $group->small =$resizedImage['small'];
                     $group->medium = $resizedImage['medium'];
                 }
@@ -243,16 +281,6 @@ class GroupIndex extends Component
     public function resetFilters()
     {
         $this->reset();
-    }
-
-    public function download($id)
-    {
-        $groupPath = Group::where(['id' => $id])->first();
-		$path = 'storage/';
-
-        if (Storage::exists($path.$groupPath->audio)) {
-            return response()->download($path.$groupPath->audio);
-		}
     }
 
     public function render()

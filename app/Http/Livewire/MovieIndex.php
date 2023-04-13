@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Genre;
+use App\Models\RateType;
 use App\Models\Network;
 use App\Models\CategoryMovie;
 use App\Models\Country;
@@ -38,6 +39,7 @@ class MovieIndex extends Component
     public $country;
     public $duration;
     public $networks;
+    public $rateType;
     public $genres = [];
     public $movieId;
     public $movie;
@@ -294,6 +296,7 @@ class MovieIndex extends Component
             'duration' => $this->duration,
             'lang' => $this->lang,
             'network' => $this->networks,
+            'rate_type' => $this->rateType,
             'genre' => $this->genres,
             'origin' => $filePath,
             'large' => $resizedImage['large'],
@@ -319,6 +322,7 @@ class MovieIndex extends Component
         $this->year = $movie->year;
         $this->country = $movie->country;
         $this->duration = $movie->duration;
+        $this->rateType = $movie->rate_type;
         $this->lang = $movie->lang;
         $this->networks = $movie->network;
         $this->genres = $movie->genre;
@@ -379,6 +383,7 @@ class MovieIndex extends Component
                     'duration' => $this->duration,
                     'lang' => $this->lang,
                     'network' => $this->networks,
+                    'rate_type' => $this->rateType,
                     'genre' => $this->genres,
                     'origin' => $filePath,
                     'large' => $resizedImage['large'],
@@ -426,6 +431,7 @@ class MovieIndex extends Component
             'categories' => CategoryMovie::OrderBy('name', $this->sortDirection)->get(),
             'countries' => Country::OrderBy('name', $this->sortDirection)->get(),
             'networks' => Network::OrderBy('name', $this->sortDirection)->get(),
+            'rateTypes' => RateType::OrderBy('name', $this->sortDirection)->get(),
         ]);
     }
 

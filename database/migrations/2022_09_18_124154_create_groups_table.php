@@ -22,9 +22,9 @@ return new class extends Migration
             $table->string('description');
             $table->integer('country');
             $table->string('year')->nullable();
-            $table->string('original');
-            $table->string('medium');
-            $table->string('small');
+            $table->string('original')->nullable();
+            $table->string('medium')->nullable();
+            $table->string('small')->nullable();
             $table->string('status');
             $table->timestamps();
         });

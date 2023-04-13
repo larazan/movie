@@ -21,6 +21,7 @@ class CreateArticlesTable extends Migration
             $table->string('slug');
             $table->string('rand_id');
             $table->datetime('published_at')->nullable();
+            $table->boolean('published')->default(false);
             $table->string('status');
             $table->text('body');
             $table->text('article_tags')->nullable();

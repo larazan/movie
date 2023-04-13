@@ -16,6 +16,7 @@ class Group extends Model
         'members',
         'description',
         'country',
+        'year',
         'original',
         'medium',
         'small',

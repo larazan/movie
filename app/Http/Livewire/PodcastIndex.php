@@ -14,7 +14,7 @@ class PodcastIndex extends Component
 {
     use WithFileUploads, WithPagination;
 
-    public $message;
+    // public $message;
     public $showPodcastModal = false;
     public $showPodcastDetailModal = false;
     public $title;

@@ -86,14 +86,8 @@ class AlbumIndex extends Component
     public function createAlbum()
     {
         $this->validate();
-
-        $originalTime = ($this->minute * 60) + $this->second;
   
         $new = Str::slug($this->name) . '_' . time();
-        // IMAGE
-        $filename = $new . '.' . $this->file->getClientOriginalName();
-        $filePath = $this->file->storeAs(Album::UPLOAD_DIR, $filename, 'public');
-        $resizedImage = $this->_resizeImage($this->file, $filename, Album::UPLOAD_DIR);
 
         // Album::create([ 
         //     'name' => $this->name,
@@ -121,6 +115,11 @@ class AlbumIndex extends Component
         $album->status = $this->albumStatus;
 
         if (!empty($this->file)) {
+             // IMAGE
+            $filename = $new . '.' . $this->file->getClientOriginalName();
+            $filePath = $this->file->storeAs(Album::UPLOAD_DIR, $filename, 'public');
+            $resizedImage = $this->_resizeImage($this->file, $filename, Album::UPLOAD_DIR);
+
             $album->origin = $filePath;
             $album->small =$resizedImage['small'];
             $album->medium = $resizedImage['medium'];
@@ -159,12 +158,21 @@ class AlbumIndex extends Component
         // $this->description = $album->description;
         // $this->country = $album->country;
         // $this->duration = $album->duration;
-        // $this->minute = $this->oriDura($album->duration, 'menit');
         // $this->second = $this->oriDura($album->duration, 'detik');
         // $this->oldImage = $album->small;
         // $this->albumStatus = $album->status;
 
         $this->showAlbumDetailModal = true;
+    }
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName, [
+            'name' => 'required|min:5',
+            'country' => 'required',
+            'year' => 'required',
+            'albumStatus' => 'required',
+        ]);
     }
     
     public function updateAlbum()
@@ -172,16 +180,10 @@ class AlbumIndex extends Component
         $album = Album::findOrFail($this->albumId);
         $this->validate();
   
-        $originalTime = ($this->minute * 60) + $this->second;
-
         $new = Str::slug($this->name) . '_' . time();
-        $filename = $new . '.' . $this->file->getClientOriginalName();
         
         if ($this->albumId) {
             if ($album) {
-               
-                $filePath = $this->file->storeAs(Album::UPLOAD_DIR, $filename, 'public');
-                $resizedImage = $this->_resizeImage($this->file, $filename, Album::UPLOAD_DIR);
 
                 // $album->update([
                 //     'name' => $this->name,
@@ -212,6 +214,10 @@ class AlbumIndex extends Component
                     // delete image
 			        $this->deleteImage($this->albumId);
                     // IMAGE
+                    $filename = $new . '.' . $this->file->getClientOriginalName();
+                    $filePath = $this->file->storeAs(Album::UPLOAD_DIR, $filename, 'public');
+                    $resizedImage = $this->_resizeImage($this->file, $filename, Album::UPLOAD_DIR);
+
                     $album->origin = $filePath;
                     $album->small =$resizedImage['small'];
                     $album->medium = $resizedImage['medium'];

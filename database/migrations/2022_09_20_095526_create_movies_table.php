@@ -24,8 +24,9 @@ class CreateMoviesTable extends Migration
             $table->text('description');
             $table->text('movie_tags')->nullable();
             $table->integer('year');
-            $table->integer('country');
+            $table->tinyInteger('country');
             $table->integer('duration');
+            $table->tinyInteger('rate_type')->nullable();
             $table->string('lang');
             $table->text('network');
             $table->text('genre');

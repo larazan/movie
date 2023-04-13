@@ -31,4 +31,9 @@ class Article extends Model
     {
         return $this->belongsToMany('App\Models\CategoryArticle', 'article_categories');
     }
+
+    public function scopePublished($query, $published = true)
+    {
+        return $query->where('published', $published);
+    }
 }
