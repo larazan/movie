@@ -140,7 +140,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('settings', SettingIndex::class)->name('settings.index');
     Route::get('shipments', ShipmentIndex::class)->name('shipments.index');
     Route::get('slides', SlideIndex::class)->name('slides.index');
-    Route::get('subscribes', SubscribeIndex::class)->name('subscribes.index');
+    Route::get('subscribers', SubscribeIndex::class)->name('subscribers.index');
     Route::get('tags', TagIndex::class)->name('tags.index');
     Route::get('users', UserIndex::class)->name('users.index');
 

@@ -273,6 +273,9 @@
                                                 <option value="{{ $status }}">{{ $status }}</option>
                                                 @endforeach
                                             </select>
+                                            @error('categoryStatus')
+                                                <div class="go re yl">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>

@@ -31,6 +31,7 @@ class RateTypeIndex extends Component
 
     protected $rules = [
         'rateTypeName' => 'required',
+        'rateTypeDefinition' => 'required',
     ];
 
     public function showCreateModal()

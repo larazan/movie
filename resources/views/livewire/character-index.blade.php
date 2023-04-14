@@ -177,7 +177,7 @@
                                 <div class="gh gt">Name</div>
                             </th>
                             <th class="vi wy w_ vo lm">
-                                <div class="gh gt">Charater</div>
+                                <div class="gh gt">Character</div>
                             </th>
                             <th class="vi wy w_ vo lm">
                                 <div class="gh gt">Role</div>
@@ -339,10 +339,15 @@
                                             <input wire:model="personId" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                         </div>
                                         <div class="col-start-1 sm:col-span-3">
-                                            <label for="title" class="block text-sm font-medium text-gray-700">
+                                            <label for="castId" class="block text-sm font-medium text-gray-700">
                                                 Cast
                                             </label>
-                                            <input wire:model="castId" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            <select wire:model="castId" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
+                                                <option value="" >Select Option</option>
+                                                @foreach($casts as $cast)
+                                                <option value="{{ $cast->id }}">{{ $cast->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         <div class="col-start-1 sm:col-span-3">
                                             <label for="title" class="block text-sm font-medium text-gray-700">

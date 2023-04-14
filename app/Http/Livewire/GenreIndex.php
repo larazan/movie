@@ -28,8 +28,16 @@ class GenreIndex extends Component
     public $deleteId = '';
 
     protected $rules = [
-        'name' => 'required',
+        'name' => 'required|unique:genres',
     ];
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName, [
+            'name' => 'required|unique:genres|min:3',
+            'genreStatus' => 'required',
+        ]);
+    }
 
     public function showCreateModal()
     {

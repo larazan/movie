@@ -39,7 +39,6 @@
 
         <!-- Left side -->
         <div class="ri _y">
-            <livewire:select-search />
         </div>
 
         <!-- Right side -->
@@ -241,7 +240,7 @@
 
     <x-jet-dialog-modal wire:model="showSubscriberModal" class="">
 
-        @if ($subscriberId)
+        @if ($newsletterSubscriberId)
         <x-slot name="title" class="border-b">Update Subscriber</x-slot>
         @else
         <x-slot name="title" class="border-b bg-slate-200">
@@ -289,7 +288,7 @@
             <div class="border-slate-200">
                 <div class="flex flex-wrap justify-end fc">
                     <x-m-button wire:click="closeNewsletterSubscriberModal" class="border-slate-200 hover:text-white hover--border-slate-300 g_">Cancel</x-m-button>
-                    @if ($subscriberId)
+                    @if ($newsletterSubscriberId)
                     <x-m-button wire:click="updateNewsletterSubscriber" class=" ho xi ye">Update</x-m-button>
                     @else
                     <x-m-button wire:click="createNewsletterSubscriber" class=" ho xi ye2">Create</x-m-button>

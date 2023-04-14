@@ -77,4 +77,9 @@ class Movie extends Model
     {
         return $this->belongsToMany(Cast::class, 'cast_movie');
     }
+
+    public function rateTypes()
+    {
+        return $this->belongsToMany(RateType::class);
+    }
 }

@@ -32,6 +32,14 @@ class MovieCategoryIndex extends Component
         'name' => 'required',
     ];
 
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName, [
+            'name' => 'required|min:3',
+            'categoryStatus' => 'required',
+        ]);
+    }
+
     public function showCreateModal()
     {
         $this->showCategoryModal = true;

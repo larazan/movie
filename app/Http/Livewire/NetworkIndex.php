@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Network;
+use App\Models\Country;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -157,7 +158,8 @@ class NetworkIndex extends Component
     public function render()
     {
         return view('livewire.network-index', [
-            'networks' => Network::search('name', $this->search)->orderBy('name', $this->sort)->paginate($this->perPage)
+            'networks' => Network::search('name', $this->search)->orderBy('name', $this->sort)->paginate($this->perPage),
+            'countries' => Country::orderBy('name', $this->sort)->get(),
         ]);
     }
 

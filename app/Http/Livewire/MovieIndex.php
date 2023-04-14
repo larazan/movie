@@ -43,12 +43,14 @@ class MovieIndex extends Component
     public $genres = [];
     public $movieId;
     public $movie;
-    public $movieTags;
+    public $movieTags = [];
     public $movieStatus = 'inactive';
     public $statuses = [
         'active',
         'inactive'
     ];
+
+    public $reportType = 'movie';
 
     public $showMovieModal = false;
     public $showMovieDetailModal = false;

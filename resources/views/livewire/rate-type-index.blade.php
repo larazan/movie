@@ -39,7 +39,6 @@
 
         <!-- Left side -->
         <div class="ri _y">
-            <livewire:select-search />
         </div>
 
         <!-- Right side -->
@@ -241,7 +240,7 @@
         </div>
     </div>
 
-    {{ $nationalities->links() }}
+    {{ $types->links() }}
 
     <x-jet-dialog-modal wire:model="showRateTypeModal" class="">
 

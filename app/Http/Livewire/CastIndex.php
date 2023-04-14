@@ -28,8 +28,16 @@ class CastIndex extends Component
     public $deleteId = '';
 
     protected $rules = [
-        'name' => 'required',
+        'name' => 'required|unique:casts',
     ];
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName, [
+            'name' => 'required|unique:casts|min:3',
+            'castStatus' => 'required',
+        ]);
+    }
 
     public function showCreateModal()
     {

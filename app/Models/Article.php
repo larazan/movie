@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Article extends Model
 {
@@ -35,5 +36,12 @@ class Article extends Model
     public function scopePublished($query, $published = true)
     {
         return $query->where('published', $published);
+    }
+
+    public function scopeForTag(Builder $query, string $tag): Builder
+    {
+        return $query->whereHas('tagsRelation', function ($query) use ($tag) {
+            $query->where('tags.slug', $tag);
+        });
     }
 }

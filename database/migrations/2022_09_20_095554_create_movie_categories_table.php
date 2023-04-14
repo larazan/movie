@@ -14,7 +14,7 @@ class CreateMovieCategoriesTable extends Migration
     public function up()
     {
         Schema::create('movie_categories', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->unsignedBigInteger('movie_id');
             $table->unsignedBigInteger('category_movie_id');
             

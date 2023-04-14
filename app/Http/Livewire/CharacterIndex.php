@@ -161,7 +161,8 @@ class CharacterIndex extends Component
     public function render()
     {
         return view('livewire.character-index', [
-            'characters' => Character::search('character_name', $this->search)->orderBy('character_name', $this->sort)->paginate($this->perPage)
+            'characters' => Character::search('character_name', $this->search)->orderBy('character_name', $this->sort)->paginate($this->perPage),
+            'casts' => Cast::orderBy('name', $this->sort)->get(),
         ]);
     }
 }

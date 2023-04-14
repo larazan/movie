@@ -13,22 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('albums', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->integer('person_id')->nullable();
-            $table->integer('group_id')->nullable();
-            $table->string('slug');
-            $table->string('rand_id');
-            $table->string('year')->nullable();
-            $table->string('country')->nullable();
-            $table->string('description');
+        Schema::create('movie_images', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('movie_id');
             $table->string('original')->nullable();
+            $table->string('large')->nullable();
             $table->string('medium')->nullable();
             $table->string('small')->nullable();
-            $table->string('status');
             $table->timestamps();
 
+            $table->foreign('movie_id')->references('id')->on('movies')->onDelete('cascade');
         });
     }
 
@@ -39,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('albums');
+        Schema::dropIfExists('movie_images');
     }
 };

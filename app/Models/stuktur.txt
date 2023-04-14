@@ -5,6 +5,7 @@ Person                              PersonController
         Genre                       GenreController
         Country                     CountryController
         Tag     
+        RateType
 
         Season                      SeasonController
             Episode                 EpisodeController
@@ -30,6 +31,7 @@ Article                             ArticleController
     CategoryArticle                 CategoryArticleController
     ArticleComment                  ArticleCommentController
         ArticleCommentLike          ArticleCommentLikeController
+    Taggable
 
 Ecomm
 

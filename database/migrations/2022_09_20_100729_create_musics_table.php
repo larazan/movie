@@ -14,7 +14,7 @@ class CreateMusicsTable extends Migration
     public function up()
     {
         Schema::create('musics', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->string('title');
             $table->string('slug');
