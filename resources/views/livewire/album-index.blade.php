@@ -170,7 +170,7 @@
                                 <div class="od sy ub mr-2 _b">
                                     <img class="rounded-full" src="{{ asset('images/Born_Pink.jpeg') }}" width="40" height="40" alt="User 01">
                                 </div>
-                                
+
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="gp ">September 16, 2022</div>
@@ -194,7 +194,7 @@
                                             <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z"></path>
                                         </svg>
                                     </button>
-                                    
+
                                     <button class="yl xy rounded-full">
                                         <span class="d">Delete</span>
                                         <svg class="os sf du" viewBox="0 0 32 32">
@@ -223,7 +223,7 @@
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="gp ">
-                                <img src="{{ asset('storage/'.$albums->small) }}" class="object-scale-down h-48 w-96" alt="{{ $album->title }}">
+                                    <img src="{{ asset('storage/'.$albums->small) }}" class="object-scale-down h-48 w-96" alt="{{ $album->title }}">
                                 </div>
                             </td>
                             <td class="vi wy w_ vo lm">
@@ -234,12 +234,12 @@
                             </td>
                             <td class="vi wy w_ vo lm">
                                 @if ($album->status === 'inactive')
-                                    <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $album->status }}</div>
-                                @endif 
+                                <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $album->status }}</div>
+                                @endif
 
                                 @if ($album->status === 'active')
-                                    <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $album->status }}</div>
-                                @endif 
+                                <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $album->status }}</div>
+                                @endif
                             </td>
 
                             <td class="vi wy w_ vo lm">
@@ -249,14 +249,14 @@
                             <td class="vi wy w_ vo lm of">
                                 <div class="fm">
                                     <button class="gq xv rounded-full" wire:click="showEditModal({{ $album->id }})">
-                                    <span class=" d">Edit</span>
+                                        <span class=" d">Edit</span>
                                         <svg class="os sf du" viewBox="0 0 32 32">
                                             <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z"></path>
                                         </svg>
                                     </button>
-                                   
+
                                     <button class="yl xy rounded-full" wire:click="deleteId({{ $album->id }})">
-                                    <span class=" d">Delete</span>
+                                        <span class=" d">Delete</span>
                                         <svg class="os sf du" viewBox="0 0 32 32">
                                             <path d="M13 15h2v6h-2zM17 15h2v6h-2z"></path>
                                             <path d="M20 9c0-.6-.4-1-1-1h-6c-.6 0-1 .4-1 1v2H8v2h1v10c0 .6.4 1 1 1h12c.6 0 1-.4 1-1V13h1v-2h-4V9zm-6 1h4v1h-4v-1zm7 3v9H11v-9h10z"></path>
@@ -294,23 +294,23 @@
                             <div class="">
                                 <div class="">
                                     <div class="flex flex-col space-y-3">
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="first-name" class="block text-sm font-medium text-gray-700">Actress</label>
-                                            <select wire:model="actress" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
-                                                <option value="" >Select Person</option>
-                                                @foreach($persons as $person)
-                                                <option value="{{ $person->id }}">{{ $person->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="first-name" class="block text-sm font-medium text-gray-700">Group</label>
-                                            <select wire:model="actress" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
-                                                <option value="" >Select Group</option>
-                                                @foreach($groups as $group)
-                                                <option value="{{ $group->id }}">{{ $group->name }}</option>
-                                                @endforeach
-                                            </select>
+                                        <div class="flex flex-row justify-between">
+                                            <div class="col-start-1 sm:col-span-3 w-1/2 ml-4">
+                                                <label for="actress" class="block text-sm font-medium text-gray-700">Actress</label>
+                                                <x-select2 wire:model="actress" id="actress" placeholder="Select person">
+                                                    @foreach($persons as $person)
+                                                    <option value="{{ $person->id }}">{{ $person->name }}</option>
+                                                    @endforeach
+                                                </x-select2>
+                                            </div>
+                                            <div class="col-start-1 sm:col-span-3 w-1/2 ml-4">
+                                                <label for="groupId" class="block text-sm font-medium text-gray-700">Group</label>
+                                                <x-select2 wire:model="groupId" id="groupId" placeholder="Select group">
+                                                    @foreach($groups as $group)
+                                                    <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                                    @endforeach
+                                                </x-select2>
+                                            </div>
                                         </div>
                                         <div class="col-start-1 sm:col-span-3">
                                             <label for="name" class="block text-sm font-medium text-gray-700">
@@ -318,17 +318,17 @@
                                             </label>
                                             <input wire:model="name" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             @error('name')
-                                                <div class="go re yl">{{ $message }}</div>
+                                            <div class="go re yl">{{ $message }}</div>
                                             @enderror
                                         </div>
-                                        
+
                                         <div wire:ignore class="col-start-1 sm:col-span-3">
                                             <label for="description" class="block text-sm font-medium text-gray-700">
                                                 Description
                                             </label>
-                                            <textarea wire:model="description" name="description" id="description" cols="50" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" >{{ $description }}</textarea>
+                                            <textarea wire:model="description" name="description" id="description" cols="50" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">{{ $description }}</textarea>
                                         </div>
-                                        
+
                                         <div class="flex flex-row space-x-4 justify-between2">
                                             <div class="col-start-1 sm:col-span-3">
                                                 <label for="title" class="block text-sm font-medium text-gray-700">
@@ -341,7 +341,7 @@
                                                     @endforeach
                                                 </select>
                                                 @error('country')
-                                                    <div class="go re yl">{{ $message }}</div>
+                                                <div class="go re yl">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                             <div class="col-start-1 sm:col-span-3">
@@ -355,7 +355,7 @@
                                                     @endforeach
                                                 </select>
                                                 @error('year')
-                                                    <div class="go re yl">{{ $message }}</div>
+                                                <div class="go re yl">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>
@@ -363,28 +363,27 @@
                                             <label for="photo" class="block text-sm font-medium text-gray-700">
                                                 Cover
                                             </label>
-                                            <input wire:model="file" type="file" autocomplete="given-name"
-                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                                                @if ($oldImage)
-                                                    Photo Preview:
-                                                    <img src="{{ asset('storage/'.$oldImage) }}">
-                                                @endif
-                                                @if ($file)
-                                                    Photo Preview:
-                                                    <img src="{{ $file->temporaryUrl() }}">
-                                                @endif
+                                            <input wire:model="file" type="file" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            @if ($oldImage)
+                                            Photo Preview:
+                                            <img src="{{ asset('storage/'.$oldImage) }}">
+                                            @endif
+                                            @if ($file)
+                                            Photo Preview:
+                                            <img src="{{ $file->temporaryUrl() }}">
+                                            @endif
                                         </div>
-                                       
+
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="first-name" class="block text-sm font-medium text-gray-700">Status</label>
                                             <select wire:model="albumStatus" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
-                                                <option value="" >Select Option</option>
+                                                <option value="">Select Option</option>
                                                 @foreach($statuses as $status)
                                                 <option value="{{ $status }}">{{ $status }}</option>
                                                 @endforeach
                                             </select>
                                             @error('albumStatus')
-                                                <div class="go re yl">{{ $message }}</div>
+                                            <div class="go re yl">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
@@ -411,7 +410,7 @@
     </x-jet-dialog-modal>
 
     <!-- modal delete confirmation -->
-    <x-jet-dialog-modal wire:model="showConfirmModal" class="">        
+    <x-jet-dialog-modal wire:model="showConfirmModal" class="">
         <x-slot name="title" class="border-b bg-slate-200">
             <span class="font-semibold">Delete Confirm</span>
         </x-slot>
@@ -424,12 +423,12 @@
                                 <div class="flex flex-col space-y-3">
                                     <div class="flex max-w-auto text-center justify-center items-center">
                                         <div class="text-lg font-semibold ">
-                                        <p>Are you sure want to delete?</p>
+                                            <p>Are you sure want to delete?</p>
                                         </div>
-                                    </div>      
+                                    </div>
                                 </div>
                             </div>
-                        </div>       
+                        </div>
                     </div>
                 </div>
             </div>
@@ -483,7 +482,7 @@
                                         </div>
                                         <div class="hidden qx of sf hu rp" aria-hidden="true"></div>
                                     </div>
-                                    
+
                                     <!-- Visit Duration-->
                                     <div class="flex items-center">
                                         <div>
@@ -495,11 +494,11 @@
                                     </div>
                                 </div>
                                 <div class="text-sm ru">
-                                Born Pink is the second studio album by South Korean girl group Blackpink, released on September 16, 2022, through YG Entertainment and Interscope Records. It marked the group's first full-length record since The Album in 2020. Production of the album was handled by various producers including Teddy Sinclair, Willy Sinclair, Bekuh Boom, R. Tee, Kush and Teddy Park. Blackpink conceived Born Pink as "the essence" of the group, taking inspiration from hip-hop sound throughout the album and combining various genres.
-                                Born Pink's English-heavy sound draws mostly from pop, hip-hop, rock and EDM, with melodies characterized by more uptempo production than in its predecessor The Album. The songs incorporate eclectic styles ranging from disco and bubblegum pop to pop-rock and stadium rock. Lyrically, the album discusses themes of love, self-confidence, self-encouragement, dealing with fame and detractors, and more. Blackpink members Jisoo and Rosé co-wrote the fourth track "Yeah Yeah Yeah".
+                                    Born Pink is the second studio album by South Korean girl group Blackpink, released on September 16, 2022, through YG Entertainment and Interscope Records. It marked the group's first full-length record since The Album in 2020. Production of the album was handled by various producers including Teddy Sinclair, Willy Sinclair, Bekuh Boom, R. Tee, Kush and Teddy Park. Blackpink conceived Born Pink as "the essence" of the group, taking inspiration from hip-hop sound throughout the album and combining various genres.
+                                    Born Pink's English-heavy sound draws mostly from pop, hip-hop, rock and EDM, with melodies characterized by more uptempo production than in its predecessor The Album. The songs incorporate eclectic styles ranging from disco and bubblegum pop to pop-rock and stadium rock. Lyrically, the album discusses themes of love, self-confidence, self-encouragement, dealing with fame and detractors, and more. Blackpink members Jisoo and Rosé co-wrote the fourth track "Yeah Yeah Yeah".
                                 </div>
                                 <!-- Product meta -->
-                                
+
 
                                 <!-- <div class='my-3 flex flex-wrap mt-2 space-x-1'>
                                     <span class="flex flex-wrap justify-between items-center text-xs sm:text-xs bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 rounded px-3 py-1 leading-loose cursor-pointer dark:text-gray-300">

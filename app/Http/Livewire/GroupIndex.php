@@ -3,6 +3,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\Group;
+use App\Models\GroupImage;
+use App\Models\MemberGroup;
 use App\Models\Person;
 use App\Models\Country;
 use Illuminate\Support\Str;
@@ -27,7 +29,8 @@ class GroupIndex extends Component
     public $name;
     public $description;
     public $file;
-    public $members;
+    public $files;
+    public $members = [];
     public $country;
     public $year;
     public $years = [];
@@ -147,24 +150,45 @@ class GroupIndex extends Component
         $group->name =  $this->name;
         $group->slug =  Str::slug($this->name);
         $group->rand_id =  Str::random(18);
-        $group->members =  $this->members;
+        // $group->members =  $this->members;
         $group->description =  $this->description;
         $group->country =  $this->country;
         $group->year = $this->year;
         $group->status =  $this->groupStatus;
 
-        if (!empty($this->file)) {
-             // IMAGE
-            $filename = $new . '.' . $this->file->getClientOriginalName();
-            $filePath = $this->file->storeAs(Group::UPLOAD_DIR, $filename, 'public');
-            $resizedImage = $this->_resizeImage($this->file, $filename, Group::UPLOAD_DIR);
+        $group->save();
 
-            $group->original = $filePath;
-            $group->small =$resizedImage['small'];
-            $group->medium = $resizedImage['medium'];
+        if (!empty($this->members)) {
+            foreach ($this->members as $key => $member) {
+                $members = new MemberGroup();
+                $members->person_id = $members[$key];
+                $members->group_id = $group->id;
+
+                $members->save();
+            }
+        }
+        
+        if (!empty($this->files)) {
+            foreach ($this->files as $key => $image) {
+                $gimage = new GroupImage();
+                $gimage->group_id = $group->id;
+                $new = Str::slug($this->name) . '_' . Carbon::now()->timestamp . $key;
+                $filename = $new . '.' . $this->files[$key]->getClientOriginalExtension();
+                $filePath = $this->files[$key]->storeAs(GroupImage::UPLOAD_DIR, $filename, 'public');
+                $resizedImage = $this->_resizeImage($this->files[$key], $filename, GroupImage::UPLOAD_DIR); 
+
+                $gimage->original = $filePath;
+                $gimage->large = $resizedImage['large'];
+                $gimage->medium = $resizedImage['medium'];
+                $gimage->small = $resizedImage['small'];
+                $gimage->status = 'active';
+
+                $gimage->save();
+            }
+           
         }
 
-        $group->save();
+        
 
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Group created successfully']);
@@ -181,7 +205,7 @@ class GroupIndex extends Component
         $this->country = $group->country;
         $this->year = $group->year;
         $this->members = $group->members;
-        $this->oldImage = $group->small;
+        $this->oldImage = $group->groupImages->first()->small;
         $this->groupStatus = $group->status;
         $this->showGroupModal = true;
     }
@@ -232,26 +256,44 @@ class GroupIndex extends Component
                 $group->name =  $this->name;
                 $group->slug =  Str::slug($this->name);
                 $group->rand_id =  Str::random(18);
-                $group->members =  $this->members;
+                // $group->members =  $this->members;
                 $group->description =  $this->description;
                 $group->country =  $this->country;
                 $group->year = $this->year;
                 $group->status =  $this->groupStatus;
 
-                if (!empty($this->file)) {
-                    // delete image
-			        $this->deleteImage($this->groupId);
-                    // IMAGE
-                    $filename = $new . '.' . $this->file->getClientOriginalName();
-                    $filePath = $this->file->storeAs(Group::UPLOAD_DIR, $filename, 'public');
-                    $resizedImage = $this->_resizeImage($this->file, $filename, Group::UPLOAD_DIR);
-                    
-                    $group->original = $filePath;
-                    $group->small =$resizedImage['small'];
-                    $group->medium = $resizedImage['medium'];
+                $group->save();
+
+                if (!empty($this->members)) {
+                    foreach ($this->members as $key => $member) {
+                        $members = new MemberGroup();
+                        $members->person_id = $members[$key];
+                        $members->group_id = $group->id;
+        
+                        $members->save();
+                    }
                 }
 
-                $group->save();
+                if (!empty($this->files)) {
+                    // delete image
+			        $this->deleteImage($this->groupId);
+                    foreach ($this->files as $key => $image) {
+                        $gimage = new GroupImage();
+                        $gimage->group_id = $group->id;
+                        $new = Str::slug($this->name) . '_' . Carbon::now()->timestamp . $key;
+                        $filename = $new . '.' . $this->files[$key]->getClientOriginalExtension();
+                        $filePath = $this->files[$key]->storeAs(GroupImage::UPLOAD_DIR, $filename, 'public');
+                        $resizedImage = $this->_resizeImage($this->files[$key], $filename, GroupImage::UPLOAD_DIR); 
+        
+                        $gimage->original = $filePath;
+                        $gimage->large = $resizedImage['large'];
+                        $gimage->medium = $resizedImage['medium'];
+                        $gimage->small = $resizedImage['small'];
+                        $gimage->status = 'active';
+        
+                        $gimage->save();
+                    }
+                }
             }
         }
 
@@ -298,7 +340,7 @@ class GroupIndex extends Component
 
         // SMALL
 		$smallImageFilePath = $folder . '/small/' . $fileName;
-		$size = explode('x', Group::SMALL);
+		$size = explode('x', GroupImage::SMALL);
 		list($width, $height) = $size;
 
 		$smallImageFile = Image::make($image)->fit($width, $height)->stream();
@@ -308,7 +350,7 @@ class GroupIndex extends Component
 		
         // MEDIUM
 		$mediumImageFilePath = $folder . '/medium/' . $fileName;
-		$size = explode('x', Group::MEDIUM);
+		$size = explode('x', GroupImage::MEDIUM);
 		list($width, $height) = $size;
 
 		$mediumImageFile = Image::make($image)->fit($width, $height)->stream();
@@ -317,14 +359,14 @@ class GroupIndex extends Component
 		}
 
         // LARGE
-		// $largeImageFilePath = $folder . '/large/' . $fileName;
-		// $size = explode('x', Group::LARGE);
-		// list($width, $height) = $size;
+		$largeImageFilePath = $folder . '/large/' . $fileName;
+		$size = explode('x', GroupImage::LARGE);
+		list($width, $height) = $size;
 
-		// $largeImageFile = Image::make($image)->fit($width, $height)->stream();
-		// if (Storage::put('public/' . $largeImageFilePath, $largeImageFile)) {
-		// 	$resizedImage['large'] = $largeImageFilePath;
-		// }
+		$largeImageFile = Image::make($image)->fit($width, $height)->stream();
+		if (Storage::put('public/' . $largeImageFilePath, $largeImageFile)) {
+			$resizedImage['large'] = $largeImageFilePath;
+		}
 
         // EXTRA_LARGE
 		// $extraLargeImageFilePath  = $folder . '/xlarge/' . $fileName;
@@ -340,7 +382,7 @@ class GroupIndex extends Component
 	}
 
     public function deleteImage($id = null) {
-        $groupImage = Group::where(['id' => $id])->first();
+        $groupImage = GroupImage::where(['group_id' => $id])->first();
 		$path = 'storage/';
 
         if (Storage::exists($path.$groupImage->original)) {
@@ -353,6 +395,10 @@ class GroupIndex extends Component
 
 		if (Storage::exists($path.$groupImage->medium)) {
             Storage::delete($path.$groupImage->medium);
+        }
+
+        if (Storage::exists($path.$groupImage->large)) {
+            Storage::delete($path.$groupImage->large);
         }
              
         return true;

@@ -339,7 +339,7 @@
                                             <label for="photo" class="block text-sm font-medium text-gray-700">
                                                 Cover
                                             </label>
-                                            <input wire:model="file" type="file" autocomplete="given-name"
+                                            <input wire:model="files" type="file" multiple autocomplete="given-name"
                                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                                 @if ($oldImage)
                                                     Photo Preview:

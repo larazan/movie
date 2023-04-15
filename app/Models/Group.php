@@ -13,20 +13,11 @@ class Group extends Model
         'name',
         'slug',
         'rand_id',
-        'members',
         'description',
         'country',
         'year',
-        'original',
-        'medium',
-        'small',
         'status',
     ];
-
-    public const UPLOAD_DIR = 'uploads/groups';
-
-    public const MEDIUM = '312x400';
-	public const SMALL = '135x75';
 
     public function albums()
     {
@@ -37,4 +28,18 @@ class Group extends Model
     {
         return $this->belongsToMany(Person::class, 'member_group');
     }
+
+    public function groupImages()
+    {
+        return $this->hasMany(GroupImage::class);
+    }
+
+    public function groupMembers()
+    {
+        return $this->hasMany(MemberGroup::class);
+    }
 }
+
+// create member group table pivot
+// create group image table pivot 
+// multiple image group

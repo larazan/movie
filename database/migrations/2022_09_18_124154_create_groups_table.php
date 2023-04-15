@@ -18,13 +18,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('rand_id');
-            $table->text('members');
             $table->string('description');
             $table->integer('country');
             $table->string('year')->nullable();
-            $table->string('original')->nullable();
-            $table->string('medium')->nullable();
-            $table->string('small')->nullable();
             $table->string('status');
             $table->timestamps();
         });

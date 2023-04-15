@@ -305,32 +305,44 @@
                             <div class="">
                                 <div class="">
                                     <div class="flex flex-col space-y-3">
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="first-name" class="block text-sm font-medium text-gray-700">Actress</label>
-                                            <select wire:model="actress" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
-                                                <option value="" >Select Actress</option>
-                                                @foreach($persons as $person)
-                                                <option value="{{ $person->id }}">{{ $person->name }}</option>
-                                                @endforeach
-                                            </select>
+                                        <div class="flex flex-row justify-between">
+                                            <div class="col-start-1 sm:col-span-3 w-1/2 ml-0">
+                                                <label for="actress" class="block text-sm font-medium text-gray-700">Actress</label>
+                                                <x-select2 wire:model="actress" id="actress" placeholder="Select person">
+                                                    @foreach($persons as $person)
+                                                    <option value="{{ $person->id }}">{{ $person->name }}</option>
+                                                    @endforeach
+                                                </x-select2>
+                                            </div>
+                                            <div class="col-start-1 sm:col-span-3 w-1/2 ml-4">
+                                                <label for="groupId" class="block text-sm font-medium text-gray-700">Group</label>
+                                                <x-select2 wire:model="groupId" id="groupId" placeholder="Select group">
+                                                    @foreach($groups as $group)
+                                                    <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                                    @endforeach
+                                                </x-select2>
+                                            </div>
                                         </div>
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="first-name" class="block text-sm font-medium text-gray-700">Group</label>
-                                            <select wire:model="actress" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
-                                                <option value="" >Select Group</option>
-                                                @foreach($groups as $group)
-                                                <option value="{{ $group->id }}">{{ $group->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="first-name" class="block text-sm font-medium text-gray-700">Album</label>
-                                            <select wire:model="actress" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
-                                                <option value="" >Select Album</option>
-                                                @foreach($albums as $album)
-                                                <option value="{{ $album->id }}">{{ $album->name }}</option>
-                                                @endforeach
-                                            </select>
+                                        <div class="flex flex-row justify-between">
+                                            <div class="col-start-1 sm:col-span-3 w-1/2 ml-0">
+                                                <label for="albumId" class="block text-sm font-medium text-gray-700">Album</label>
+                                                <x-select2 wire:model="albumId" id="albumId" placeholder="Select album">
+                                                    @foreach($albums as $album)
+                                                    <option value="{{ $album->id }}">{{ $album->name }}</option>
+                                                    @endforeach
+                                                </x-select2>
+                                            </div>
+                                            <div class="col-start-1 sm:col-span-3 w-1/2 ml-4">
+                                                <label for="country" class="block text-sm font-medium text-gray-700">
+                                                    Country
+                                                </label>
+                                                <select wire:model="country" class="h-full2 rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
+                                                    <option value="">Select country</option>
+                                                    @foreach($countries as $cat)
+                                                    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                         <div class="col-start-1 sm:col-span-3">
                                             <label for="title" class="block text-sm font-medium text-gray-700">
@@ -365,19 +377,7 @@
                                             </div>
                                             
                                         </div>
-                                        <div class="flex flex-row space-x-4 justify-between2">
-                                        <div class="col-start-1 sm:col-span-3">
-                                                <label for="title" class="block text-sm font-medium text-gray-700">
-                                                    Country
-                                                </label>
-                                                <select wire:model="country" class="h-full2 rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
-                                                    <option value="">Select country</option>
-                                                    @foreach($countries as $cat)
-                                                    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
+                                        
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="photo" class="block text-sm font-medium text-gray-700">
                                                 Cover

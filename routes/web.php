@@ -64,6 +64,7 @@ use App\Http\Livewire\TagIndex;
 use App\Http\Livewire\ThreadDetail;
 use App\Http\Livewire\UserIndex;
 use App\Http\Livewire\Portrait;
+use App\Http\Livewire\Select2;
 
 
 use Illuminate\Support\Facades\Route;
@@ -147,7 +148,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('series/{serie}/seasons', SeasonIndex::class)->name('seasons.index');
     Route::get('series/{serie}/seasons/{season}/episodes', EpisodeIndex::class)->name('episodes.index');
 
-    
+    Route::get('select', Select2::class);
 
 });
 

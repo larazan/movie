@@ -1,3 +1,4 @@
+
 <div class="vs jj ttm vl ou uf na">
 
     <!-- Page header -->
@@ -352,14 +353,10 @@
                                                     Genre
                                                 </label>
 
-                                                <x-select2 wire:model="genres" id="genres" placeholder="Select Genres" multiple>
-                                                   @foreach ($genres as $genre)
+                                                <x-select2 wire:model="genreSelected" id="genres" placeholder="Select Genres" multiple>
+                                                   @foreach($genres as $genre)
                                                     <option value="{{ $genre->name }}">{{ $genre->name }}</option>
-                                                   @endforeach 
-                                                   <option>one</option>
-                                                   <option>one</option>
-                                                   <option>one</option>
-                                                   <option>one</option>
+                                                    @endforeach
                                                 </x-select2>
 
                                             </div>
@@ -700,9 +697,3 @@
         });
 </script>
 @endpush
-
-{{--
-<!-- 
-    
- -->
- --}}
