@@ -10,6 +10,8 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\SerieController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\SubscribersController;
+use App\Http\Controllers\FullCalendarController;
+use App\Http\Controllers\Admin\ArticleController;
 
 
 // Livewire
@@ -43,6 +45,7 @@ use App\Http\Livewire\MusicIndex;
 use App\Http\Livewire\NationalityIndex;
 use App\Http\Livewire\NetworkIndex;
 use App\Http\Livewire\OrderIndex;
+use App\Http\Livewire\OrderDetail;
 use App\Http\Livewire\PermissionIndex;
 use App\Http\Livewire\PersonIndex;
 use App\Http\Livewire\PodcastIndex;
@@ -58,6 +61,7 @@ use App\Http\Livewire\SeasonIndex;
 use App\Http\Livewire\SerieIndex;
 use App\Http\Livewire\SettingIndex;
 use App\Http\Livewire\ShipmentIndex;
+use App\Http\Livewire\ShipmentDetail;
 use App\Http\Livewire\SlideIndex;
 use App\Http\Livewire\SubscribeIndex;
 use App\Http\Livewire\TagIndex;
@@ -96,6 +100,12 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('profile', Account::class)->name('account.index');
     Route::get('albums', AlbumIndex::class)->name('albums.index');
     Route::get('articles', ArticleIndex::class)->name('articles.index');
+    // 
+    Route::get('articles/create', [ArticleController::class, 'create']);
+    Route::post('articles/store', [ArticleController::class, 'store']);
+    Route::get('articles/edit/{articleID}', [ArticleController::class, 'edit']);
+    Route::put('articles/update', [ArticleController::class, 'update'])->name('updateArticle');
+    // 
     Route::get('attributes', AttributeIndex::class)->name('attributes.index');
     Route::get('attributes/{attributeID}/options', AttributeOptionIndex::class)->name('attribute-options.index');
     Route::get('baskets', BasketIndex::class)->name('basket.index');
@@ -124,7 +134,13 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('musics', MusicIndex::class)->name('musics.index');
     Route::get('nationalities', NationalityIndex::class)->name('nationalities.index');
     Route::get('networks', NetworkIndex::class)->name('networks.index');
+    // 
     Route::get('orders', OrderIndex::class)->name('orders.index');
+    Route::get('orderDetail/{orderID}', OrderDetail::class)->name('orderDetail.index');
+    // Route::get('orderDetail/{orderID}/cancel', [OrderDetail::class, 'cancel']);
+	// Route::put('orderDetail/cancel/{orderID}', [OrderDetail::class, 'doCancel']);
+	// Route::post('orderDetail/complete/{orderID}', [OrderDetail::class, 'doComplete']);
+    // 
     Route::get('permissions', PermissionIndex::class)->name('permissions.index');
     Route::get('persons', PersonIndex::class)->name('persons.index');
     Route::get('podcasts', PodcastIndex::class)->name('podcasts.index');
@@ -139,7 +155,10 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('seasons', SeasonIndex::class)->name('seasons.index');
     Route::get('series', SerieIndex::class)->name('series.index');
     Route::get('settings', SettingIndex::class)->name('settings.index');
+
     Route::get('shipments', ShipmentIndex::class)->name('shipments.index');
+    Route::get('shipmentDetail/{shipmentID}', ShipmentDetail::class)->name('shipmentDetail.index');
+
     Route::get('slides', SlideIndex::class)->name('slides.index');
     Route::get('subscribers', SubscribeIndex::class)->name('subscribers.index');
     Route::get('tags', TagIndex::class)->name('tags.index');
@@ -151,6 +170,8 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('select', Select2::class);
 
 });
+
+Route::get('/getevent', [FullCalendarController::class, 'getEvent'])->name('getevent');
 
 // Subscribe & unsubscribe
 Route::get('/unsubscribe', [SubscribersController::class, 'destroy'])->name('public.subscriber.destroy');
@@ -196,3 +217,6 @@ Route::middleware([
     Route::get('/hs', [DashboardController::class, 'hasMake']);
     Route::get('/portrait', Portrait::class);
 });
+
+// CKEDITOR IMAGE STORE
+Route::post('ckeditor', [CkeditorFileUploadController::class, 'store'])->name('ckeditor.upload');

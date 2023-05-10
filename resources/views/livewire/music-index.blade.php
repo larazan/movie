@@ -136,13 +136,13 @@
                                 <div class="gh gt">Duration</div>
                             </th>
                             <th class="vi wy w_ vo lm">
-                                <div class="gh gt">Status</div>
+                                <div class="gh">Status</div>
                             </th>
                             <th class="vi wy w_ vo lm">
-                                <div class="gh gt">Date</div>
+                                <div class="gh">Date</div>
                             </th>
                             <th class="vi wy w_ vo lm">
-                                <div class="gh gt">Actions</div>
+                                <div class="gh">Actions</div>
                             </th>
                         </tr>
                     </thead>
@@ -612,6 +612,7 @@
 </div>
 
 @push('js')
+<script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
 <script>
     ClassicEditor
         .create(document.querySelector('#description'))

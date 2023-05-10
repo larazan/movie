@@ -30,6 +30,7 @@ class CreateMoviesTable extends Migration
             $table->string('lang');
             $table->text('network');
             $table->text('genre');
+            $table->string('trailer')->nullable();
             $table->bigInteger('visits')->default(1);
             $table->string('original');
             $table->string('large');

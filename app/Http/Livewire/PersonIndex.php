@@ -26,6 +26,7 @@ class PersonIndex extends Component
     public $birthDate;
     public $birthLocation;
     public $nationality;
+    public $website;
     public $facebook;
     public $instagram;
     public $twitter;
@@ -36,8 +37,8 @@ class PersonIndex extends Component
     public $personImages;
     public $genderStatus = 0;
     public $genderStatuses = [
-        0 => 'Male',
-        1 => 'Female'
+        1 => 'Male',
+        2 => 'Female'
     ];
 
     public $countries = [
@@ -261,9 +262,9 @@ class PersonIndex extends Component
         'birthDate' => 'required',
         'birthLocation' => 'required',
         'nationality' => 'required',
-        'facebook' => 'required',
-        'instagram' => 'required',
-        'twitter' => 'required',
+        // 'facebook' => 'required',
+        // 'instagram' => 'required',
+        // 'twitter' => 'required',
         // 'file' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
     ];
 
@@ -317,6 +318,7 @@ class PersonIndex extends Component
         $person->birth_date = $this->birthDate;
         $person->birth_location = $this->birthLocation;
         $person->nationality = $this->nationality;
+        $person->website = $this->website;
         $person->facebook = $this->facebook;
         $person->instagram = $this->instagram;
         $person->twitter = $this->twitter;
@@ -357,6 +359,7 @@ class PersonIndex extends Component
         $this->birthDate = $person->birth_date;
         $this->birthLocation = $person->birth_location;
         $this->nationality = $person->nationality;
+        $this->website = $person->website;
         $this->facebook = $person->facebook;
         $this->instagram = $person->instagram;
         $this->twitter = $person->twitter;
@@ -375,6 +378,7 @@ class PersonIndex extends Component
         // $this->name = $person->name;
         // $this->bio = $person->bio;
         // $this->nationality = $person->nationality;
+        // $this->website = $person->website;
         // $this->facebook = $person->facebook;
         // $this->twitter = $person->twitter;
         // $this->instagram = $person->instagram;
@@ -404,6 +408,7 @@ class PersonIndex extends Component
                 $person->birth_date = $this->birthDate;
                 $person->birth_location = $this->birthLocation;
                 $person->nationality = $this->nationality;
+                $person->website = $this->website;
                 $person->facebook = $this->facebook;
                 $person->instagram = $this->instagram;
                 $person->twitter = $this->twitter;

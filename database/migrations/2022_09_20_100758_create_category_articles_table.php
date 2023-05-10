@@ -18,6 +18,7 @@ class CreateCategoryArticlesTable extends Migration
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('name');
             $table->string('slug');
+            $table->string('status');
             $table->timestamps();
 
             $table->foreign('parent_id')->references('id')->on('category_articles');

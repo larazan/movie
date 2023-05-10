@@ -17,10 +17,12 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->bigInteger('parent_id');
-            $table->integer('position');
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->integer('position')->nullable();
             $table->integer('priority')->nullable();
             $table->timestamps();
+
+            $table->foreign('parent_id')->references('id')->on('categories');
         });
     }
 

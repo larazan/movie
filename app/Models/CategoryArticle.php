@@ -12,7 +12,13 @@ class CategoryArticle extends Model
     protected $fillable = [
         'name',
         'slug',
+        'parent_id',
+        'status',
     ];
+
+    public function parent() {
+        return $this->belongsTo('App\Models\CategoryArticle', 'parent_id');
+    }
 
     public function articles()
     {

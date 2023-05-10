@@ -24,12 +24,18 @@
             </form>
 
             <!-- Create article button -->
-            <button class="btn ho xi ye" wire:click="showCreateModal">
+            <!-- <button class="btn ho xi ye" wire:click="showCreateModal">
                 <svg class="oo sl du bf ub" viewBox="0 0 16 16">
                     <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z"></path>
                 </svg>
                 <span class="hidden trm nq">Create Article</span>
-            </button>
+            </button> -->
+            <a href="{{ url('admin/articles/create') }}" class="btn ho xi ye">
+            <svg class="oo sl du bf ub" viewBox="0 0 16 16">
+                    <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z"></path>
+                </svg>
+                <span class="hidden trm nq">Create Article</span>
+            </a>
         </div>
 
     </div>
@@ -260,7 +266,7 @@
         </div>
     </div>
 
-    <x-pagination-table />
+    <!-- <x-pagination-table /> -->
     {{ $articles->links() }}
 
     <x-jet-dialog-modal wire:model="showArticleModal" class="">
@@ -464,6 +470,7 @@
     // initialize Tagify on the above input node reference
     new Tagify(input);
 </script>
+<script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
 <script>
     ClassicEditor
         .create(document.querySelector('#body'))

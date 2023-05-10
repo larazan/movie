@@ -59,6 +59,26 @@ class CalendarIndex extends Component
         // $this->events = Event::select('id','name','start', 'end', 'color')->get();
     }
 
+    public function getEvents()
+    {
+        $events = [];
+        $user_id = Auth::user()->id;
+        $eves = Event::where('user_id', $user_id)->get();
+        foreach ($eves as $eve) {
+            $event = [
+                'eventId' => $eve->id,
+                'eventStart' => $eve->start, // str_replace(',', '', Carbon::parse($eve->start)->toDayDateTimeString()),
+                'eventEnd' => $eve->end, // str_replace(',', '', Carbon::parse($eve->end)->toDayDateTimeString()),
+                'eventName' => $eve->name,
+                'eventColor' => $eve->color,
+            ];
+
+            $events[] = $event;
+        }
+
+        return $events;
+    }
+
     public function showCreateModal()
     {
         $this->showEventModal = true;
@@ -80,7 +100,10 @@ class CalendarIndex extends Component
     public function createEvent()
     {
         $this->validate();
-  
+        
+        // format date
+        $startDate = Carbon::createFromFormat('Y-m-d', $this->start)->format('Y-m-d H:i:s');
+        $endDate = Carbon::createFromFormat('Y-m-d', $this->end)->format('Y-m-d H:i:s');
         Event::create([
             'user_id' => Auth::user()->id,
             'name' => $this->name,

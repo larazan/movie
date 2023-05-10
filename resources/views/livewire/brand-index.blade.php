@@ -199,8 +199,10 @@
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="gp ">
-                                <img src="{{ asset('storage/'.$brands->filename) }}" class="object-scale-down h-48 w-96" alt="{{ $brand->name }}">
-                                </div>
+                                    @if ($brand->small)
+                                <img src="{{ asset('storage/'.$brands->small) }}" class="object-scale-down h-48 w-96" alt="{{ $brand->name }}">
+                                    @endif    
+                            </div>
                             </td>
                             <td class="vi wy w_ vo lm">
                                 @if ($brand->status === 'inactive')

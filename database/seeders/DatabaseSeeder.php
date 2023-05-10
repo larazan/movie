@@ -23,9 +23,16 @@ class DatabaseSeeder extends Seeder
             // RateTypeSeeder::class,
             // CountrySeeder::class,
             // NationalitySeeder::class,
-            MovieCategorySeeder::class,
+            // MovieCategorySeeder::class,
             // GenreSeeder::class,
             // CastSeeder::class,
+            // CalendarSeeder::class,
+            // PersonSeeder::class,
+            // ArticleCategorySeeder::class,
+            // CategorySeeder::class,
+            BrandSeeder::class,
+            AttributeSeeder::class,
+            AttributeOptionSeeder::class,
         ]);
     }
 }

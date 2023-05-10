@@ -364,6 +364,8 @@
 </div>
 
 <script>
+    // var dArr = <?php echo json_encode($events); ?>; //JSON.parse('{{ json_encode($events) }}');
+    // console.log(dArr);
     document.addEventListener('alpine:init', () => {
         Alpine.data('calendar', () => ({
             month: null,
@@ -378,6 +380,30 @@
             event_theme: '',
             event_id: 0,
             events: [
+                {
+                    "eventId":1,
+                    "eventStart": new Date('2023-04-14 16:00:25'),
+                    "eventEnd": new Date('2023-04-14 16:00:25'),
+                    "eventName":"\u26f1\ufe0f Relax for 2 at Marienbad",
+                    "eventColor":"indigo"
+                },
+                {
+                    "eventId":2,
+                    "eventStart": new Date('2023-04-16 16:00:25'),
+                    "eventEnd": new Date('2023-04-16 16:00:25'),
+                    "eventName":"Team Catch-up",
+                    "eventColor":"green"
+                },
+                {
+                    "eventId":3,
+                    "eventStart": new Date('2023-04-20 16:00:25'),
+                    "eventEnd": new Date('2023-04-20 16:00:25'),
+                    "eventName":"\u270d\ufe0f New Project (2)",
+                    "eventColor":"yellow"
+                }
+            ],
+           
+            events2: [
                 // Previous month
                 {
                     eventId: 1,
@@ -617,11 +643,36 @@
             openEventModal: false,
             openDeleteModal: false,
 
+            
+
             initCalendar() {
                 const today = new Date();
                 this.month = today.getMonth();
                 this.year = today.getFullYear();
                 this.getDays();
+                let arr = [];
+                @this.getEvents().then(results => {
+                    console.log(results);
+                    results.forEach((eve) => {
+                        // console.log(eve.eventId)
+                        // console.log(eve.eventStart)
+                        // console.log(eve.eventEnd)
+                        // console.log(eve.eventName)
+                        // console.log(eve.eventColor)
+                        var obj = {}
+
+                        obj['eventId'] = eve.eventId
+                        obj['eventStart'] = new Date(eve.eventStart)
+                        obj['eventEnd'] = new Date(eve.eventEnd)
+                        obj['eventName'] = eve.eventName
+                        obj['eventColor'] = eve.eventColor
+
+                        arr.push(obj);
+                    })
+                });
+                console.log(arr);
+                console.log(typeof arr);
+
             },
 
             showEventModal2(date) {

@@ -198,7 +198,7 @@
                                 <div class="gp text-slate-800">{{ $category->name }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp ">-</div>
+                                <div class="gp ">{{ $category->parent ? $category->parent->name : '' }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
                                 @if ($category->status === 'inactive')
@@ -270,6 +270,15 @@
                                             @error('name')
                                                 <div class="go re yl">{{ $message }}</div>
                                             @enderror
+                                        </div>
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <label for="first-name" class="block text-sm font-medium text-gray-700">Parent</label>
+                                            <select wire:model="parentId" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
+                                                <option value="" >Select Option</option>
+                                                @foreach($categories as $cat)
+                                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
 
                                     </div>

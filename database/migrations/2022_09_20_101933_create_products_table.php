@@ -27,7 +27,6 @@ class CreateProductsTable extends Migration
             $table->string('discount_type')->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
-            $table->string('meta_image')->nullable();
             $table->decimal('price', 15, 2)->nullable();
             $table->decimal('discount', 15, 2)->nullable();
             $table->decimal('weight', 10, 2)->nullable();

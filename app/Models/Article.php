@@ -18,6 +18,19 @@ class Article extends Model
 	public const MEDIUM = '312x400';
 	public const LARGE = '1000x600';
 
+    public const ACTIVE = 'active';
+    public const INACTIVE = 'inactive';
+
+    public const STATUSES = [
+        self::ACTIVE => 'Active',
+        self::INACTIVE => 'Inactive',
+    ];
+
+    public static function statuses()
+	{
+		return self::STATUSES;
+	}
+
     public function comments()
     {
         return $this->hasMany(ArticleComment::class);

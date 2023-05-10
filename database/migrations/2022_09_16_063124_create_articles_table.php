@@ -26,6 +26,8 @@ class CreateArticlesTable extends Migration
             $table->text('body');
             $table->text('article_tags')->nullable();
             $table->text('url')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->string('meta_description')->nullable();
             $table->text('embed_url')->nullable();
             $table->string('author')->nullable();
             $table->string('original');

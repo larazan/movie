@@ -294,7 +294,7 @@
                                 </div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                            <div class="gp cursor-pointer text-indigo-400 hover:text-indigo-500" wire:click="showDetailModal(1)">Kim Jisoo</div>
+                                <div class="gp cursor-pointer text-indigo-400 hover:text-indigo-500" wire:click="showDetailModal(1)">Kim Jisoo</div>
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="od sy ub mr-2 _b">
@@ -355,20 +355,20 @@
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="od sy ub mr-2 _b">
-                                    @if ($person->personImages->first())                                        
-                                        <img src="{{ asset('storage/'.$person->personImages->first()->small) }}" class="rounded-full" width="40" height="40" alt="{{ $person->name }}">
+                                    @if ($person->personImages->first())
+                                    <img src="{{ asset('storage/'.$person->personImages->first()->small) }}" class="rounded-full" width="40" height="40" alt="{{ $person->name }}">
                                     @else
-                                        <img src="{{ asset('images/avatar-03.jpg') }}" class="rounded-full" width="40" height="40" alt="{{ $person->name }}">
+                                    <img src="{{ asset('images/avatar-03.jpg') }}" class="rounded-full" width="40" height="40" alt="{{ $person->name }}">
                                     @endif
                                 </div>
                             </td>
 
                             <td class="vi wy w_ vo lm">
-                                @if ($person->gender_id === 0)
+                                @if ($person->gender_id === 1)
                                 <div class="gt">Male</div>
                                 @endif
 
-                                @if ($person->gender_id === 1)
+                                @if ($person->gender_id === 2)
                                 <div class="gt">Female</div>
                                 @endif
                             </td>
@@ -494,13 +494,19 @@
                                                 </div>
                                             </div>
                                             <div class="col-start-1 sm:col-span-3">
+                                                <label for="website" class="block text-sm font-medium text-gray-700">
+                                                    Website
+                                                </label>
+                                                <input wire:model="website" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-row justify-between">
+                                            <div class="col-start-1 sm:col-span-3">
                                                 <label for="title" class="block text-sm font-medium text-gray-700">
                                                     Facebook
                                                 </label>
                                                 <input wire:model="facebook" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             </div>
-                                        </div>
-                                        <div class="flex flex-row justify-between">
                                             <div class="col-start-1 sm:col-span-3">
                                                 <label for="title" class="block text-sm font-medium text-gray-700">
                                                     Instagram
@@ -520,11 +526,11 @@
                                                 Person photo</label>
                                             <input wire:model="files" type="file" multiple autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             @if ($personImages)
-                                                <div class="flex space-x-4">
+                                            <div class="flex space-x-4">
                                                 @foreach ($personImages as $image)
-                                                    <img src="{{ asset('storage/'.$image->small) }}">
+                                                <img src="{{ asset('storage/'.$image->small) }}">
                                                 @endforeach
-                                                </div>
+                                            </div>
                                             @endif
                                             @if ($file)
                                             Photo Preview:
@@ -607,77 +613,101 @@
 
 </div>
 
- <!-- modal detail -->
- <x-jet-dialog-modal wire:model="showPersonDetailModal" class="">
-        <x-slot name="title" class="border-b bg-slate-200">
-            <span class="font-semibold">Detail Person</span>
-        </x-slot>
-        <x-slot name="content">
-            <div class="border-t">
-                <div class="vc vu ">
-                    <div class="fw">
+<!-- modal detail -->
+<x-jet-dialog-modal wire:model="showPersonDetailModal" class="">
+    <x-slot name="title" class="border-b bg-slate-200">
+        <span class="font-semibold">Detail Person</span>
+    </x-slot>
+    <x-slot name="content">
+        <div class="border-t">
+            <div class="vc vu ">
+                <div class="fw">
 
-                        <div class="je items-center2 vh">
+                    <div class="je items-center2 vh">
+                        <div class="flex flex-col space-x-2">
                             <a class="block ri _y rp zn tnv ub" href="#0">
                                 <img class="rounded-sm" src="{{ asset('images/Jisoo.jpg') }}" width="200" height="142" alt="Product 01">
                             </a>
-                            <div class="uw">
-                                <a href="#0">
-                                    <h3 class="text-2xl gh text-slate-800 rt font-bold">Kim Jisoo</h3>
-                                </a>
-                                <div class="flex flex-wrap">
-                                    <!-- Unique Visitors -->
-                                    <div class="flex items-center vr">
-                                        <div class="rp">
-                                            <div class="flex items-center">
-                                                <div class="text-xl font-bold text-slate-800 mr-2">BlackPink</div>
-                                            </div>
-                                            <div class="text-sm text-slate-500">Artist</div>
+                        </div>
+                        <div class="uw">
+                            <a href="#0">
+                                <h3 class="text-2xl gh text-slate-800 rt font-bold">Kim Jisoo</h3>
+                            </a>
+                            <div class="flex flex-wrap">
+                                <!-- Unique Visitors -->
+                                <div class="flex items-center vr">
+                                    <div class="rp">
+                                        <div class="flex items-center">
+                                            <div class="text-xl font-bold text-slate-800 mr-2">Female</div>
                                         </div>
-                                        <div class="hidden qx of sf hu rp" aria-hidden="true"></div>
+                                        <div class="text-sm text-slate-500">Gender</div>
                                     </div>
-                                    <!-- Total Pageviews -->
-                                    <div class="flex items-center vr">
-                                        <div class="rp">
-                                            <div class="flex items-center">
-                                                <div class="text-xl font-bold text-slate-800 mr-2">South Korea</div>
-                                            </div>
-                                            <div class="text-sm text-slate-500">Nationality</div>
+                                    <div class="hidden qx of sf hu rp" aria-hidden="true"></div>
+                                </div>
+                                <!-- Total Pageviews -->
+                                <div class="flex items-center vr">
+                                    <div class="rp">
+                                        <div class="flex items-center">
+                                            <div class="text-xl font-bold text-slate-800 mr-2">South Korea</div>
                                         </div>
-                                        <div class="hidden qx of sf hu rp" aria-hidden="true"></div>
+                                        <div class="text-sm text-slate-500">Nationality</div>
                                     </div>
-                                    
-                                    <!-- Visit Duration-->
-                                    <div class="flex items-center">
-                                        <div>
-                                            <div class="flex items-center">
-                                                <div class="text-xl font-bold text-slate-800 mr-2">2016</div>
-                                            </div>
-                                            <div class="text-sm text-slate-500">Year</div>
+                                    <div class="hidden qx of sf hu rp" aria-hidden="true"></div>
+                                </div>
+
+                                <!-- Visit Duration-->
+                                <div class="flex items-center">
+                                    <div>
+                                        <div class="flex items-center">
+                                            <div class="text-xl font-bold text-slate-800 mr-2">21</div>
                                         </div>
+                                        <div class="text-sm text-slate-500">Year</div>
                                     </div>
                                 </div>
-                                <div class="flex justify-between py-4">
-                                    <div class="flex text-sm text-slate-500 space-x-3">
+                            </div>
+                            <div class="flex justify-between py-4">
+                                <div>
+                                    <div class="flex text-sm text-slate-700 space-x-1">
+                                        <div class="capitalize">birth date :</div>
+                                        <div class="">1994-10-10</div>
+                                    </div>
+                                    <div class="flex text-sm text-slate-700 space-x-1">
+                                        <div class="capitalize">b. location :</div>
+                                        <div class="">Gwangju, South Korea</div>
+                                    </div>
+                                    <div class="flex text-sm text-slate-700 space-x-1">
+                                        <div class="capitalize">website :</div>
+                                        <div class=""></div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col justify-between ">
+                                    <div class="flex text-sm text-slate-700 space-x-1">
                                         <div class="">Facebook :</div>
                                         <div class="">@jisoo</div>
                                     </div>
-                                    <div class="flex text-sm text-slate-500 space-x-3">
+                                    <div class="flex text-sm text-slate-700 space-x-1">
+                                        <div class="">Instagram :</div>
+                                        <div class="">@jisoo</div>
+                                    </div>
+                                    <div class="flex text-sm text-slate-700 space-x-1">
                                         <div class="">Twitter :</div>
                                         <div class="">@jisoo</div>
                                     </div>
                                 </div>
+                                
+                            </div>
+                                
                                 <div class="text-sm ru">
-                                Kim Ji Soo is a South Korean actress, model, singer, and member of the girl group BLACKPINK.
-<br />
-<br />
-Prior to her debut, she appeared in numerous commercial films, in particular, Samsonite RED with actor Lee Min Ho and Smart Uniform and LG Stylus 2 with YG Entertainment's boy group iKON. She was also featured in her label-mates' music videos, such as Epik High's "Spoiler + Happen Ending" and Hi Suhyun's "I'm Different".
-<br />
-<br />
-In 2015, she had her first drama appearance on KBS's The Producers as a guest. She debuted under YG Entertainment in the four-member girl group BLACKPINK on August 8th, 2016, with the mini album "Square One", which includes the hit songs "WHISTLE" and "BOOMBAYAH".
-<br />
-<br />
-On August 18, 2020, it was announced that she would be playing her first lead role in the 2021 JTBC series, "Snowdrop". In March 2021, it was announced that she became a global ambassador for Dior fashion and beauty. Diors' creative director stated that Dior's Autumn/Winter 2021 collection was inspired by Kim. One of the 10 shades of Dior Addict Lip Glow lip balm, #025 Seoul Scarlet, is also inspired by her.
+                                    Kim Ji Soo is a South Korean actress, model, singer, and member of the girl group BLACKPINK.
+                                    <br />
+                                    <br />
+                                    Prior to her debut, she appeared in numerous commercial films, in particular, Samsonite RED with actor Lee Min Ho and Smart Uniform and LG Stylus 2 with YG Entertainment's boy group iKON. She was also featured in her label-mates' music videos, such as Epik High's "Spoiler + Happen Ending" and Hi Suhyun's "I'm Different".
+                                    <br />
+                                    <br />
+                                    In 2015, she had her first drama appearance on KBS's The Producers as a guest. She debuted under YG Entertainment in the four-member girl group BLACKPINK on August 8th, 2016, with the mini album "Square One", which includes the hit songs "WHISTLE" and "BOOMBAYAH".
+                                    <br />
+                                    <br />
+                                    On August 18, 2020, it was announced that she would be playing her first lead role in the 2021 JTBC series, "Snowdrop". In March 2021, it was announced that she became a global ambassador for Dior fashion and beauty. Diors' creative director stated that Dior's Autumn/Winter 2021 collection was inspired by Kim. One of the 10 shades of Dior Addict Lip Glow lip balm, #025 Seoul Scarlet, is also inspired by her.
                                 </div>
                                 <!-- Product meta -->
                                 <div class="flex flex-wrap fe items-center">
@@ -727,27 +757,28 @@ On August 18, 2020, it was announced that she would be playing her first lead ro
                                     </div>
                                 </div>
 
-                              
+
                             </div>
                         </div>
 
                     </div>
                 </div>
             </div>
-        </x-slot>
-        <x-slot name="footer">
-            <div class="border-slate-200">
-                <div class="flex flex-wrap justify-end fc">
-                    <x-m-button wire:click="closeDetailModal" class="border-slate-200 hover:text-white  g_">Cancel</x-m-button>
-                </div>
+    </x-slot>
+    <x-slot name="footer">
+        <div class="border-slate-200">
+            <div class="flex flex-wrap justify-end fc">
+                <x-m-button wire:click="closeDetailModal" class="border-slate-200 hover:text-white  g_">Cancel</x-m-button>
             </div>
+        </div>
 
-        </x-slot>
-    </x-jet-dialog-modal>
+    </x-slot>
+</x-jet-dialog-modal>
 
 
 
 @push('js')
+<script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
 <script>
     ClassicEditor
         .create(document.querySelector('#bio'))
@@ -762,13 +793,13 @@ On August 18, 2020, it was announced that she would be playing her first lead ro
 </script>
 <script>
     function select2Alpine() {
-  this.select2 = $(this.$refs.select).select2();
-  this.select2.on("select2:select", (event) => {
-    this.selectedCity = event.target.value;
-  });
-  this.$watch("selectedCity", (value) => {
-    this.select2.val(value).trigger("change");
-  });
-}
+        this.select2 = $(this.$refs.select).select2();
+        this.select2.on("select2:select", (event) => {
+            this.selectedCity = event.target.value;
+        });
+        this.$watch("selectedCity", (value) => {
+            this.select2.val(value).trigger("change");
+        });
+    }
 </script>
 @endpush

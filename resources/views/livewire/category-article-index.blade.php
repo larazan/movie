@@ -5,7 +5,7 @@
 
         <!-- Left: Title -->
         <div class="ri _y">
-            <h1 class="gu teu text-slate-800 font-bold">Category ✨</h1>
+            <h1 class="gu teu text-slate-800 font-bold">Category Article ✨</h1>
         </div>
 
         <!-- Right: Actions -->
@@ -198,15 +198,15 @@
                                 <div class="gp text-slate-800">{{ $category->name }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp ">-</div>
+                                <div class="gp ">{{ $category->parent ? $category->parent->name : '' }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
                                 @if ($category->status === 'inactive')
-                                    <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $cast->status }}</div>
+                                    <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $category->status }}</div>
                                 @endif 
 
                                 @if ($category->status === 'active')
-                                    <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $cast->status }}</div>
+                                    <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $category->status }}</div>
                                 @endif 
                             </td>
 
@@ -270,6 +270,26 @@
                                             @error('name')
                                                 <div class="go re yl">{{ $message }}</div>
                                             @enderror
+                                        </div>
+
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <label for="first-name" class="block text-sm font-medium text-gray-700">Parent</label>
+                                            <select wire:model="parentId" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
+                                                <option value="" >Select Option</option>
+                                                @foreach($categories as $cat)
+                                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <label for="first-name" class="block text-sm font-medium text-gray-700">Status</label>
+                                            <select wire:model="catStatus" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
+                                                <option value="" >Select Option</option>
+                                                @foreach($statuses as $status)
+                                                <option value="{{ $status }}">{{ $status }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
 
                                     </div>

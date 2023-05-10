@@ -427,24 +427,24 @@
                         </a>
                     </li>
                     <!-- Order -->
-                    <li class="vn vr rounded-sm n_ ww @if(in_array(Request::segment(2), ['orders'])){{ 'bg-slate-900' }}@else{{ '' }}@endif">
+                    <li class="vn vr rounded-sm n_ ww @if(in_array(Request::segment(2), ['orders', 'orderDetail'])){{ 'bg-slate-900' }}@else{{ '' }}@endif">
                         <a class="block gj xc ld wt wi" href="{{ url('admin/orders') }}">
                             <div class="flex items-center">
                                 <svg class="ub so oi" viewBox="0 0 24 24">
-                                    <path class="du @if(in_array(Request::segment(2), ['orders'])){{ 'text-indigo-500' }}@else{{ 'g_' }}@endif" d="M19 5h1v14h-2V7.414L5.707 19.707 5 19H4V5h2v11.586L18.293 4.293 19 5Z"></path>
-                                    <path class="du @if(in_array(Request::segment(2), ['orders'])){{ 'text-indigo-300' }}@else{{ 'gq' }}@endif" d="M5 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm14 0a4 4 0 1 1 0-8 4 4 0 0 1 0 8ZM5 23a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm14 0a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z"></path>
+                                    <path class="du @if(in_array(Request::segment(2), ['orders', 'orderDetail'])){{ 'text-indigo-500' }}@else{{ 'g_' }}@endif" d="M19 5h1v14h-2V7.414L5.707 19.707 5 19H4V5h2v11.586L18.293 4.293 19 5Z"></path>
+                                    <path class="du @if(in_array(Request::segment(2), ['orders', 'orderDetail'])){{ 'text-indigo-300' }}@else{{ 'gq' }}@endif" d="M5 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm14 0a4 4 0 1 1 0-8 4 4 0 0 1 0 8ZM5 23a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm14 0a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z"></path>
                                 </svg>
                                 <span class="text-sm gp ml-3 ttw tnn 2xl:opacity--100 wr">Order</span>
                             </div>
                         </a>
                     </li>
                     <!-- Shipment -->
-                    <li class="vn vr rounded-sm n_ ww @if(in_array(Request::segment(2), ['shipments'])){{ 'bg-slate-900' }}@else{{ '' }}@endif">
+                    <li class="vn vr rounded-sm n_ ww @if(in_array(Request::segment(2), ['shipments', 'shipmentDetail'])){{ 'bg-slate-900' }}@else{{ '' }}@endif">
                         <a class="block gj xc ld wt wi" href="{{ url('admin/shipments') }}">
                             <div class="flex items-center">
                                 <svg class="ub so oi" viewBox="0 0 24 24">
-                                    <path class="du @if(in_array(Request::segment(2), ['shipments'])){{ 'text-indigo-500' }}@else{{ 'g_' }}@endif" d="M8.07 16H10V8H8.07a8 8 0 110 8z"></path>
-                                    <path class="du @if(in_array(Request::segment(2), ['shipments'])){{ 'text-indigo-300' }}@else{{ 'gq' }}@endif" d="M15 12L8 6v5H0v2h8v5z"></path>
+                                    <path class="du @if(in_array(Request::segment(2), ['shipments', 'shipmentDetail'])){{ 'text-indigo-500' }}@else{{ 'g_' }}@endif" d="M8.07 16H10V8H8.07a8 8 0 110 8z"></path>
+                                    <path class="du @if(in_array(Request::segment(2), ['shipments', 'shipmentDetail'])){{ 'text-indigo-300' }}@else{{ 'gq' }}@endif" d="M15 12L8 6v5H0v2h8v5z"></path>
                                 </svg>
                                 <span class="text-sm gp ml-3 ttw tnn 2xl:opacity--100 wr">Shipment</span>
                             </div>

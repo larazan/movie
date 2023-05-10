@@ -14,6 +14,7 @@ class CategoryArticleIndex extends Component
     public $showCategoryModal = false;
     public $name;
     public $categoryId;
+    public $parentId;
 
     public $search = '';
     public $sort = 'asc';
@@ -21,6 +22,12 @@ class CategoryArticleIndex extends Component
 
     public $showConfirmModal = false;
     public $deleteId = '';
+
+    public $catStatus = 'inactive';
+    public $statuses = [
+        'active',
+        'inactive'
+    ];
 
     protected $rules = [
         'name' => 'required|max:255',
@@ -57,7 +64,8 @@ class CategoryArticleIndex extends Component
         CategoryArticle::create([
           'name' => $this->name,
           'slug' => Str::slug($this->name),
-          'parent_id' => 0,
+          'parent_id' => $this->parentId,
+          'status' => $this->catStatus,
         ]);
 
         $this->reset();
@@ -66,10 +74,12 @@ class CategoryArticleIndex extends Component
 
     public function showEditModal($categoryId)
     {
-        $this->reset(['categoryName']);
+        $this->reset(['name']);
         $this->categoryId = $categoryId;
         $category = CategoryArticle::find($categoryId);
         $this->name = $category->name;
+        $this->parentId = $category->parent_id;
+        $this->catStatus = $category->status;
         $this->showCategoryModal = true;
     }
     
@@ -81,7 +91,8 @@ class CategoryArticleIndex extends Component
         $category->update([
             'name' => $this->name,
             'slug'     => Str::slug($this->name),
-            'parent_id' => 0,
+            'parent_id' => $this->parentId,
+            'status' => $this->catStatus,
         ]);
 
         $this->reset();
