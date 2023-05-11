@@ -46,6 +46,7 @@ class MusicIndex extends Component
     public $album;
     public $group;
     public $country;
+    public $omv;
     public $oldImage;
     public $musicStatus = 'inactive';
     public $statuses = [
@@ -146,6 +147,7 @@ class MusicIndex extends Component
         $music->description = $this->description;
         $music->country = $this->country;
         $music->duration = $originalTime;
+        $music->omv = $this->omv;
         $music->status = $this->musicStatus;
 
         if (!empty($this->file)) {
@@ -205,6 +207,7 @@ class MusicIndex extends Component
         $this->minute = $this->oriDura($music->duration, 'menit');
         $this->second = $this->oriDura($music->duration, 'detik');
         $this->oldImage = $music->small;
+        $this->omv = $music->omv;
         $this->musicStatus = $music->status;
         $this->showMusicModal = true;
     }
@@ -220,6 +223,7 @@ class MusicIndex extends Component
         // $this->description = $music->description;
         // $this->country = $music->country;
         // $this->duration = $music->duration;
+        // $this->omv = $music->omv;
         // $this->minute = $this->oriDura($music->duration, 'menit');
         // $this->second = $this->oriDura($music->duration, 'detik');
         // $this->oldImage = $music->small;
@@ -278,6 +282,7 @@ class MusicIndex extends Component
                 $music->description = $this->description;
                 $music->country = $this->country;
                 $music->duration = $originalTime;
+                $music->omv = $this->omv;
                 $music->status = $this->musicStatus;
 
                 if (!empty($this->file)) {

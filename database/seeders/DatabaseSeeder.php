@@ -30,9 +30,11 @@ class DatabaseSeeder extends Seeder
             // PersonSeeder::class,
             // ArticleCategorySeeder::class,
             // CategorySeeder::class,
-            BrandSeeder::class,
-            AttributeSeeder::class,
-            AttributeOptionSeeder::class,
+            // BrandSeeder::class,
+            // AttributeSeeder::class,
+            // AttributeOptionSeeder::class,
+            LabelSeeder::class,
+            NetworkSeeder::class,
         ]);
     }
 }

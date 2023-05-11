@@ -1,4 +1,8 @@
 <div class="vs jj ttm vl ou uf na" x-data="kanban">
+
+<!-- Loading -->
+<x-loading-indicator />
+
 @dump($tasks)
     <!-- Page header -->
     <div class="je jd jc rc">

@@ -1,4 +1,8 @@
 <div class="vs jj ttm vl ou uf na">
+
+<!-- Loading -->
+<x-loading-indicator />
+
 @dump($firstId)
 @dump($selectAll)
 @dump($mySelected)

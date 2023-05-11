@@ -1,5 +1,8 @@
 <div class="vs jj ttm vl ou uf na">
 
+<!-- Loading -->
+<x-loading-indicator />
+
     <!-- Page header -->
     <div class="je jd jc ii">
 
@@ -7,7 +10,7 @@
         <div class="ri _y">
             <h1 class="gu teu text-slate-800 font-bold">Brand ✨</h1>
         </div>
-
+        
         <!-- Right: Actions -->
         <div class="sn am jo az jp ft">
 

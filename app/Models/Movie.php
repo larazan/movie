@@ -27,6 +27,7 @@ class Movie extends Model
         'duration',
         'lang',
         'network',
+        'trailer',
         'genre',
         'visits',
         'original',

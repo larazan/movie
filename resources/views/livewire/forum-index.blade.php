@@ -1,5 +1,8 @@
 <div class="vs jj ttm vl tet ou uf na">
 
+<!-- Loading -->
+<x-loading-indicator />
+
     <div class="tnp">
 
         <!-- Left + Middle content -->

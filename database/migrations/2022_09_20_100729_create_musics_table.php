@@ -27,7 +27,7 @@ class CreateMusicsTable extends Migration
             $table->string('medium');
             $table->string('small');
             $table->string('audio');
-            $table->string('OMV')->nullable();
+            $table->string('omv')->nullable();
             $table->integer('duration');
             $table->integer('country');
             $table->string('status');

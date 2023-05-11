@@ -39,6 +39,7 @@ class MovieIndex extends Component
     public $country;
     public $duration;
     public $networks;
+    public $trailer;
     public $rateType;
     public $genreSelected = [];
     public $movieId;
@@ -300,6 +301,7 @@ class MovieIndex extends Component
             'network' => $this->networks,
             'rate_type' => $this->rateType,
             'genre' => $this->genreSelected,
+            'trailer' => $this->trailer,
             'origin' => $filePath,
             'large' => $resizedImage['large'],
             'medium' => $resizedImage['medium'],
@@ -327,6 +329,7 @@ class MovieIndex extends Component
         $this->rateType = $movie->rate_type;
         $this->lang = $movie->lang;
         $this->networks = $movie->network;
+        $this->trailer = $movie->trailer;
         $this->genreSelected = $movie->genre;
         $this->oldImage = $movie->small;
         $this->movieStatus = $movie->status;
@@ -349,6 +352,7 @@ class MovieIndex extends Component
         // $this->duration = $movie->duration;
         // $this->lang = $movie->lang;
         // $this->networks = $movie->network;
+        // $this->trailer = $movie->trailer;
         // $this->genreSelected = $movie->genre;
         // $this->oldImage = $movie->small;
         // $this->movieStatus = $movie->status;
@@ -387,6 +391,7 @@ class MovieIndex extends Component
                     'network' => $this->networks,
                     'rate_type' => $this->rateType,
                     'genre' => $this->genreSelected,
+                    'trailer' => $this->trailer,
                     'origin' => $filePath,
                     'large' => $resizedImage['large'],
                     'medium' => $resizedImage['medium'],

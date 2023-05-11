@@ -1,5 +1,8 @@
 <div class="vs jj ttm vl ou uf na">
 
+<!-- Loading -->
+<x-loading-indicator />
+
     <!-- Page header -->
     <div class="je jd jc ii">
 
@@ -211,8 +214,10 @@
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="gp ">
-                                <img src="{{ asset('storage/'.$networks->original) }}" class="object-scale-down h-48 w-96" alt="{{ $network->name }}">
-                                </div>
+                                @if ($network->small)
+                                <img src="{{ asset('storage/'.$network->small) }}" class="object-scale-down h-48 w-96" alt="{{ $network->name }}">
+                                @endif    
+                            </div>
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="gp ">{{ $network->site }}</div>
