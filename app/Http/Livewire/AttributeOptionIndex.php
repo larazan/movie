@@ -18,6 +18,7 @@ class AttributeOptionIndex extends Component
     public $name;
     public $attributeOptionId;
     public $attributeId;
+    public $attributeName;
    
     public $attributeStatus = 'inactive';
     public $statuses = [
@@ -39,6 +40,7 @@ class AttributeOptionIndex extends Component
     public function mount($attributeID)
     {
         $this->attributeId = $attributeID;
+        $this->attributeName = Attribute::where('id', $this->attributeId)->first()->name;
     }
     
 
@@ -86,6 +88,7 @@ class AttributeOptionIndex extends Component
         $this->attributeOptionId = $attributeOptionId;
         $attribute = AttributeOption::find($attributeOptionId);
         $this->name = $attribute->name;       
+        $this->showAttributeOptionModal = true;
     }
     
     public function updateAttribute()
@@ -133,7 +136,7 @@ class AttributeOptionIndex extends Component
         // $attribute = Attribute::findOrFail($this->attributeId);
 
         return view('livewire.attribute-option-index', [
-            'attributeOptions' => AttributeOption::search('name', $this->search)->orderBy('name', $this->sort)->paginate($this->perPage),
+            'attributeOptions' => AttributeOption::search('name', $this->search)->where('attribute_id', $this->attributeId)->orderBy('name', $this->sort)->paginate($this->perPage),
             // 'attribute' => $attribute,
         ]);
     }

@@ -145,54 +145,7 @@
                     <!-- Table body -->
                     <tbody class="text-sm le lr">
                         <!-- Row -->
-                        <tr>
-                            <td class="vi wy w_ vo lm of">
-                                <div class="flex items-center">
-                                    <label class="inline-flex">
-                                        <span class="d">Select</span>
-                                        <input class="table-item i" type="checkbox" @click="uncheckParent">
-                                    </label>
-                                </div>
-                            </td>
-                            <td class="vi wy w_ vo lm">
-                                <div class="gp text-slate-800">Code</div>
-                            </td>
-                            <td class="vi wy w_ vo lm">
-                                <div class="gp ">Name</div>
-                            </td>
-                            <td class="vi wy w_ vo lm">
-                                <div class="gp ">Type</div>
-                            </td>
-                            <td class="vi wy w_ vo lm">
-                                <div class="gp ">12/04/2023</div>
-                            </td>
-
-                            <td class="vi wy w_ vo lm of">
-                                <div class="fm flex items-center justify-center">
-                                    <button class="gq xv rounded-full">
-                                        <span class="d">Edit</span>
-                                        <svg class="os sf du" viewBox="0 0 32 32">
-                                            <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z"></path>
-                                        </svg>
-                                    </button>
-
-                                    <a class="gq xv rounded-full" href="">
-                                    <svg class="oo sl du gq ub" viewBox="0 0 16 16">
-                                        <path d="M10.59 7.658 8 5.5 5.41 7.658A.25.25 0 0 1 5 7.466V0h6v7.466a.25.25 0 0 1-.41.192Z"></path>
-                                        <path d="M14 16H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2v2H2v12h12V2h-2V0h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2Z"></path>
-                                    </svg>
-                                    </a>
-
-                                    <button class="yl xy rounded-full">
-                                        <span class="d">Delete</span>
-                                        <svg class="os sf du" viewBox="0 0 32 32">
-                                            <path d="M13 15h2v6h-2zM17 15h2v6h-2z"></path>
-                                            <path d="M20 9c0-.6-.4-1-1-1h-6c-.6 0-1 .4-1 1v2H8v2h1v10c0 .6.4 1 1 1h12c.6 0 1-.4 1-1V13h1v-2h-4V9zm-6 1h4v1h-4v-1zm7 3v9H11v-9h10z"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                       
                         @foreach ($attributes as $attribute)
                         <tr>
                             <td class="vi wy w_ vo lm of">
@@ -217,7 +170,7 @@
                             </td>
                             
                             <td class="vi wy w_ vo lm of">
-                                <div class="fm">
+                                <div class="fm flex items-center justify-center">
                                     <button class="gq xv rounded-full" wire:click="showEditModal({{ $attribute->id }})">
                                         <span class=" d">Edit</span>
                                         <svg class="os sf du" viewBox="0 0 32 32">
@@ -225,8 +178,13 @@
                                         </svg>
                                     </button>
 
-                                    @if ($attribute->type == 'select')
-                                    <a href="{{ url('admin/attributes/'. $attribute->id .'/options') }}" class="r ho xi ye lm">options</a>
+                                    @if ($attribute->type == 'select')                                    
+                                    <a class="gq xv rounded-full" href="{{ url('admin/attributes/'. $attribute->id .'/options') }}">
+                                        <svg class="oo sl du gq ub" viewBox="0 0 16 16">
+                                            <path d="M10.59 7.658 8 5.5 5.41 7.658A.25.25 0 0 1 5 7.466V0h6v7.466a.25.25 0 0 1-.41.192Z"></path>
+                                            <path d="M14 16H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2v2H2v12h12V2h-2V0h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2Z"></path>
+                                        </svg>
+                                    </a>
                                     @endif
 
                                     <button class="yl xy rounded-full" wire:click="deleteId({{ $attribute->id }})">

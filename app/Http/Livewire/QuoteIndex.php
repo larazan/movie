@@ -16,6 +16,7 @@ class QuoteIndex extends Component
     public $character;
     public $movie;
     public $year;
+    public $currentYear;
     public $quoteId;
     public $quoteStatus = 'inactive';
     public $statuses = [
@@ -36,6 +37,11 @@ class QuoteIndex extends Component
         'movie' => 'required',
         'year' => 'required',
     ];
+
+    public function mount()
+    {
+        $this->currentYear = now()->year;
+    }
 
     public function showCreateModal()
     {
@@ -78,7 +84,7 @@ class QuoteIndex extends Component
 
     public function showEditModal($quoteId)
     {
-        $this->reset(['quoteName']);
+        $this->reset(['quote']);
         $this->quoteId = $quoteId;
         $quo = Quote::find($quoteId);
         $this->quote = $quo->quote;

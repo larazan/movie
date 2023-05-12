@@ -1,7 +1,7 @@
 <div class="vs jj ttm vl ou uf na">
 
-<!-- Loading -->
-<x-loading-indicator />
+    <!-- Loading -->
+    <x-loading-indicator />
 
     <!-- Page header -->
     <div class="je jd jc ii">
@@ -31,7 +31,7 @@
                 <svg class="oo sl du bf ub" viewBox="0 0 16 16">
                     <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z"></path>
                 </svg>
-                <span class="hidden trm nq">Create Attribute</span>
+                <span class="hidden trm nq">Create Option</span>
             </button>
         </div>
 
@@ -42,7 +42,12 @@
 
         <!-- Left side -->
         <div class="ri _y">
-
+            <a class="btn bg-red-400 ye" href="{{ url('admin/attributes/') }}">
+                <!-- <svg class="oo sl du bf ub" viewBox="0 0 16 16">
+                    <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z"></path>
+                </svg> -->
+                <span class="hidden trm nq">Back</span>
+            </a>
         </div>
 
         <!-- Right side -->
@@ -106,7 +111,7 @@
 
     <div class="w-full flex space-x-3">
         <!-- Form -->
-        <div class="ur bg-white bd rounded-sm border border-slate-200 rc">
+        <!-- <div class="ur bg-white bd rounded-sm border border-slate-200 rc">
             <header class="vc vu">
                 <h2 class="gh text-slate-800">Form<span class="gq gp"></span></h2>
             </header>
@@ -128,18 +133,18 @@
                             </div>
                         </div>
                     </form>
-                    
+
                 </div>
             </div>
             <footer class="vc py-2 bg-gray-200">
-            <div class="border-slate-200">
-                        <div class="flex flex-wrap justify-end fc">
-                            <button wire:click="createAttribute" class="r ho xi ye">Create</button>
-                        </div>
+                <div class="border-slate-200">
+                    <div class="flex flex-wrap justify-end fc">
+                        <button wire:click="createAttribute" class="r ho xi ye">Create</button>
                     </div>
+                </div>
             </footer>
 
-        </div>
+        </div> -->
 
         <div class="w-full">
             <!-- Table -->
@@ -180,42 +185,7 @@
                             <!-- Table body -->
                             <tbody class="text-sm le lr">
                                 <!-- Row -->
-                                <tr>
-                                    <td class="vi wy w_ vo lm of">
-                                        <div class="flex items-center">
-                                            <label class="inline-flex">
-                                                <span class="d">Select</span>
-                                                <input class="table-item i" type="checkbox" @click="uncheckParent">
-                                            </label>
-                                        </div>
-                                    </td>
-
-                                    <td class="vi wy w_ vo lm">
-                                        <div class="gp ">Name</div>
-                                    </td>
-                                    <td class="vi wy w_ vo lm">
-                                        <div class="gp ">12/06/2023</div>
-                                    </td>
-
-                                    <td class="vi wy w_ vo lm of">
-                                        <div class="fm">
-                                            <button class="gq xv rounded-full">
-                                                <span class="d">Edit</span>
-                                                <svg class="os sf du" viewBox="0 0 32 32">
-                                                    <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z"></path>
-                                                </svg>
-                                            </button>
-
-                                            <button class="yl xy rounded-full">
-                                                <span class="d">Delete</span>
-                                                <svg class="os sf du" viewBox="0 0 32 32">
-                                                    <path d="M13 15h2v6h-2zM17 15h2v6h-2z"></path>
-                                                    <path d="M20 9c0-.6-.4-1-1-1h-6c-.6 0-1 .4-1 1v2H8v2h1v10c0 .6.4 1 1 1h12c.6 0 1-.4 1-1V13h1v-2h-4V9zm-6 1h4v1h-4v-1zm7 3v9H11v-9h10z"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                               
                                 @foreach ($attributeOptions as $attribute)
                                 <tr>
                                     <td class="vi wy w_ vo lm of">
@@ -228,7 +198,7 @@
                                     </td>
 
                                     <td class="vi wy w_ vo lm">
-                                        <div class="gp ">{{ $attribute->name }}</div>
+                                        <div class="gp capitalize">{{ $attribute->name }}</div>
                                     </td>
                                     <td class="vi wy w_ vo lm">
                                         <div class="gp ">{{ $attribute->created_at->format('d-m-Y') }}</div>
@@ -285,7 +255,12 @@
                             <div class="">
                                 <div class="">
                                     <div class="flex flex-col space-y-3">
-
+                                    <div class="col-start-1 sm:col-span-3">
+                                            <label for="title" class="block text-sm font-medium text-gray-700">
+                                                Attribute
+                                            </label>
+                                            <input wire:model="attributeName" type="text" disabled="disabled" class=" kb kw kk ky mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                        </div>
                                         <div class="col-start-1 sm:col-span-3">
                                             <label for="title" class="block text-sm font-medium text-gray-700">
                                                 Name

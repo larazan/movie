@@ -212,7 +212,7 @@
                                 </div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp text-slate-800">{{ $quote->quote }}</div>
+                                <div class="gp text-slate-800">{{ Illuminate\Support\Str::limit($quote->quote, 20)  }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="gp text-slate-800">{{ $quote->character }}</div>
@@ -290,7 +290,7 @@
                                             <label for="title" class="block text-sm font-medium text-gray-700">
                                                 Quote
                                             </label>
-                                            <input wire:model="quote" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            <textarea wire:model="quote" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" ></textarea>
                                             @error('quote')
                                                 <div class="go re yl">{{ $message }}</div>
                                             @enderror
@@ -317,7 +317,12 @@
                                             <label for="title" class="block text-sm font-medium text-gray-700">
                                                 Year
                                             </label>
-                                            <input wire:model="year" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            <select wire:model="year" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
+                                                <option value="" >Select year</option>
+                                                @for ($year=1980; $year <= $currentYear; $year++)
+                                                <option value="{{ $year }}">{{ $year }}</option>
+                                                @endfor
+                                            </select>
                                             @error('year')
                                                 <div class="go re yl">{{ $message }}</div>
                                             @enderror

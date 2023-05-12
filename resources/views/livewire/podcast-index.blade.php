@@ -212,7 +212,9 @@
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="gp ">
-                                    <img src="{{ asset('storage/'.$podcasts->small) }}" class="object-scale-down h-48 w-96" alt="{{ $podcast->title }}">
+                                    @if ($podcast->small)
+                                    <img src="{{ asset('storage/'.$podcast->small) }}" class="object-scale-down h-48 w-96" alt="{{ $podcast->title }}">
+                                    @endif
                                 </div>
                             </td>
                             <td class="vi wy w_ vo lm">
@@ -307,24 +309,28 @@
                                             <label for="title" class="block text-sm font-medium text-gray-700">
                                                 Podcast Duration
                                             </label>
-                                            <input wire:model="duration" type="number" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            <div class="y">
+                                                <input wire:model="duration" type="number" min="0" style="padding-left: 4rem;" autocomplete="given-name" class="s ou mv mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                                <div class="g w j flex items-center pointer-events-none">
+                                                    <span class="text-sm gq gp vn">Minute</span>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
-                                            <label for="photo" class="block text-sm font-medium text-gray-700">Person
-                                                photo</label>
+                                            <label for="photo" class="block text-sm font-medium text-gray-700">Image</label>
                                             <input wire:model="filename" type="file" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                             @if ($oldImage)
-                                            Photo Preview:
+                                            Image Preview:
                                             <img src="{{ asset('storage/'.$oldImage) }}">
                                             @endif
                                             @if ($file)
-                                            Photo Preview:
+                                            Image Preview:
                                             <img src="{{ $file->temporaryUrl() }}">
                                             @endif
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="photo" class="block text-sm font-medium text-gray-700">
-                                                Podcast
+                                                Audio File
                                             </label>
                                             <input wire:model="audio" type="file" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                         </div>

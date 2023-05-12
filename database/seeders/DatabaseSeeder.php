@@ -33,8 +33,9 @@ class DatabaseSeeder extends Seeder
             // BrandSeeder::class,
             // AttributeSeeder::class,
             // AttributeOptionSeeder::class,
-            LabelSeeder::class,
-            NetworkSeeder::class,
+            // LabelSeeder::class,
+            // NetworkSeeder::class,
+            QuoteSeeder::class,
         ]);
     }
 }

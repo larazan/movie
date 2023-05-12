@@ -128,7 +128,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('labels', LabelIndex::class)->name('labels.index');
     Route::get('messages', MessagesIndex::class)->name('messages.index');
     Route::get('movie-cast', MovieCast::class)->name('movie-cast.index');
-    Route::get('movie/{id}/characters', CharacterIndex::class)->name('movie-cast.index');
+    Route::get('movies/{id}/characters', CharacterIndex::class)->name('movie-cast.index');
     Route::get('movie-category', MovieCategoryIndex::class)->name('movie-category.index');
     Route::get('movies', MovieIndex::class)->name('movies.index');
     Route::get('musics', MusicIndex::class)->name('musics.index');

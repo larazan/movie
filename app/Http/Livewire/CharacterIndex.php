@@ -165,4 +165,9 @@ class CharacterIndex extends Component
             'casts' => Cast::orderBy('name', $this->sort)->get(),
         ]);
     }
+
+    public function backMovies()
+    {
+        return redirect()->to('/admin/movies/');
+    }
 }

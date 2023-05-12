@@ -516,6 +516,6 @@ class MovieIndex extends Component
     {
         // dd($item);
 
-        return redirect()->to('/admin/movie/'. $item .'/characters');
+        return redirect()->to('/admin/movies/'. $item .'/characters');
     }
 }

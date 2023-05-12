@@ -241,7 +241,9 @@
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="gp ">
+                                    @if ($movie->small)
                                     <img src="{{ asset('storage/'.$movie->small) }}" class="object-scale-down h-48 w-96" alt="{{ $movie->title }}">
+                                    @endif
                                 </div>
                             </td>
 

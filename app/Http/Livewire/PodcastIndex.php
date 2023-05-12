@@ -85,14 +85,6 @@ class PodcastIndex extends Component
         $this->validate();
   
         $new = Str::slug($this->name) . '_' . time();
-        // IMAGE
-        $filename = $new . '.' . $this->file->getClientOriginalName();
-        $filePath = $this->file->storeAs(Podcast::UPLOAD_DIR, $filename, 'public');
-        $resizedImage = $this->_resizeImage($this->file, $filename, Podcast::UPLOAD_DIR);
-  
-        // AUDIO
-        $audioname = $new . '.' . $this->audio->getClientOriginalName();
-        $audioPath = $this->audio->storeAs(Podcast::UPLOAD_AUDIO, $audioname, 'public');
 
         // Podcast::create([
         //     'user_id' => Auth::user()->id,
@@ -102,7 +94,7 @@ class PodcastIndex extends Component
         //     'description' => $this->description,
         //     'duration' => $this->duration,
         //     'audio' => $audioPath,
-        //     'origin' => $filePath,
+        //     'original' => $filePath,
         //     'small' => $resizedImage['small'],
         //     'medium' => $resizedImage['medium'],
         //     'status' => $this->podcastStatus,
@@ -120,12 +112,19 @@ class PodcastIndex extends Component
         $podcast->status = $this->podcastStatus;
 
         if (!empty($this->file)) {
-            $podcast->origin = $filePath;
+            $filename = $new . '.' . $this->file->getClientOriginalName();
+            $filePath = $this->file->storeAs(Podcast::UPLOAD_DIR, $filename, 'public');
+            $resizedImage = $this->_resizeImage($this->file, $filename, Podcast::UPLOAD_DIR);
+
+            $podcast->original = $filePath;
             $podcast->small =$resizedImage['small'];
             $podcast->medium = $resizedImage['medium'];
         }
 
         if (!empty($this->audio)) {
+            $audioname = $new . '.' . $this->audio->getClientOriginalName();
+            $audioPath = $this->audio->storeAs(Podcast::UPLOAD_AUDIO, $audioname, 'public');
+
             $podcast->audio = $audioPath;
         }
 
@@ -168,18 +167,10 @@ class PodcastIndex extends Component
         $this->validate();
   
         $new = Str::slug($this->name) . '_' . time();
-        $filename = $new . '.' . $this->file->getClientOriginalName();
-        $audioname = $new . '.' . $this->audio->getClientOriginalName();
         
         if ($this->podcastId) {
             if ($podcast) {               
-                // IMAGE
-                $filePath = $this->file->storeAs(Podcast::UPLOAD_DIR, $filename, 'public');
-                $resizedImage = $this->_resizeImage($this->file, $filename, Podcast::UPLOAD_DIR);
-
-                // AUDIO
-                $audioPath = $this->audio->storeAs(Podcast::UPLOAD_AUDIO, $audioname, 'public');
-
+               
                 // $podcast->update([
                 //     'user_id' => Auth::user()->id,
                 //     'title' => $this->title,
@@ -188,7 +179,7 @@ class PodcastIndex extends Component
                 //     'description' => $this->description,
                 //     'duration' => $this->duration,
                 //     'audio' => $audioPath,
-                //     'origin' => $filePath,
+                //     'original' => $filePath,
                 //     'small' => $resizedImage['small'],
                 //     'medium' => $resizedImage['medium'],
                 //     'status' => $this->podcastStatus,
@@ -209,7 +200,11 @@ class PodcastIndex extends Component
                     // delete image
 			        $this->deleteImage($this->podcastId);
 
-                    $podcast->origin = $filePath;
+                    $filename = $new . '.' . $this->file->getClientOriginalName();
+                    $filePath = $this->file->storeAs(Podcast::UPLOAD_DIR, $filename, 'public');
+                    $resizedImage = $this->_resizeImage($this->file, $filename, Podcast::UPLOAD_DIR);
+
+                    $podcast->original = $filePath;
                     $podcast->small =$resizedImage['small'];
                     $podcast->medium = $resizedImage['medium'];
                 }
@@ -217,6 +212,9 @@ class PodcastIndex extends Component
                 if (!empty($this->audio)) {
                     // delete audio
                     $this->deleteAudio($this->podcastId);
+
+                    $audioname = $new . '.' . $this->audio->getClientOriginalName();
+                    $audioPath = $this->audio->storeAs(Podcast::UPLOAD_AUDIO, $audioname, 'public');
                     
                     $podcast->audio = $audioPath;
                 }

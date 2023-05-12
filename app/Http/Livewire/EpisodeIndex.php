@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Episode;
 use App\Models\Season;
 use App\Models\Movie;
+use App\Models\Podcast;
 // use App\Models\Serie;
 // use App\Models\TrailerUrl;
 use Illuminate\Support\Facades\Storage;
@@ -193,23 +194,44 @@ class EpisodeIndex extends Component
         $this->validate();
   
         $new = Str::slug($this->title) . '_' . time();
-        $filename = $new . '.' . $this->file->getClientOriginalName();
-        $filePath = $this->file->storeAs(Episode::UPLOAD_DIR, $filename, 'public');
-        $resizedImage = $this->_resizeImage($this->file, $filename, Episode::UPLOAD_DIR);
+        // $filename = $new . '.' . $this->file->getClientOriginalName();
+        // $filePath = $this->file->storeAs(Episode::UPLOAD_DIR, $filename, 'public');
+        // $resizedImage = $this->_resizeImage($this->file, $filename, Episode::UPLOAD_DIR);
   
-        Episode::create([
-            'title' => $this->title,
-            'short_description' => $this->description,
-            'release_date' => $this->releaseDate,
-            'duration' => $this->duration,
-            'movie_id' => $this->movieId,
-            'season_id' => $this->seasonId,
-            // 'slug' => Str::slug($this->title),
-            'origin' => $filePath,
-            'small' => $resizedImage['small'],
-            'large' => $resizedImage['large'],
-            'status' => $this->episodeStatus,
-        ]);
+        // Episode::create([
+        //     'title' => $this->title,
+        //     'short_description' => $this->description,
+        //     'release_date' => $this->releaseDate,
+        //     'duration' => $this->duration,
+        //     'movie_id' => $this->movieId,
+        //     'season_id' => $this->seasonId,
+        //     // 'slug' => Str::slug($this->title),
+        //     'original' => $filePath,
+        //     'small' => $resizedImage['small'],
+        //     'large' => $resizedImage['large'],
+        //     'status' => $this->episodeStatus,
+        // ]);
+
+        $episode = new Episode();
+        $episode->title = $this->title;
+        $episode->short_description = $this->description;
+        $episode->release_date = $this->releaseDate;
+        $episode->duration = $this->duration;
+        $episode->movie_id = $this->movieId;
+        $episode->season_id = $this->seasonId;
+        $episode->status = $this->episodeStatus;
+
+        if (!empty($this->file)) {
+            $filename = $new . '.' . $this->file->getClientOriginalName();
+            $filePath = $this->file->storeAs(Episode::UPLOAD_DIR, $filename, 'public');
+            $resizedImage = $this->_resizeImage($this->file, $filename, Episode::UPLOAD_DIR);
+
+            $episode->original = $filePath;
+            $episode->small =$resizedImage['small'];
+            $episode->large = $resizedImage['large'];
+        }
+
+        $episode->save();
 
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Episode created successfully']);
@@ -237,29 +259,52 @@ class EpisodeIndex extends Component
         $episode = Episode::findOrFail($this->episodeId);
   
         $new = Str::slug($this->title) . '_' . time();
-        $filename = $new . '.' . $this->file->getClientOriginalName();
+        
         
         if ($this->episodeId) {
             if ($episode) {
                // delete image
-			    $this->deleteImage($this->episodeId);
-                $filePath = $this->file->storeAs(Episode::UPLOAD_DIR, $filename, 'public');
-                $resizedImage = $this->_resizeImage($this->file, $filename, Episode::UPLOAD_DIR);
+			    // $this->deleteImage($this->episodeId);
+                // $filePath = $this->file->storeAs(Episode::UPLOAD_DIR, $filename, 'public');
+                // $resizedImage = $this->_resizeImage($this->file, $filename, Episode::UPLOAD_DIR);
 
-                $episode->update([
-                    'title' => $this->title,
-                    'short_description' => $this->description,
-                    'release_date' => $this->releaseDate,
-                    'duration' => $this->duration,
-                    'movie_id' => $this->movieId,
-                    'season_id' => $this->seasonId,
-                    // 'slug' => Str::slug($this->title),
-                    'origin' => $filePath,
-                    'small' => $resizedImage['small'],
-                    'large' => $resizedImage['large'],
-                    'status' => $this->episodeStatus,
-                ]);
+                // $episode->update([
+                //     'title' => $this->title,
+                //     'short_description' => $this->description,
+                //     'release_date' => $this->releaseDate,
+                //     'duration' => $this->duration,
+                //     'movie_id' => $this->movieId,
+                //     'season_id' => $this->seasonId,
+                //     // 'slug' => Str::slug($this->title),
+                //     'origin' => $filePath,
+                //     'small' => $resizedImage['small'],
+                //     'large' => $resizedImage['large'],
+                //     'status' => $this->episodeStatus,
+                // ]);
                 
+                $episode = Episode::where('id', $this->episodeId)->first();
+                $episode->title = $this->title;
+                $episode->short_description = $this->description;
+                $episode->release_date = $this->releaseDate;
+                $episode->duration = $this->duration;
+                $episode->movie_id = $this->movieId;
+                $episode->season_id = $this->seasonId;
+                $episode->status = $this->episodeStatus;
+
+                if (!empty($this->file)) {
+                    // delete image
+			        $this->deleteImage($this->episodeId);
+
+                    $filename = $new . '.' . $this->file->getClientOriginalName();
+                    $filePath = $this->file->storeAs(Episode::UPLOAD_DIR, $filename, 'public');
+                    $resizedImage = $this->_resizeImage($this->file, $filename, Episode::UPLOAD_DIR);
+
+                    $episode->original = $filePath;
+                    $episode->small =$resizedImage['small'];
+                    $episode->large = $resizedImage['large'];
+                }
+
+                $episode->save();
             }
         }
 

@@ -163,19 +163,34 @@ class SeasonIndex extends Component
         $this->validate();
   
         $new = Str::slug($this->title) . '_' . time();
-        $filename = $new . '.' . $this->file->getClientOriginalName();
-        $filePath = $this->file->storeAs(Season::UPLOAD_DIR, $filename, 'public');
-        $resizedImage = $this->_resizeImage($this->file, $filename, Season::UPLOAD_DIR);
   
-        Season::create([
-            'title' => $this->title,
-            'year' => $this->year,
-            'movie_id' => $this->movieId,
-            'slug' => Str::slug($this->title),
-            'origin' => $filePath,
-            'small' => $resizedImage['small'],
-            'medium' => $resizedImage['medium'],
-        ]);
+        // Season::create([
+        //     'title' => $this->title,
+        //     'year' => $this->year,
+        //     'movie_id' => $this->movieId,
+        //     'slug' => Str::slug($this->title),
+        //     'origin' => $filePath,
+        //     'small' => $resizedImage['small'],
+        //     'medium' => $resizedImage['medium'],
+        // ]);
+
+        $season = new Season();
+        $season->title = $this->title;
+        $season->year = $this->year;
+        $season->movie_id = $this->movieId;
+        $season->slug = Str::slug($this->title);
+
+        if (!empty($this->file)) {
+            $filename = $new . '.' . $this->file->getClientOriginalName();
+            $filePath = $this->file->storeAs(Season::UPLOAD_DIR, $filename, 'public');
+            $resizedImage = $this->_resizeImage($this->file, $filename, Season::UPLOAD_DIR);
+
+            $season->original = $filePath;
+            $season->small =$resizedImage['small'];
+            $season->large = $resizedImage['large'];
+        }
+
+        $season->save();
 
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Season created successfully']);
@@ -200,24 +215,41 @@ class SeasonIndex extends Component
         $season = Season::findOrFail($this->seasonId);
   
         $new = Str::slug($this->title) . '_' . time();
-        $filename = $new . '.' . $this->file->getClientOriginalName();
         
         if ($this->seasonId) {
             if ($season) {
-               // delete image
-			    $this->deleteImage($this->seasonId);
-                $filePath = $this->file->storeAs(Season::UPLOAD_DIR, $filename, 'public');
-                $resizedImage = $this->_resizeImage($this->file, $filename, Season::UPLOAD_DIR);
+               
 
-                $season->update([
-                    'title' => $this->title,
-                    'year' => $this->year,
-                    'movie_id' => $this->movieId,
-                    'slug' => Str::slug($this->title),
-                    'origin' => $filePath,
-                    'small' => $resizedImage['small'],
-                    'medium' => $resizedImage['medium'],
-                ]);
+                // $season->update([
+                //     'title' => $this->title,
+                //     'year' => $this->year,
+                //     'movie_id' => $this->movieId,
+                //     'slug' => Str::slug($this->title),
+                //     'origin' => $filePath,
+                //     'small' => $resizedImage['small'],
+                //     'medium' => $resizedImage['medium'],
+                // ]);
+
+                $season = Season::where('id', $this->seasonId)->first();
+                $season->title = $this->title;
+                $season->year = $this->year;
+                $season->movie_id = $this->movieId;
+                $season->slug = Str::slug($this->title);
+
+                if (!empty($this->file)) {
+                    // delete image
+                    $this->deleteImage($this->seasonId);
+
+                    $filename = $new . '.' . $this->file->getClientOriginalName();
+                    $filePath = $this->file->storeAs(Season::UPLOAD_DIR, $filename, 'public');
+                    $resizedImage = $this->_resizeImage($this->file, $filename, Season::UPLOAD_DIR);
+
+                    $season->original = $filePath;
+                    $season->small =$resizedImage['small'];
+                    $season->large = $resizedImage['large'];
+                }
+
+                $season->save();
                 
             }
         }
