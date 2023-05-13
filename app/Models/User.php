@@ -146,4 +146,10 @@ class User extends Authenticatable
         // make database relationship and return threads in proper order
         return $this->hasMany(Thread::class)->latest();
     }
+
+    public function polls()
+    {
+        return $this->hasMany(Poll::class, 'created_by');
+    }
+    
 }

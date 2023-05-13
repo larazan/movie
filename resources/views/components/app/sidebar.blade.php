@@ -395,6 +395,18 @@
                             </div>
                         </a>
                     </li>
+                     <!-- Poll -->
+                     <li class="vn vr rounded-sm n_ ww @if(in_array(Request::segment(2), ['polls'])){{ 'bg-slate-900' }}@else{{ '' }}@endif">
+                        <a class="block gj xc ld wt wi" href="{{ url('admin/polls') }}">
+                            <div class="flex items-center">
+                                <svg class="ub so oi" viewBox="0 0 24 24">
+                                    <path class="du @if(in_array(Request::segment(2), ['polls'])){{ 'text-indigo-500' }}@else{{ 'g_' }}@endif" d="M1 3h22v20H1z"></path>
+                                    <path class="du @if(in_array(Request::segment(2), ['polls'])){{ 'text-indigo-300' }}@else{{ 'gq' }}@endif" d="M21 3h2v4H1V3h2V1h4v2h10V1h4v2Z"></path>
+                                </svg>
+                                <span class="text-sm gp ml-3 ttw tnn 2xl:opacity--100 wr">Polling</span>
+                            </div>
+                        </a>
+                    </li>
                     <!-- Messages -->
                     <li class="vn vr rounded-sm n_ ww @if(in_array(Request::segment(2), ['messages'])){{ 'bg-slate-900' }}@else{{ '' }}@endif">
                         <a class="block gj xc ld wt wi" href="{{ url('admin/messages') }}">

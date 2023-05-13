@@ -8,7 +8,7 @@
 
         <!-- Left: Title -->
         <div class="ri _y">
-            <h1 class="gu teu text-slate-800 font-bold">Attribute Options✨</h1>
+            <h1 class="gu teu text-slate-800 font-bold">Options✨</h1>
         </div>
 
         <!-- Right: Actions -->
@@ -42,7 +42,7 @@
 
         <!-- Left side -->
         <div class="ri _y">
-            <a class="btn bg-red-400 ye" href="{{ url('admin/attributes/') }}">
+            <a class="btn bg-red-400 ye" href="{{ url('admin/polls/') }}">
                 <!-- <svg class="oo sl du bf ub" viewBox="0 0 16 16">
                     <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z"></path>
                 </svg> -->
@@ -115,10 +115,8 @@
             <!-- Table -->
             <div class="bg-white bd rounded-sm border border-slate-200 rc">
                 <header class="vc vu">
-                    <h2 class="gh text-slate-800">Attributes Option For <span class="gq gp">{{ $attributeName }}</span></h2>
-                    {{--
-            <h2 class="gh text-slate-800">Attributes {{ $attribute->name }}<span class="gq gp"></span></h2>
-                    --}}
+                    <h2 class="gh text-slate-800">Option For <span class="gq gp">{{ $pollTitle }}</span></h2>
+                   
                 </header>
                 <div x-data="handleSelect">
 
@@ -137,7 +135,7 @@
                                         </div>
                                     </th>
                                     <th class="vi wy w_ vo lm">
-                                        <div class="gh gt">Name</div>
+                                        <div class="gh gt">Content</div>
                                     </th>
                                     <th class="vi wy w_ vo lm">
                                         <div class="gh gt">Date</div>
@@ -150,8 +148,8 @@
                             <!-- Table body -->
                             <tbody class="text-sm le lr">
                                 <!-- Row -->
-                               @if ($attributeOptions->count() > 0)
-                                @foreach ($attributeOptions as $attribute)
+                               @if ($options->count() > 0)
+                                @foreach ($options as $opt)
                                 <tr>
                                     <td class="vi wy w_ vo lm of">
                                         <div class="flex items-center">
@@ -163,22 +161,22 @@
                                     </td>
 
                                     <td class="vi wy w_ vo lm">
-                                        <div class="gp capitalize">{{ $attribute->name }}</div>
+                                        <div class="gp capitalize">{{ $opt->content }}</div>
                                     </td>
                                     <td class="vi wy w_ vo lm">
-                                        <div class="gp ">{{ $attribute->created_at->format('d-m-Y') }}</div>
+                                        <div class="gp ">{{ $opt->created_at->format('d-m-Y') }}</div>
                                     </td>
 
                                     <td class="vi wy w_ vo lm of">
                                         <div class="fm">
-                                            <button class="gq xv rounded-full" wire:click="showEditModal({{ $attribute->id }})">
+                                            <button class="gq xv rounded-full" wire:click="showEditModal({{ $opt->id }})">
                                                 <span class=" d">Edit</span>
                                                 <svg class="os sf du" viewBox="0 0 32 32">
                                                     <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z"></path>
                                                 </svg>
                                             </button>
 
-                                            <button class="yl xy rounded-full" wire:click="deleteId({{ $attribute->id }})">
+                                            <button class="yl xy rounded-full" wire:click="deleteId({{ $opt->id }})">
                                                 <span class=" d">Delete</span>
                                                 <svg class="os sf du" viewBox="0 0 32 32">
                                                     <path d="M13 15h2v6h-2zM17 15h2v6h-2z"></path>
@@ -208,11 +206,11 @@
 
     <x-jet-dialog-modal wire:model="showAttributeOptionModal" class="">
 
-        @if ($attributeOptionId)
-        <x-slot name="title" class="border-b">Update Attribute Option</x-slot>
+        @if ($optionId)
+        <x-slot name="title" class="border-b">Update Option</x-slot>
         @else
         <x-slot name="title" class="border-b bg-slate-200">
-            <span class="font-semibold">Create Attribute Option</span>
+            <span class="font-semibold">Create Option</span>
         </x-slot>
         @endif
 
@@ -227,15 +225,15 @@
                                     <div class="flex flex-col space-y-3">
                                     <div class="col-start-1 sm:col-span-3">
                                             <label for="title" class="block text-sm font-medium text-gray-700">
-                                                Attribute
+                                                Poll
                                             </label>
-                                            <input wire:model="attributeName" type="text" disabled="disabled" class=" kb kw kk ky mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            <input wire:model="pollTitle" type="text" disabled="disabled" class=" kb kw kk ky mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                         </div>
                                         <div class="col-start-1 sm:col-span-3">
                                             <label for="title" class="block text-sm font-medium text-gray-700">
-                                                Name
+                                                Content
                                             </label>
-                                            <input wire:model="name" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            <input wire:model="content" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                         </div>
 
                                     </div>

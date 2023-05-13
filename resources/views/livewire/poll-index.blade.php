@@ -8,7 +8,7 @@
 
         <!-- Left: Title -->
         <div class="ri _y">
-            <h1 class="gu teu text-slate-800 font-bold">Attribute ✨</h1>
+            <h1 class="gu teu text-slate-800 font-bold">Poll ✨</h1>
         </div>
 
         <!-- Right: Actions -->
@@ -26,12 +26,12 @@
                 </button>
             </form>
 
-            <!-- Create attribute button -->
+            <!-- Create poll button -->
             <button class="btn ho xi ye" wire:click="showCreateModal">
                 <svg class="oo sl du bf ub" viewBox="0 0 16 16">
                     <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z"></path>
                 </svg>
-                <span class="hidden trm nq">Create Attribute</span>
+                <span class="hidden trm nq">Create Poll</span>
             </button>
         </div>
 
@@ -107,7 +107,7 @@
     <!-- Table -->
     <div class="bg-white bd rounded-sm border border-slate-200 rc">
         <header class="vc vu">
-            <h2 class="gh text-slate-800">Attributes <span class="gq gp"></span></h2>
+            <h2 class="gh text-slate-800">Polls <span class="gq gp"></span></h2>
         </header>
         <div x-data="handleSelect">
 
@@ -126,13 +126,16 @@
                                 </div>
                             </th>
                             <th class="vi wy w_ vo lm"> 
-                                <div class="gh gt">Code</div>
+                                <div class="gh gt">Title</div>
                             </th>
                             <th class="vi wy w_ vo lm">
-                                <div class="gh gt">Name</div>
+                                <div class="gh gt">Created</div>
                             </th>
                             <th class="vi wy w_ vo lm">
-                                <div class="gh gt">Type</div>
+                                <div class="gh gt">Start</div>
+                            </th>
+                            <th class="vi wy w_ vo lm">
+                                <div class="gh gt">End</div>
                             </th>
                             <th class="vi wy w_ vo lm">
                                 <div class="gh gt">Date</div>
@@ -145,8 +148,8 @@
                     <!-- Table body -->
                     <tbody class="text-sm le lr">
                         <!-- Row -->
-                       @if ($attributes->count() > 0)
-                        @foreach ($attributes as $attribute)
+                       @if ($polls->count() > 0)
+                        @foreach ($polls as $poll)
                         <tr>
                             <td class="vi wy w_ vo lm of">
                                 <div class="flex items-center">
@@ -157,37 +160,38 @@
                                 </div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp text-slate-800">{{ $attribute->code }}</div>
+                                <div class="gp text-slate-800">{{ $poll->title }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp ">{{ $attribute->name }}</div>
+                                <div class="gp ">{{ $poll->user->first_name }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp ">{{ $attribute->type }}</div>
+                                <div class="gp ">{{ $poll->start_at->format('d-m-Y') }}</div>
                             </td>
                             <td class="vi wy w_ vo lm">
-                                <div class="gp ">{{ $attribute->created_at->format('d-m-Y') }}</div>
+                                <div class="gp ">{{ $poll->end_at->format('d-m-Y') }}</div>
+                            </td>
+                            <td class="vi wy w_ vo lm">
+                                <div class="gp ">{{ $poll->created_at->format('d-m-Y') }}</div>
                             </td>
                             
                             <td class="vi wy w_ vo lm of">
                                 <div class="fm flex items-center justify-center">
-                                    <button class="gq xv rounded-full" wire:click="showEditModal({{ $attribute->id }})">
+                                    <button class="gq xv rounded-full" wire:click="showEditModal({{ $poll->id }})">
                                         <span class=" d">Edit</span>
                                         <svg class="os sf du" viewBox="0 0 32 32">
                                             <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z"></path>
                                         </svg>
                                     </button>
 
-                                    @if ($attribute->type == 'select')                                    
-                                    <a class="gq xv rounded-full" href="{{ url('admin/attributes/'. $attribute->id .'/options') }}">
+                                    <a class="gq xv rounded-full" href="{{ url('admin/polls/'. $poll->id .'/options') }}">
                                         <svg class="oo sl du gq ub" viewBox="0 0 16 16">
                                             <path d="M10.59 7.658 8 5.5 5.41 7.658A.25.25 0 0 1 5 7.466V0h6v7.466a.25.25 0 0 1-.41.192Z"></path>
                                             <path d="M14 16H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2v2H2v12h12V2h-2V0h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2Z"></path>
                                         </svg>
                                     </a>
-                                    @endif
 
-                                    <button class="yl xy rounded-full" wire:click="deleteId({{ $attribute->id }})">
+                                    <button class="yl xy rounded-full" wire:click="deleteId({{ $poll->id }})">
                                         <span class=" d">Delete</span>
                                         <svg class="os sf du" viewBox="0 0 32 32">
                                             <path d="M13 15h2v6h-2zM17 15h2v6h-2z"></path>
@@ -210,15 +214,15 @@
         </div>
     </div>
 
-    {{ $attributes->links() }}
+    {{ $polls->links() }}
 
-    <x-jet-dialog-modal wire:model="showAttributeModal" class="">
+    <x-jet-dialog-modal wire:model="showPollModal" class="">
 
-        @if ($attributeId)
-        <x-slot name="title" class="border-b">Update Attribute</x-slot>
+        @if ($pollId)
+        <x-slot name="title" class="border-b">Update Poll</x-slot>
         @else
         <x-slot name="title" class="border-b bg-slate-200">
-            <span class="font-semibold">Create Attribute</span>
+            <span class="font-semibold">Create Poll</span>
         </x-slot>
         @endif
 
@@ -234,83 +238,25 @@
                                         
                                         <div class="col-start-1 sm:col-span-3">
                                             <label for="title" class="block text-sm font-medium text-gray-700">
-                                                Code
+                                                Title
                                             </label>
-                                            <input wire:model="code" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            <input wire:model="title" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                         </div>
-                                        <div class="col-start-1 sm:col-span-3">
-                                            <label for="title" class="block text-sm font-medium text-gray-700">
-                                                Name
-                                            </label>
-                                            <input wire:model="name" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                        <div class="flex flex-row justify-between">
+                                            <div class="col-start-1 sm:col-span-3">
+                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                    Start 
+                                                </label>
+                                                <x-flatpicker wire:model="startAt"></x-flatpicker>
+                                            </div>
+                                            <div class="col-start-1 sm:col-span-3">
+                                                <label for="title" class="block text-sm font-medium text-gray-700">
+                                                    End 
+                                                </label>
+                                                <x-flatpicker wire:model="endAt"></x-flatpicker>
+                                            </div>
                                         </div>
-                                        <div class="col-start-1 sm:col-span-3">
-                                            <label for="title" class="block text-sm font-medium text-gray-700">
-                                                Type
-                                            </label>
-                                            <select wire:model="type" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
-                                                <option value="" >Select Option</option>
-                                                @foreach($types as $key => $value)
-                                                <option value="{{ $key }}">{{ $value }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <!-- Validation -->
-                                        
-                                        <h3 class="pt-4 text-lg text-slate-700 font-semibold">Validation</h3>
-                                        <div class="col-start-1 sm:col-span-3">
-                                            <label for="title" class="block text-sm font-medium text-gray-700">
-                                                Is Required?
-                                            </label>
-                                            <select wire:model="required" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
-                                                <option value="" >Select Option</option>
-                                                @foreach($booleanOptions as $key => $value)
-                                                <option value="{{ $key }}">{{ $value }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-start-1 sm:col-span-3">
-                                            <label for="title" class="block text-sm font-medium text-gray-700">
-                                                Is Unique?
-                                            </label>
-                                            <select wire:model="unique" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
-                                                <option value="" >Select Option</option>
-                                                @foreach($booleanOptions as $key => $value)
-                                                <option value="{{ $key }}">{{ $value }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-start-1 sm:col-span-3">
-                                            <label for="title" class="block text-sm font-medium text-gray-700">
-                                                Validation
-                                            </label>
-                                            <select wire:model="validation" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
-                                                <option value="" >Select Option</option>
-                                                @foreach($validations as $key => $value)
-                                                <option value="{{ $key }}">{{ $value }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                       <!-- Configuration -->
-                                       <h3 class="pt-4 text-lg text-slate-700 font-semibold">Configuration</h3>
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="first-name" class="block text-sm font-medium text-gray-700">Use in Configurable Product?</label>
-                                            <select wire:model="configurable" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
-                                                <option value="" >Select Option</option>
-                                                @foreach($booleanOptions as $key => $value)
-                                                <option value="{{ $key }}">{{ $value }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="first-name" class="block text-sm font-medium text-gray-700">Use in Filtering Product?</label>
-                                            <select wire:model="filterable" class="h-full rounded-r border-t border-r border-b block appearance-none w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none">
-                                                <option value="" >Select Option</option>
-                                                @foreach($booleanOptions as $key => $value)
-                                                <option value="{{ $key }}">{{ $value }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -322,11 +268,11 @@
         <x-slot name="footer">
             <div class="border-slate-200">
                 <div class="flex flex-wrap justify-end fc">
-                    <x-m-button wire:click="closeAttributeModal" class="border-slate-200 hover:text-white hover--border-slate-300 g_">Cancel</x-m-button>
-                    @if ($attributeId)
-                    <x-m-button wire:click="updateAttribute" class=" ho xi ye">Update</x-m-button>
+                    <x-m-button wire:click="closePollModal" class="border-slate-200 hover:text-white hover--border-slate-300 g_">Cancel</x-m-button>
+                    @if ($pollId)
+                    <x-m-button wire:click="updatePoll" class=" ho xi ye">Update</x-m-button>
                     @else
-                    <x-m-button wire:click="createAttribute" class=" ho xi ye2">Create</x-m-button>
+                    <x-m-button wire:click="createPoll" class=" ho xi ye2">Create</x-m-button>
                     @endif
                 </div>
             </div>
