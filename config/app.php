@@ -192,6 +192,7 @@ return [
         /*
          * Application Service Providers...
          */
+        App\Providers\GeneralServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
@@ -218,6 +219,7 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'General' => App\Helpers\General::class,
     ])->toArray(),
 
 ];

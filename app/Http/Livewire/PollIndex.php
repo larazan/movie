@@ -31,8 +31,9 @@ class PollIndex extends Component
     public $deleteId = '';
 
     protected $rules = [
-        'question' => 'required',
-        'answer' => 'required',
+        'title' => 'required|string',
+        'startAt' => 'required|date|after_or_equal:now',
+        'endAt' => 'required|date|after:start_at',
     ];
 
     public function mount()
@@ -74,7 +75,7 @@ class PollIndex extends Component
           'created_by' => Auth::user()->id,
           'start_at' => $this->startAt,
           'end_at' => $this->endAt,
-          'status' => $this->pollStatus,
+        //   'status' => $this->pollStatus,
       ]);
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Poll created successfully']);
@@ -88,7 +89,7 @@ class PollIndex extends Component
         $this->title = $poll->title;
         $this->startAt = $poll->start_at;
         $this->endAt = $poll->end_at;
-        $this->pollStatus = $poll->status;
+        // $this->pollStatus = $poll->status;
         $this->showPollModal = true;
     }
     
@@ -102,7 +103,7 @@ class PollIndex extends Component
             'created_by' => Auth::user()->id,
             'start_at' => $this->startAt,
             'end_at' => $this->endAt,
-            'status' => $this->pollStatus,
+            // 'status' => $this->pollStatus,
         ]);
         $this->reset();
         $this->showPollModal = false;

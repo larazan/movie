@@ -16,6 +16,8 @@ use App\Http\Controllers\Admin\ArticleController;
 
 // Livewire
 use App\Http\Livewire\Account;
+use App\Http\Livewire\AdvertisingIndex;
+use App\Http\Livewire\AdvSegmentIndex;
 use App\Http\Livewire\AlbumIndex;
 use App\Http\Livewire\ArticleIndex;
 use App\Http\Livewire\AttributeIndex;
@@ -32,6 +34,7 @@ use App\Http\Livewire\CountryIndex;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\EpisodeIndex;
 use App\Http\Livewire\FaqIndex;
+use App\Http\Livewire\FestivalIndex;
 use App\Http\Livewire\ForumIndex;
 use App\Http\Livewire\GenreIndex;
 use App\Http\Livewire\GroupIndex;
@@ -71,6 +74,7 @@ use App\Http\Livewire\ThreadDetail;
 use App\Http\Livewire\UserIndex;
 use App\Http\Livewire\Portrait;
 use App\Http\Livewire\Select2;
+use App\Http\Livewire\Vote;
 
 
 use Illuminate\Support\Facades\Route;
@@ -100,6 +104,8 @@ Route::get('/message/created', function () {
 Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', Dashboard::class);
     Route::get('profile', Account::class)->name('account.index');
+    Route::get('adv-segments', AdvSegmentIndex::class)->name('adv-segments.index');
+    Route::get('advertisings', AdvertisingIndex::class)->name('advertisings.index');
     Route::get('albums', AlbumIndex::class)->name('albums.index');
     Route::get('articles', ArticleIndex::class)->name('articles.index');
     // 
@@ -121,6 +127,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('countries', CountryIndex::class)->name('countries.index');
     Route::get('episodes', EpisodeIndex::class)->name('episodes.index');
     Route::get('faqs', FaqIndex::class)->name('faqs.index');
+    Route::get('festivals', FestivalIndex::class)->name('festivals.index');
     Route::get('forum', ForumIndex::class)->name('forum.index');
     Route::get('forum/thread/{slug}', ThreadDetail::class)->name('thread-detail.index');
     Route::get('genres', GenreIndex::class)->name('genres.index');
@@ -172,6 +179,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('series/{serie}/seasons/{season}/episodes', EpisodeIndex::class)->name('episodes.index');
 
     Route::get('select', Select2::class);
+    Route::get('votes', Vote::class)->name('votes.index');
 
 });
 

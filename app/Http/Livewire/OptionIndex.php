@@ -27,13 +27,13 @@ class OptionIndex extends Component
     public $deleteId = '';
 
     protected $rules = [
-        'name' => 'required|min:3',
+        'content' => 'required|min:3',
     ];
 
     public function mount($pollID)
     {
         $this->pollId = $pollID;
-        $this->pollTitle = Poll::where('id', $this->pollID)->first()->title;
+        $this->pollTitle = Poll::where('id', $this->pollId)->first()->title;
     }
 
     public function showCreateModal()
@@ -126,7 +126,7 @@ class OptionIndex extends Component
     public function render()
     {
         return view('livewire.option-index', [
-            'options' => Option::search('content', $this->search)->where('poll_id', $this->pollId)->orderBy('id', $this->sort)->paginate($this->perPage),
+            'options' => Option::where('poll_id', $this->pollId)->orderBy('id', $this->sort)->paginate($this->perPage),
         ]);
     }
 }

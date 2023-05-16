@@ -138,6 +138,9 @@
                                         <div class="gh gt">Content</div>
                                     </th>
                                     <th class="vi wy w_ vo lm">
+                                        <div class="gh gt">Count</div>
+                                    </th>
+                                    <th class="vi wy w_ vo lm">
                                         <div class="gh gt">Date</div>
                                     </th>
                                     <th class="vi wy w_ vo lm">
@@ -162,6 +165,9 @@
 
                                     <td class="vi wy w_ vo lm">
                                         <div class="gp capitalize">{{ $opt->content }}</div>
+                                    </td>
+                                    <td class="vi wy w_ vo lm">
+                                        <div class="gp capitalize">{{ $opt->votes_count }}</div>
                                     </td>
                                     <td class="vi wy w_ vo lm">
                                         <div class="gp ">{{ $opt->created_at->format('d-m-Y') }}</div>
@@ -199,12 +205,15 @@
                 </div>
             </div>
 
-            {{ $attributeOptions->links() }}
+            {{ $options->links() }}
         </div>
-    </div>
 
+        
+    </div>        
 
-    <x-jet-dialog-modal wire:model="showAttributeOptionModal" class="">
+        <livewire:vote />
+
+    <x-jet-dialog-modal wire:model="showOptionModal" class="">
 
         @if ($optionId)
         <x-slot name="title" class="border-b">Update Option</x-slot>
@@ -248,7 +257,7 @@
             <div class="border-slate-200">
                 <div class="flex flex-wrap justify-end fc">
                     <x-m-button wire:click="closeAttributeModal" class="border-slate-200 hover:text-white hover--border-slate-300 g_">Cancel</x-m-button>
-                    @if ($attributeId)
+                    @if ($optionId)
                     <x-m-button wire:click="updateAttribute" class=" ho xi ye">Update</x-m-button>
                     @else
                     <x-m-button wire:click="createAttribute" class=" ho xi ye2">Create</x-m-button>

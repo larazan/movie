@@ -16,6 +16,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('poll:start')->everyMinute();
+        $schedule->command('poll:end')->everyMinute();
         $schedule->command('send:summary')->weekly();
     }
 
