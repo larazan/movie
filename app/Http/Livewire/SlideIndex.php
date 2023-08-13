@@ -77,17 +77,37 @@ class SlideIndex extends Component
         $filePath = $this->file->storeAs(Slide::UPLOAD_DIR, $filename, 'public');
         $resizedImage = $this->_resizeImage($this->file, $filename, Slide::UPLOAD_DIR);
 
-        Slide::create([
-            'user_id' => Auth::user()->id,
-            'title' => $this->title,
-            'body' => $this->body,
-            'url' => $this->url,
-            'position' => $this->position,
-            'original' => $filePath,
-            'small' => $resizedImage['small'],
-            'extra_large' => $resizedImage['extra_large'],
-            'status' => $this->slideStatus,
-        ]);
+        // Slide::create([
+        //     'user_id' => Auth::user()->id,
+        //     'title' => $this->title,
+        //     'body' => $this->body,
+        //     'url' => $this->url,
+        //     'position' => $this->position,
+        //     'original' => $filePath,
+        //     'small' => $resizedImage['small'],
+        //     'extra_large' => $resizedImage['extra_large'],
+        //     'status' => $this->slideStatus,
+        // ]);
+
+        $slide = new Slide();
+        $slide->user_id = Auth::user()->id;
+        $slide->title = $this->title;
+        $slide->body = $this->body;
+        $slide->url = $this->url;
+        $slide->position = $this->position;
+        $slide->status = $this->slideStatus;
+
+        if (!empty($this->file)) {
+            $filename = $new . '.' . $this->file->getClientOriginalName();
+            $filePath = $this->file->storeAs(Slide::UPLOAD_DIR, $filename, 'public');
+            $resizedImage = $this->_resizeImage($this->file, $filename, Slide::UPLOAD_DIR);
+
+            $slide->original = $filePath;
+            $slide->small =$resizedImage['small'];
+            $slide->extra_large =$resizedImage['extra_large'];
+        }
+
+        $slide->save();
 
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Slide created successfully']);
@@ -114,27 +134,44 @@ class SlideIndex extends Component
         $this->validate();
   
         $new = Str::slug($this->title) . '_' . time();
-        $filename = $new . '.' . $this->file->getClientOriginalName();
         
         if ($this->slideId) {
             if ($slide) {
-               // delete image
-			    $this->deleteImage($this->slideId);
-                // IMAGE
-                $filePath = $this->file->storeAs(Slide::UPLOAD_DIR, $filename, 'public');
-                $resizedImage = $this->_resizeImage($this->file, $filename, Slide::UPLOAD_DIR);
 
-                $slide->update([
-                    'user_id' => Auth::user()->id,
-                    'title' => $this->title,
-                    'body' => $this->body,
-                    'url' => $this->url,
-                    'position' => $this->position,
-                    'original' => $filePath,
-                    'small' => $resizedImage['small'],
-                    'extra_large' => $resizedImage['extra_large'],
-                    'status' => $this->slideStatus,
-                ]);
+                // $slide->update([
+                //     'user_id' => Auth::user()->id,
+                //     'title' => $this->title,
+                //     'body' => $this->body,
+                //     'url' => $this->url,
+                //     'position' => $this->position,
+                //     'original' => $filePath,
+                //     'small' => $resizedImage['small'],
+                //     'extra_large' => $resizedImage['extra_large'],
+                //     'status' => $this->slideStatus,
+                // ]);
+
+                $slide = Slide::where('id', $this->slideId)->first();
+                $slide->user_id = Auth::user()->id;
+                $slide->title = $this->title;
+                $slide->body = $this->body;
+                $slide->url = $this->url;
+                $slide->position = $this->position;
+                $slide->status = $this->slideStatus;
+        
+                if (!empty($this->file)) {
+                    // delete image
+			        $this->deleteImage($this->slideId);
+
+                    $filename = $new . '.' . $this->file->getClientOriginalName();
+                    $filePath = $this->file->storeAs(Slide::UPLOAD_DIR, $filename, 'public');
+                    $resizedImage = $this->_resizeImage($this->file, $filename, Slide::UPLOAD_DIR);
+        
+                    $slide->original = $filePath;
+                    $slide->small =$resizedImage['small'];
+                    $slide->extra_large =$resizedImage['extra_large'];
+                }
+        
+                $slide->save();
                 
             }
         }

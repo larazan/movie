@@ -343,6 +343,7 @@
                                 </div>
                             </td>
                         </tr>
+                        @if ($persons->count() > 0)
                         @foreach ($persons as $person)
                         <tr>
                             <td class="vi wy w_ vo lm of">
@@ -416,6 +417,11 @@
                             </td>
                         </tr>
                         @endforeach
+                        @else
+                        <tr>
+                            <td class="vi wy w_ vo lm" colspan="8">No records found</td>
+                        </tr>
+                        @endif
                     </tbody>
                 </table>
 

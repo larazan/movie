@@ -163,6 +163,8 @@
                                 </div>
                             </td>
                         </tr>
+
+                        @if ($faqs->count() > 0)
                         @foreach ($faqs as $faq)
                         <tr>
                             <td class="vi wy w_ vo lm of">
@@ -214,6 +216,11 @@
                             </td>
                         </tr>
                         @endforeach
+                        @else
+                        <tr>
+                            <td class="vi wy w_ vo lm" colspan="8">No records found</td>
+                        </tr>
+                        @endif
                     </tbody>
                 </table>
 

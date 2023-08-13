@@ -21,6 +21,7 @@ return new class extends Migration
             $table->enum('problem', ['duplikasi', 'kesalahan tampilan', 'fungsi', 'konten tidak sesuai', 'gambar buruk', 'spam']);
             $table->text('info')->nullable();
             $table->tinyInteger('publish');
+            $table->string('status');
             $table->timestamps();
         });
     }

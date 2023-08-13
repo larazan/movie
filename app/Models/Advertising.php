@@ -13,4 +13,9 @@ class Advertising extends Model
 
     public const UPLOAD_DIR = 'uploads/advertisings';
     public const SMALL = '135x75';
+
+    public function segments()
+	{
+		return $this->belongsToMany(AdvertisingSegment::class);
+	}
 }

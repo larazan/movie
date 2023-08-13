@@ -68,19 +68,34 @@ class LabelIndex extends Component
         $this->validate();
   
         $new = Str::slug($this->name) . '_' . time();
-        $filename = $new . '.' . $this->file->getClientOriginalName();
-        $filePath = $this->file->storeAs(Label::UPLOAD_DIR, $filename, 'public');
-        $resizedImage = $this->_resizeImage($this->file, $filename, Label::UPLOAD_DIR);
   
-        Label::create([
-            'name' => $this->name,
-            'slug' => Str::slug($this->name),
-            'site' => $this->site,
-            'origin' => $filePath,
-            'small' => $resizedImage['small'],
-            'medium' => $resizedImage['medium'],
-            'status' => $this->labelStatus,
-        ]);
+         // Label::create([
+        //     'name' => $this->name,
+        //     'slug' => Str::slug($this->name),
+        //     'site' => $this->site,
+        //     'origin' => $filePath,
+        //     'small' => $resizedImage['small'],
+        //     'medium' => $resizedImage['medium'],
+        //     'status' => $this->labelStatus,
+        // ]);
+
+        $label = new Label();
+        $label->name = $this->name;
+        $label->slug = Str::slug($this->name);
+        $label->site = $this->site;
+        $label->status = $this->labelStatus;
+
+        if (!empty($this->file)) {
+            $filename = $new . '.' . $this->file->getClientOriginalName();
+            $filePath = $this->file->storeAs(Label::UPLOAD_DIR, $filename, 'public');
+            $resizedImage = $this->_resizeImage($this->file, $filename, Label::UPLOAD_DIR);
+
+            $label->origin = $filePath;
+            $label->small = $resizedImage['small'];
+            $label->medium = $resizedImage['medium'];
+        }
+
+        $label->save();
 
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Label created successfully']);
@@ -104,25 +119,30 @@ class LabelIndex extends Component
         $this->validate();
   
         $new = Str::slug($this->name) . '_' . time();
-        $filename = $new . '.' . $this->file->getClientOriginalName();
         
         if ($this->labelId) {
             if ($label) {
-               // delete image
-			    $this->deleteImage($this->labelId);
-                $filePath = $this->file->storeAs(Label::UPLOAD_DIR, $filename, 'public');
-                $resizedImage = $this->_resizeImage($this->file, $filename, Label::UPLOAD_DIR);
+               
+                $label = Label::where('id', $this->labelId)->first();
+                $label->name = $this->name;
+                $label->slug = Str::slug($this->name);
+                $label->site = $this->site;
+                $label->status = $this->labelStatus;
+       
+                if (!empty($this->file)) {
+                    // delete image
+			        $this->deleteImage($this->labelId);
 
-                $label->update([
-                    'name' => $this->name,
-                    'slug' => Str::slug($this->name),
-                    'site' => $this->site,
-                    'origin' => $filePath,
-                    'small' => $resizedImage['small'],
-                    'medium' => $resizedImage['medium'],
-                    'status' => $this->labelStatus,
-                ]);
+                    $filename = $new . '.' . $this->file->getClientOriginalName();
+                    $filePath = $this->file->storeAs(Label::UPLOAD_DIR, $filename, 'public');
+                    $resizedImage = $this->_resizeImage($this->file, $filename, Label::UPLOAD_DIR);
+        
+                    $label->origin = $filePath;
+                    $label->small = $resizedImage['small'];
+                    $label->medium = $resizedImage['medium'];
+                }
                 
+               $label->save();
             }
         }
 

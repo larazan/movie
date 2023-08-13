@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('advertisings', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('segment_id');
             $table->string('title');
             $table->date('start');
             $table->date('end');
@@ -23,6 +24,8 @@ return new class extends Migration
             $table->string('small')->nullable();
             $table->string('status');
             $table->timestamps();
+
+            $table->foreign('segment_id')->references('id')->on('advertising_segments')->onDelete('cascade');
         });
     }
 

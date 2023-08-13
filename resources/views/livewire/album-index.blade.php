@@ -208,6 +208,8 @@
                                 </div>
                             </td>
                         </tr>
+
+                        @if ($albums->count() > 0)
                         @foreach ($albums as $album)
                         <tr>
                             <td class="vi wy w_ vo lm of">
@@ -269,6 +271,11 @@
                             </td>
                         </tr>
                         @endforeach
+                        @else
+                        <tr>
+                            <td class="vi wy w_ vo lm" colspan="8">No records found</td>
+                        </tr>
+                        @endif
                     </tbody>
                 </table>
 

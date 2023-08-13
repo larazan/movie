@@ -447,17 +447,32 @@
                                             <textarea wire:model="reportInfo" id="indo" cols="50" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">{{ $reportInfo }}</textarea>
                                         </div>
                                         
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="reportPublish" class="block text-sm font-medium text-gray-700">Status</label>
-                                            <div class="flex flex-wrap items-center ni">
-                                            @foreach ($statuses as $key => $value)
-                                                <div class="ns">
-                                                    <label class="flex items-center">
-                                                        <input type="radio" wire:model="$reportPublish" name="reportPublish" class="u" value="{{ $key }}">
-                                                        <span class="text-sm nq">{{ $value }}</span>
-                                                    </label>
+                                        <div class="flex flex-row space-x-4 justify-between">
+                                            <div class="col-span-6 sm:col-span-3">
+                                                <label for="reportPublish" class="block text-sm font-medium text-gray-700">Status</label>
+                                                <div class="flex flex-wrap items-center ni">
+                                                @foreach ($publishes as $key => $value)
+                                                    <div class="ns">
+                                                        <label class="flex items-center">
+                                                            <input type="radio" wire:model="$reportPublish" name="reportPublish" class="u" value="{{ $key }}">
+                                                            <span class="text-sm nq">{{ $value }}</span>
+                                                        </label>
+                                                    </div>
+                                                @endforeach    
                                                 </div>
-                                            @endforeach    
+                                            </div>
+                                            <div class="col-span-6 sm:col-span-3">
+                                                <label for="reportStatus" class="block text-sm font-medium text-gray-700">Status</label>
+                                                <div class="flex flex-wrap items-center ni">
+                                                @foreach ($statuses as $key => $value)
+                                                    <div class="ns">
+                                                        <label class="flex items-center">
+                                                            <input type="radio" wire:model="$reportStatus" name="reportPublish" class="u" value="{{ $key }}">
+                                                            <span class="text-sm nq">{{ $value }}</span>
+                                                        </label>
+                                                    </div>
+                                                @endforeach    
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

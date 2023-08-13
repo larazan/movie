@@ -71,20 +71,36 @@ class NetworkIndex extends Component
         $this->validate();
   
         $new = Str::slug($this->name) . '_' . time();
-        $filename = $new . '.' . $this->file->getClientOriginalName();
-        $filePath = $this->file->storeAs(Network::UPLOAD_DIR, $filename, 'public');
-        $resizedImage = $this->_resizeImage($this->file, $filename, Network::UPLOAD_DIR);
-  
-        Network::create([
-            'name' => $this->name,
-            'slug' => Str::slug($this->name),
-            'site' => $this->site,
-            'country' => $this->country,
-            'origin' => $filePath,
-            'small' => $resizedImage['small'],
-            'medium' => $resizedImage['medium'],
-            'status' => $this->networkStatus,
-        ]);
+       
+        // Network::create([
+        //     'name' => $this->name,
+        //     'slug' => Str::slug($this->name),
+        //     'site' => $this->site,
+        //     'country' => $this->country,
+        //     'origin' => $filePath,
+        //     'small' => $resizedImage['small'],
+        //     'medium' => $resizedImage['medium'],
+        //     'status' => $this->networkStatus,
+        // ]);
+
+        $network = new Network();
+        $network->name = $this->name;
+        $network->slug = Str::slug($this->name);
+        $network->site = $this->site;
+        $network->country = $this->country;
+        $network->status = $this->networkStatus;
+
+        if (!empty($this->file)) {
+            $filename = $new . '.' . $this->file->getClientOriginalName();
+            $filePath = $this->file->storeAs(Network::UPLOAD_DIR, $filename, 'public');
+            $resizedImage = $this->_resizeImage($this->file, $filename, Network::UPLOAD_DIR);
+
+            $network->original = $filePath;
+            $network->small =$resizedImage['small'];
+            $network->medium =$resizedImage['medium'];
+        }
+
+        $network->save();
 
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Network created successfully']);
@@ -109,26 +125,42 @@ class NetworkIndex extends Component
         $this->validate();
   
         $new = Str::slug($this->name) . '_' . time();
-        $filename = $new . '.' . $this->file->getClientOriginalName();
         
         if ($this->networkId) {
             if ($network) {
-               // delete image
-			    $this->deleteImage($this->networkId);
-                $filePath = $this->file->storeAs(Network::UPLOAD_DIR, $filename, 'public');
-                $resizedImage = $this->_resizeImage($this->file, $filename, Network::UPLOAD_DIR);
-
-                $network->update([
-                    'name' => $this->name,
-                    'slug' => Str::slug($this->name),
-                    'site' => $this->site,
-                    'country' => $this->country,
-                    'origin' => $filePath,
-                    'small' => $resizedImage['small'],
-                    'medium' => $resizedImage['medium'],
-                    'status' => $this->networkStatus,
-                ]);
+               
+                // $network->update([
+                //     'name' => $this->name,
+                //     'slug' => Str::slug($this->name),
+                //     'site' => $this->site,
+                //     'country' => $this->country,
+                //     'origin' => $filePath,
+                //     'small' => $resizedImage['small'],
+                //     'medium' => $resizedImage['medium'],
+                //     'status' => $this->networkStatus,
+                // ]);
                 
+                $network = Network::where('id', $this->networkId)->first();
+                $network->name = $this->name;
+                $network->slug = Str::slug($this->name);
+                $network->site = $this->site;
+                $network->country = $this->country;
+                $network->status = $this->networkStatus;
+        
+                if (!empty($this->file)) {
+                    // delete image
+			        $this->deleteImage($this->networkId);
+
+                    $filename = $new . '.' . $this->file->getClientOriginalName();
+                    $filePath = $this->file->storeAs(Network::UPLOAD_DIR, $filename, 'public');
+                    $resizedImage = $this->_resizeImage($this->file, $filename, Network::UPLOAD_DIR);
+        
+                    $network->original = $filePath;
+                    $network->small =$resizedImage['small'];
+                    $network->medium =$resizedImage['medium'];
+                }
+        
+                $network->save();
             }
         }
 

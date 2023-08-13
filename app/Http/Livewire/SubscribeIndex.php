@@ -8,7 +8,8 @@ use Livewire\Component;
 
 class SubscribeIndex extends Component
 {
-    use WithPagination;
+    
+use WithPagination;
 
     public $showNewsletterSubscriberModal = false;
     public $email;
@@ -108,7 +109,6 @@ class SubscribeIndex extends Component
     {
         $this->reset();
     }
-
     public function render()
     {
         return view('livewire.subscribe-index', [

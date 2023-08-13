@@ -26,7 +26,11 @@ class Reply extends Model
     protected $table = self::TABLE;
 
     protected $fillable = [
+        'uuid',
         'body',
+        'deleted_at',
+        'deleted_by',
+        'deleted_reason',
     ];
     
     protected $with = [

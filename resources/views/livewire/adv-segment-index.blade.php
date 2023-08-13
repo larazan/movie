@@ -128,10 +128,13 @@
                             <th class="vi wy w_ vo lm">
                                 <div class="gh gt">Title</div>
                             </th>
+                           
                             <th class="vi wy w_ vo lm">
                                 <div class="gh gt">Image</div>
                             </th>
-                           
+                            <th class="vi wy w_ vo lm">
+                                <div class="gh gt">Size</div>
+                            </th>
                             <th class="vi wy w_ vo lm">
                                 <div class="gh gt">Status</div>
                             </th>
@@ -167,7 +170,9 @@
                                     @endif
                                 </div>
                             </td>
-
+                            <td class="vi wy w_ vo lm">
+                                <div class="gp text-slate-800">{{ $segment->size }}</div>
+                            </td>
                             <td class="vi wy w_ vo lm">
                                 @if ($segment->status === 'inactive')
                                 <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $segment->status }}</div>
@@ -235,6 +240,12 @@
                                                 Title
                                             </label>
                                             <input wire:model="title" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                        </div>
+                                        <div class="col-start-1 sm:col-span-3">
+                                            <label for="title" class="block text-sm font-medium text-gray-700">
+                                                Size
+                                            </label>
+                                            <input wire:model="size" type="text" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                         </div>
                                        
                                         <div class="col-span-6 sm:col-span-3">

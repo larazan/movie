@@ -194,6 +194,7 @@
 
                         </tr>
 
+                        @if ($orders->count() > 0)
                         @foreach ($orders as $order)
                         <tr>
                             <td class="vi wy w_ vo lm of">
@@ -247,9 +248,11 @@
                         </tr>
                         @endforeach
 
+                        @else
                         <tr>
                             <td class="vi wy w_ vo lm" colspan="8">No records found</td>
                         </tr>
+                        @endif
 
                     </tbody>
 

@@ -74,20 +74,36 @@ class TaskKanban extends Component
         $this->validate();
   
         $new = Str::slug($this->title) . '_' . time();
-        $filename = $new . '.' . $this->file->getClientOriginalName();
-        $filePath = $this->file->storeAs(Task::UPLOAD_DIR, $filename, 'public');
-        $resizedImage = $this->_resizeImage($this->file, $filename, Task::UPLOAD_DIR);
   
-        Task::create([
-            'section_id' => $this->sectionId,
-            'user_id' => Auth::user()->id,
-            'title' => $this->title,
-            'body' => $this->body,
-            'origin' => $filePath,
-            'small' => $resizedImage['small'],
-            'medium' => $resizedImage['medium'],
-            'status' => $this->taskStatus,
-        ]);
+        // Task::create([
+        //     'section_id' => $this->sectionId,
+        //     'user_id' => Auth::user()->id,
+        //     'title' => $this->title,
+        //     'body' => $this->body,
+        //     'origin' => $filePath,
+        //     'small' => $resizedImage['small'],
+        //     'medium' => $resizedImage['medium'],
+        //     'status' => $this->taskStatus,
+        // ]);
+
+        $task = new Task();
+        $task->section_id = $this->sectionId;
+        $task->user_id = Auth::user()->id;
+        $task->title = $this->title;
+        $task->body = $this->body;
+        $task->status = $this->taskStatus;
+
+        if (!empty($this->file)) {
+            $filename = $new . '.' . $this->file->getClientOriginalName();
+            $filePath = $this->file->storeAs(Task::UPLOAD_DIR, $filename, 'public');
+            $resizedImage = $this->_resizeImage($this->file, $filename, Task::UPLOAD_DIR);
+
+            $task->original = $filePath;
+            $task->small =$resizedImage['small'];
+            $task->medium =$resizedImage['medium'];
+        }
+
+        $task->save();
 
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Task created successfully']);
@@ -112,25 +128,42 @@ class TaskKanban extends Component
         $this->validate();
   
         $new = Str::slug($this->title) . '_' . time();
-        $filename = $new . '.' . $this->file->getClientOriginalName();
         
         if ($this->taskId) {
             if ($task) {
-               // delete image
-			    $this->deleteImage($this->taskId);
-                $filePath = $this->file->storeAs(Task::UPLOAD_DIR, $filename, 'public');
-                $resizedImage = $this->_resizeImage($this->file, $filename, Task::UPLOAD_DIR);
 
-                $task->update([
-                    'section_id' => $this->sectionId,
-                    'user_id' => Auth::user()->id,
-                    'title' => $this->title,
-                    'body' => $this->body,
-                    'origin' => $filePath,
-                    'small' => $resizedImage['small'],
-                    'medium' => $resizedImage['medium'],
-                    'status' => $this->taskStatus,
-                ]);
+                // $task->update([
+                //     'section_id' => $this->sectionId,
+                //     'user_id' => Auth::user()->id,
+                //     'title' => $this->title,
+                //     'body' => $this->body,
+                //     'origin' => $filePath,
+                //     'small' => $resizedImage['small'],
+                //     'medium' => $resizedImage['medium'],
+                //     'status' => $this->taskStatus,
+                // ]);
+
+                $task = Task::where('id', $this->taskId)->first();
+                $task->section_id = $this->sectionId;
+                $task->user_id = Auth::user()->id;
+                $task->title = $this->title;
+                $task->body = $this->body;
+                $task->status = $this->taskStatus;
+
+                if (!empty($this->file)) {
+                     // delete image
+			        $this->deleteImage($this->taskId);
+
+                    $filename = $new . '.' . $this->file->getClientOriginalName();
+                    $filePath = $this->file->storeAs(Task::UPLOAD_DIR, $filename, 'public');
+                    $resizedImage = $this->_resizeImage($this->file, $filename, Task::UPLOAD_DIR);
+
+                    $task->original = $filePath;
+                    $task->small =$resizedImage['small'];
+                    $task->medium =$resizedImage['medium'];
+                }
+
+                $task->save();
                 
             }
         }

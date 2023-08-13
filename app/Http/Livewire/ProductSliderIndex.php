@@ -72,21 +72,39 @@ class ProductSliderIndex extends Component
   
         $new = Str::slug($this->title) . '_' . time();
         // IMAGE
-        $filename = $new . '.' . $this->file->getClientOriginalName();
-        $filePath = $this->file->storeAs(ProductSlide::UPLOAD_DIR, $filename, 'public');
-        $resizedImage = $this->_resizeImage($this->file, $filename, ProductSlide::UPLOAD_DIR);
+       
 
-        ProductSlide::create([
-            'user_id' => Auth::user()->id,
-            'title' => $this->title,
-            'body' => $this->body,
-            'url' => $this->url,
-            'position' => $this->position,
-            'original' => $filePath,
-            'small' => $resizedImage['small'],
-            'extra_large' => $resizedImage['extra_large'],
-            'status' => $this->slideStatus,
-        ]);
+        // ProductSlide::create([
+        //     'user_id' => Auth::user()->id,
+        //     'title' => $this->title,
+        //     'body' => $this->body,
+        //     'url' => $this->url,
+        //     'position' => $this->position,
+        //     'original' => $filePath,
+        //     'small' => $resizedImage['small'],
+        //     'extra_large' => $resizedImage['extra_large'],
+        //     'status' => $this->slideStatus,
+        // ]);
+
+        $slide = new ProductSlide();
+        $slide->user_id = Auth::user()->id;
+        $slide->title = $this->title;
+        $slide->body = $this->body;
+        $slide->url = $this->url;
+        $slide->position = $this->position;
+        $slide->status = $this->slideStatus;
+
+        if (!empty($this->file)) {
+            $filename = $new . '.' . $this->file->getClientOriginalName();
+            $filePath = $this->file->storeAs(ProductSlide::UPLOAD_DIR, $filename, 'public');
+            $resizedImage = $this->_resizeImage($this->file, $filename, ProductSlide::UPLOAD_DIR);
+
+            $slide->original = $filePath;
+            $slide->small =$resizedImage['small'];
+            $slide->extra_large =$resizedImage['extra_large'];
+        }
+
+        $slide->save();
 
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'ProductSlide created successfully']);
@@ -113,27 +131,44 @@ class ProductSliderIndex extends Component
         $this->validate();
   
         $new = Str::slug($this->title) . '_' . time();
-        $filename = $new . '.' . $this->file->getClientOriginalName();
         
         if ($this->slideId) {
             if ($slide) {
-               // delete image
-			    $this->deleteImage($this->slideId);
-                // IMAGE
-                $filePath = $this->file->storeAs(ProductSlide::UPLOAD_DIR, $filename, 'public');
-                $resizedImage = $this->_resizeImage($this->file, $filename, ProductSlide::UPLOAD_DIR);
+               
+                // $slide->update([
+                //     'user_id' => Auth::user()->id,
+                //     'title' => $this->title,
+                //     'body' => $this->body,
+                //     'url' => $this->url,
+                //     'position' => $this->position,
+                //     'original' => $filePath,
+                //     'small' => $resizedImage['small'],
+                //     'extra_large' => $resizedImage['extra_large'],
+                //     'status' => $this->slideStatus,
+                // ]);
 
-                $slide->update([
-                    'user_id' => Auth::user()->id,
-                    'title' => $this->title,
-                    'body' => $this->body,
-                    'url' => $this->url,
-                    'position' => $this->position,
-                    'original' => $filePath,
-                    'small' => $resizedImage['small'],
-                    'extra_large' => $resizedImage['extra_large'],
-                    'status' => $this->slideStatus,
-                ]);
+                $slide = ProductSlide::where('id', $this->slideId)->first();
+                $slide->user_id = Auth::user()->id;
+                $slide->title = $this->title;
+                $slide->body = $this->body;
+                $slide->url = $this->url;
+                $slide->position = $this->position;
+                $slide->status = $this->slideStatus;
+        
+                if (!empty($this->file)) {
+                    // delete image
+			        $this->deleteImage($this->slideId);
+
+                    $filename = $new . '.' . $this->file->getClientOriginalName();
+                    $filePath = $this->file->storeAs(ProductSlide::UPLOAD_DIR, $filename, 'public');
+                    $resizedImage = $this->_resizeImage($this->file, $filename, ProductSlide::UPLOAD_DIR);
+        
+                    $slide->original = $filePath;
+                    $slide->small =$resizedImage['small'];
+                    $slide->extra_large =$resizedImage['extra_large'];
+                }
+        
+                $slide->save();
                 
             }
         }

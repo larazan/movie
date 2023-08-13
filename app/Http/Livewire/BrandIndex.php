@@ -85,6 +85,7 @@ class BrandIndex extends Component
             Brand::create([
                 'name' => $this->name,
                 'slug' => Str::slug($this->name),
+                'status' => $this->brandStatus,
             ]);
         }
         
@@ -132,6 +133,7 @@ class BrandIndex extends Component
                     Brand::create([
                         'name' => $this->name,
                         'slug' => Str::slug($this->name),
+                        'status' => $this->brandStatus,
                     ]);
                 }
             }

@@ -18,6 +18,7 @@ class AdvSegmentIndex extends Component
     public $showAdvertisingSegmentDetailModal = false;
     
     public $title;
+    public $size;
 
     public $file;
     public $segmentId;
@@ -72,6 +73,7 @@ class AdvSegmentIndex extends Component
 
         $segment = new AdvertisingSegment();
         $segment->title = $this->title;
+        $segment->size = $this->size;
         $segment->status = $this->segmentStatus;
 
         if (!empty($this->file)) {
@@ -93,6 +95,7 @@ class AdvSegmentIndex extends Component
         $this->segmentId = $segmentId;
         $segment = AdvertisingSegment::find($segmentId);
         $this->title = $segment->title;
+        $this->size = $segment->size;
         $this->oldImage = $segment->original;
         $this->segmentStatus = $segment->status;
         $this->showAdvertisingSegmentModal = true;
@@ -110,6 +113,7 @@ class AdvSegmentIndex extends Component
 
                 $segment = AdvertisingSegment::where('id', $this->segmentId)->first();
                 $segment->title = $this->title;
+                $segment->size = $this->size;
                 $segment->status = $this->segmentStatus;
 
                 if (!empty($this->file)) {

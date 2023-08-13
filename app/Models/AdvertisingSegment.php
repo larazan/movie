@@ -13,5 +13,8 @@ class AdvertisingSegment extends Model
 
     public const UPLOAD_DIR = 'uploads/advsegments';
 
-	
+	public function advertisings()
+    {
+        return $this->belongsToMany(Advertising::class, 'segment_id');
+    }
 }

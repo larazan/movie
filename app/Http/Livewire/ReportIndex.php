@@ -36,9 +36,17 @@ class ReportIndex extends Component
     ];
 
     public $reportPublish = '0';
-    public $statuses = [
+    public $publishes = [
         0 => 'unpublish',
         1 => 'publish'
+    ];
+
+    public $reportStatus = 'pending';
+    public $statuses = [
+        'pending' => 'pending',
+        'solved' => 'solved',
+        'canceled' => 'canceled',
+        'delete' => 'delete',
     ];
 
     public $search = '';
@@ -86,7 +94,8 @@ class ReportIndex extends Component
           'code' => $this->reportCode,
           'problem' => $this->reportProblem,
           'info' => $this->reportInfo,
-          'publish' => $this->reportPublish
+          'publish' => $this->reportPublish,
+          'status' => $this->reportStatus
         ]);
 
         $this->reset();
@@ -104,6 +113,7 @@ class ReportIndex extends Component
         $this->reportProblem = $report->problem;
         $this->reportInfo = $report->info;
         $this->reportPublish = $report->publish;
+        $this->reportStatus = $report->status;
 
         $this->showReportModal = true;
     }
@@ -138,7 +148,8 @@ class ReportIndex extends Component
             'code' => $this->reportCode,
             'problem' => $this->reportProblem,
             'info' => $this->reportInfo,
-            'publish' => $this->reportPublish
+            'publish' => $this->reportPublish,
+            'status' => $this->reportStatus
         ]);
 
         $this->reset();

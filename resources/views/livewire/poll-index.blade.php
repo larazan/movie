@@ -138,6 +138,9 @@
                                 <div class="gh gt">End</div>
                             </th>
                             <th class="vi wy w_ vo lm">
+                                <div class="gh gt">Status</div>
+                            </th>
+                            <th class="vi wy w_ vo lm">
                                 <div class="gh gt">Date</div>
                             </th>
                             <th class="vi wy w_ vo lm">
@@ -170,6 +173,20 @@
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="gp ">{{ $poll->end_at->format('d-m-Y') }}</div>
+                            </td>
+
+                            <td class="vi wy w_ vo lm ">
+                                @if ($poll->status === 'PENDING')
+                                <div class="inline-flex gp hf yl rounded-full gn vp vd">{{ $poll->status }}</div>
+                                @endif
+
+                                @if ($poll->status === 'STARTED')
+                                <div class="inline-flex gp hc ys rounded-full gn vp vd">{{ $poll->status }}</div>
+                                @endif
+
+                                @if ($poll->status === 'FINISHED')
+                                <div class="inline-flex gp hc yo rounded-full gn vp vd">{{ $poll->status }}</div>
+                                @endif
                             </td>
                             <td class="vi wy w_ vo lm">
                                 <div class="gp ">{{ $poll->created_at->format('d-m-Y') }}</div>

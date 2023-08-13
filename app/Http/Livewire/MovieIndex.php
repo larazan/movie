@@ -281,33 +281,61 @@ class MovieIndex extends Component
         $this->validate();
   
         $new = Str::slug($this->title) . '_' . time();
-        $filename = $new . '.' . $this->file->getClientOriginalName();
-        $filePath = $this->file->storeAs(Movie::UPLOAD_DIR, $filename, 'public');
-        $resizedImage = $this->_resizeImage($this->file, $filename, Movie::UPLOAD_DIR);
   
-        Movie::create([
-            'category_movie_id' => $this->categoryId,
-            'user_id' => Auth::user()->id,
-            'title' => $this->title,
-            'rand_id' => Str::random(10),
-            'slug' => Str::slug($this->title),
-            'release_date' => $this->releaseDate,
-            'description' => $this->description,
-            'movie_tags' => $this->movieTags,
-            'year' => $this->year,
-            'country' => $this->country,
-            'duration' => $this->duration,
-            'lang' => $this->lang,
-            'network' => $this->networks,
-            'rate_type' => $this->rateType,
-            'genre' => $this->genreSelected,
-            'trailer' => $this->trailer,
-            'origin' => $filePath,
-            'large' => $resizedImage['large'],
-            'medium' => $resizedImage['medium'],
-            'small' => $resizedImage['small'],
-            'status' => $this->movieStatus,
-        ]);
+        // Movie::create([
+        //     'category_movie_id' => $this->categoryId,
+        //     'user_id' => Auth::user()->id,
+        //     'title' => $this->title,
+        //     'rand_id' => Str::random(10),
+        //     'slug' => Str::slug($this->title),
+        //     'release_date' => $this->releaseDate,
+        //     'description' => $this->description,
+        //     'movie_tags' => $this->movieTags,
+        //     'year' => $this->year,
+        //     'country' => $this->country,
+        //     'duration' => $this->duration,
+        //     'lang' => $this->lang,
+        //     'network' => $this->networks,
+        //     'rate_type' => $this->rateType,
+        //     'genre' => $this->genreSelected,
+        //     'trailer' => $this->trailer,
+        //     'origin' => $filePath,
+        //     'large' => $resizedImage['large'],
+        //     'medium' => $resizedImage['medium'],
+        //     'small' => $resizedImage['small'],
+        //     'status' => $this->movieStatus,
+        // ]);
+
+        $movie = new Movie();
+        $movie->category_movie_id =  $this->categoryId;
+        $movie->user_id =  Auth::user()->id;
+        $movie->title =  $this->title;
+        $movie->rand_id = Str::random(10);
+        $movie->slug = Str::slug($this->title);
+        $movie->release_date = $this->releaseDate;
+        $movie->description = $this->description;
+        $movie->movie_tags = $this->movieTags;
+        $movie->year = $this->year;
+        $movie->country = $this->country;
+        $movie->duration = $this->duration;
+        $movie->lang = $this->lang;
+        $movie->network = $this->networks;
+        $movie->rate_type = $this->rateType;
+        $movie->genre = $this->genreSelected;
+        $movie->trailer = $this->trailer;
+
+        if (!empty($this->file)) {
+            $filename = $new . '.' . $this->file->getClientOriginalName();
+            $filePath = $this->file->storeAs(Movie::UPLOAD_DIR, $filename, 'public');
+            $resizedImage = $this->_resizeImage($this->file, $filename, Movie::UPLOAD_DIR);
+
+            $movie->original = $filePath;
+            $movie->small =$resizedImage['small'];
+            $movie->medium =$resizedImage['medium'];
+            $movie->large =$resizedImage['large'];
+        }
+
+        $movie->save();
 
         $this->reset();
         $this->dispatchBrowserEvent('banner-message', ['style' => 'success', 'message' => 'Movie created successfully']);
@@ -366,39 +394,67 @@ class MovieIndex extends Component
         $movie = Movie::findOrFail($this->movieId);
   
         $new = Str::slug($this->title) . '_' . time();
-        $filename = $new . '.' . $this->file->getClientOriginalName();
         
         if ($this->movieId) {
-            if ($movie) {
-               // delete image
-			    $this->deleteImage($this->movieId);
-                $filePath = $this->file->storeAs(Movie::UPLOAD_DIR, $filename, 'public');
-                $resizedImage = $this->_resizeImage($this->file, $filename, Movie::UPLOAD_DIR);
+            if ($movie) { 
 
-                $movie->update([
-                    'category_movie_id' => $this->categoryId,
-                    'user_id' => Auth::user()->id,
-                    'title' => $this->title,
-                    'rand_id' => Str::random(10),
-                    'slug' => Str::slug($this->title),
-                    'release_date' => $this->releaseDate,
-                    'description' => $this->description,
-                    'movie_tags' => $this->movieTags,
-                    'year' => $this->year,
-                    'country' => $this->country,
-                    'duration' => $this->duration,
-                    'lang' => $this->lang,
-                    'network' => $this->networks,
-                    'rate_type' => $this->rateType,
-                    'genre' => $this->genreSelected,
-                    'trailer' => $this->trailer,
-                    'origin' => $filePath,
-                    'large' => $resizedImage['large'],
-                    'medium' => $resizedImage['medium'],
-                    'small' => $resizedImage['small'],
-                    'status' => $this->movieStatus,
-                ]);
-                
+                // $movie->update([
+                //     'category_movie_id' => $this->categoryId,
+                //     'user_id' => Auth::user()->id,
+                //     'title' => $this->title,
+                //     'rand_id' => Str::random(10),
+                //     'slug' => Str::slug($this->title),
+                //     'release_date' => $this->releaseDate,
+                //     'description' => $this->description,
+                //     'movie_tags' => $this->movieTags,
+                //     'year' => $this->year,
+                //     'country' => $this->country,
+                //     'duration' => $this->duration,
+                //     'lang' => $this->lang,
+                //     'network' => $this->networks,
+                //     'rate_type' => $this->rateType,
+                //     'genre' => $this->genreSelected,
+                //     'trailer' => $this->trailer,
+                //     'origin' => $filePath,
+                //     'large' => $resizedImage['large'],
+                //     'medium' => $resizedImage['medium'],
+                //     'small' => $resizedImage['small'],
+                //     'status' => $this->movieStatus,
+                // ]);
+
+                $movie = Movie::where('id', $this->movieId)->first();
+                $movie->category_movie_id =  $this->categoryId;
+                $movie->user_id =  Auth::user()->id;
+                $movie->title =  $this->title;
+                $movie->rand_id = Str::random(10);
+                $movie->slug = Str::slug($this->title);
+                $movie->release_date = $this->releaseDate;
+                $movie->description = $this->description;
+                $movie->movie_tags = $this->movieTags;
+                $movie->year = $this->year;
+                $movie->country = $this->country;
+                $movie->duration = $this->duration;
+                $movie->lang = $this->lang;
+                $movie->network = $this->networks;
+                $movie->rate_type = $this->rateType;
+                $movie->genre = $this->genreSelected;
+                $movie->trailer = $this->trailer;
+        
+                if (!empty($this->file)) {
+                     // delete image
+			        $this->deleteImage($this->movieId);
+
+                    $filename = $new . '.' . $this->file->getClientOriginalName();
+                    $filePath = $this->file->storeAs(Movie::UPLOAD_DIR, $filename, 'public');
+                    $resizedImage = $this->_resizeImage($this->file, $filename, Movie::UPLOAD_DIR);
+        
+                    $movie->original = $filePath;
+                    $movie->small =$resizedImage['small'];
+                    $movie->medium =$resizedImage['medium'];
+                    $movie->large =$resizedImage['large'];
+                }
+        
+                $movie->save();
             }
         }
 

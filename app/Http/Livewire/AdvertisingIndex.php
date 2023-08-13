@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Advertising;
+use App\Models\AdvertisingSegment;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Illuminate\Support\Str;
@@ -24,6 +25,7 @@ class AdvertisingIndex extends Component
     
     public $file;
     public $advertisingId;
+    public $segmentId;
     public $oldImage;
     public $advertisingStatus = 'inactive';
     public $statuses = [
@@ -39,6 +41,7 @@ class AdvertisingIndex extends Component
     public $deleteId = '';
 
     protected $rules = [
+        'segmentId' => 'required',
         'title' => 'required',
         'start' => 'required',
         'end' => 'required',
@@ -83,10 +86,11 @@ class AdvertisingIndex extends Component
         $new = Str::slug($this->title) . '_' . time();
 
         $advertising = new Advertising();
+        $advertising->segment_id = $this->segmentId;
         $advertising->title = $this->title;
-        $advertising->start = $this->body;
-        $advertising->end = $this->date;
-        $advertising->url = $this->country;
+        $advertising->start = $this->start;
+        $advertising->end = $this->end;
+        $advertising->url = $this->url;
         $advertising->status = $this->advertisingStatus;
 
         if (!empty($this->file)) {
@@ -109,6 +113,7 @@ class AdvertisingIndex extends Component
         $this->reset(['name']);
         $this->advertisingId = $advertisingId;
         $advertising = Advertising::find($advertisingId);
+        $this->segmentId = $advertising->segment_id;
         $this->title = $advertising->title;
         $this->start = $advertising->start;
         $this->end = $advertising->end;
@@ -129,11 +134,11 @@ class AdvertisingIndex extends Component
             if ($advertising) {
 
                 $advertising = Advertising::where('id', $this->advertisingId)->first();
+                $advertising->segment_id = $this->segmentId;
                 $advertising->title = $this->title;
-                $advertising->title = $this->title;
-                $advertising->start = $this->body;
-                $advertising->end = $this->date;
-                $advertising->url = $this->country;
+                $advertising->start = $this->start;
+                $advertising->end = $this->end;
+                $advertising->url = $this->url;
                 $advertising->status = $this->advertisingStatus;
 
                 if (!empty($this->file)) {
@@ -249,6 +254,7 @@ class AdvertisingIndex extends Component
     {
         return view('livewire.advertising-index', [
             'advertisings' => Advertising::search('title', $this->search)->orderBy('title', $this->sort)->paginate($this->perPage),
+            'segments' => AdvertisingSegment::orderBy('title', $this->sort),
         ]);
     }
 }

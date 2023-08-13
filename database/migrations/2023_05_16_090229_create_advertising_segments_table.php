@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('advertising_segments', function (Blueprint $table) {
             $table->id();
             $table->string('title')->unique();
+            $table->string('size')->nullable();
             $table->string('original')->nullable();
             $table->string('status');
             $table->timestamps();

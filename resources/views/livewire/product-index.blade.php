@@ -214,6 +214,8 @@
                                 </div>
                             </td>
                         </tr>
+
+                        @if ($products->count() > 0)
                         @foreach ($products as $product)
                         <tr>
                             <td class="vi wy w_ vo lm of">
@@ -279,6 +281,11 @@
                             </td>
                         </tr>
                         @endforeach
+                        @else
+                        <tr>
+                            <td class="vi wy w_ vo lm" colspan="8">No records found</td>
+                        </tr>
+                        @endif
                     </tbody>
                 </table>
 

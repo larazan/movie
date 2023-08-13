@@ -86,6 +86,8 @@ class FestivalIndex extends Component
 
         $festival = new Festival();
         $festival->title = $this->title;
+        $festival->rand_id = Str::random(8);
+        $festival->slug = Str::slug($this->title);
         $festival->body = $this->body;
         $festival->date = $this->date;
         $festival->country = $this->country;
@@ -135,6 +137,8 @@ class FestivalIndex extends Component
 
                 $festival = Festival::where('id', $this->festivalId)->first();
                 $festival->title = $this->title;
+                $festival->rand_id = Str::random(8);
+                $festival->slug = Str::slug($this->title);
                 $festival->body = $this->body;
                 $festival->date = $this->date;
                 $festival->country = $this->country;
